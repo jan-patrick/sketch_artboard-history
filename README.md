@@ -87,7 +87,7 @@ You will need to specify a `repository` in the `package.json`:
 ...
 + "repository" : {
 +   "type": "git",
-+   "url": "git+https://github.com/ORG/NAME.git"
++   "url": "git+https://github.com/jan-patrick/sketch_artboard-history.git"
 +  }
 ...
 ```

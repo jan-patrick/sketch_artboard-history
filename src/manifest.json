@@ -1,12 +1,17 @@
 {
-  "compatibleVersion": 3,
+  "name": "Artboard history",
+  "description": "Plugin to get faster to your latest artboard",
+  "author": "Jan Schneider",
+  "homepage": "https://github.com/jan-patrick/sketch_artboard-history",
+  "compatibleVersion": 52,
   "bundleVersion": 1,
   "icon": "icon.png",
   "commands": [
     {
-      "name": "my-command",
+      "name": "go to last artboard",
       "identifier": "artboard-history.my-command-identifier",
-      "script": "./my-command.js"
+      "script": "./my-command.js",
+      "shortcut": "cmd alt z"
     }
   ],
   "menu": {
