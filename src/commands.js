@@ -27,7 +27,10 @@ export function goToLastArtboard(context) {
 
     //////
     var lastArtboardSaved = Settings.settingForKey("lastArtboard")
-    sendErrorMessage(String(lastArtboardSaved))
+    var document = require('sketch/dom').getSelectedDocument()
+    var layer = document.getLayerWithID(lastArtboardSaved)
+    //sendErrorMessage(JSON.stringify(layer))
+    document.centerOnLayer(layer)
 }
 
 export function showSelectedLayerInfo(context) {
@@ -44,8 +47,10 @@ export function showSelectedLayerInfo(context) {
 }
 
 export function updateLastArtboard(context) {
-  var t = String(context.actionContext.oldArtboard)
-  Settings.setSettingForKey("lastArtboard", t)
-  sendMessageToBottom("you clicked another artboard")
+  var str = String(context.actionContext.oldArtboard)
+  str = str.substring(str.indexOf("(") + 1)
+  str = str.substring(0, str.indexOf(')'))
+  Settings.setSettingForKey("lastArtboard", str)
+  sendMessageToBottom(str)
   //sendErrorMessage(context)
 }
