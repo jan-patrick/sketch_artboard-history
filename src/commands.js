@@ -26,10 +26,8 @@ export function goToLastArtboard(context) {
     //document.centerOnLayer(layer)
 
     //////
-    var idArtboardSaved = Settings.settingForKey("idArtboard")
-    sendErrorMessage(String(idArtboardSaved))
-    //var layer = document.getLayerWithID(idArtboardSaved)
-    //sendErrorMessage(idArtboardSaved)
+    var lastArtboardSaved = Settings.settingForKey("lastArtboard")
+    sendErrorMessage(String(lastArtboardSaved))
 }
 
 export function showSelectedLayerInfo(context) {
@@ -38,7 +36,11 @@ export function showSelectedLayerInfo(context) {
   sendErrorMessage(layer.objectID() +" class: "+layer.class() +" name: "+layer.name())
 
   /////////
-  Settings.setSettingForKey('idArtboard', layer.objectID())
+  var document = require('sketch/dom').getSelectedDocument()
+  var layer = document.getLayerWithID(layer.objectID())
+  //sendErrorMessage(JSON.stringify(layer))
+  document.centerOnLayer(layer)
+
 }
 
 export function updateLastArtboard(context) {
