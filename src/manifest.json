@@ -10,13 +10,8 @@
     {
       "name": "go to last artboard",
       "identifier": "artboard-history.my-command-identifier",
-      "script": "./my-command.js",
-      "shortcut": "cmd alt z",
-      "handlers" : {
-        "actions": {
-          "ArtboardChanged": "updateLastArtboard"
-        }
-      }
+      "script": "my-command.js",
+      "shortcut": "cmd alt z"
     },
     {
       "script" : "my-action-listener.js",
