@@ -23,7 +23,7 @@
       "name": "Update last Artboard",
       "handlers": {
         "actions": {
-          "ArtboardChanged": "updateLastArtboard"
+          "ArtboardChanged.finish": "updateLastArtboard"
         }
       },
       "identifier": "ArtboardHistory-action-listener-identifier"

@@ -1,6 +1,14 @@
 import sketch from 'sketch'
 var UI = require('sketch/ui')
 
+function sendErrorMessage(dataError) {
+  UI.alert('what I got:', String(dataError))
+}
+
+function sendMessageToBottom(dataBottom) {
+  context.actionContext.document.showMessage(String(dataBottom))
+}
+
 export function goToLastArtboard(context) {
   const doc = sketch.getSelectedDocument()
   const selectedLayers = doc.selectedLayers
@@ -23,6 +31,6 @@ export function updateLastArtboard(context) {
   //context.actionContext.document.showMessage(ter)
 
   var t = String("old: " + context.actionContext.oldArtboard + "\n new: "+ context.actionContext.newArtboard)
-  context.actionContext.document.showMessage(t)
-  UI.alert('my title', String(context))
+  sendMessageToBottom(t)
+  sendErrorMessage(context)
 }
