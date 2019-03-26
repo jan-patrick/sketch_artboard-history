@@ -21,6 +21,15 @@
       "name": "Go to Last Artboard"
     },
     {
+      "identifier": "ArtboardHistory_showSelectedLayerInfo",
+      "script": "commands.js",
+      "shortcut": "cmd alt i",
+      "handler": "showSelectedLayerInfo",
+      "description": "Get info about one selected layer.",
+      "icon": "icons/showSelectedLayerInfo.png",
+      "name": "Get info of selected layer"
+    },
+    {
       "script": "commands.js",
       "name": "Update last Artboard",
       "handlers": {
@@ -34,7 +43,8 @@
   "menu": {
     "title": "Artboard History",
     "items": [
-      "ArtboardHistory_goToLastArtboard"
+      "ArtboardHistory_goToLastArtboard",
+      "ArtboardHistory_showSelectedLayerInfo"
     ]
   }
 }
