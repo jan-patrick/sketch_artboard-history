@@ -11,27 +11,28 @@
   "commands": [
     {
       "name": "Go to Last Artboard",
-      "identifier": "artboard-history.my-command-identifier",
-      "script": "my-command.js",
+      "identifier": "ArtboardHistory_goToLastArtboard",
+      "script": "commands.js",
       "shortcut": "cmd alt z",
+      "handler": "goToLastArtboard",
       "description": "Go to the Last Artboard.",
       "icon": "goBackinArtboardHistory.png"
     },
     {
-      "script": "my-action-listener.js",
+      "script": "commands.js",
       "name": "Update last Artboard",
       "handlers": {
         "actions": {
           "ArtboardChanged": "updateLastArtboard"
         }
       },
-      "identifier": "my-action-listener-identifier"
+      "identifier": "ArtboardHistory-action-listener-identifier"
     }
   ],
   "menu": {
     "title": "artboard-history",
     "items": [
-      "artboard-history.my-command-identifier"
+      "ArtboardHistory_goToLastArtboard"
     ]
   }
 }
