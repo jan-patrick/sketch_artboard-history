@@ -1,22 +1,24 @@
 {
-  "name": "Artboard history",
+  "name": "Artboard History",
   "description": "Get faster to your latest artboard",
   "author": "Jan Schneider",
   "authorEmail": "hello@jan-patrick.de",
   "homepage": "https://github.com/jan-patrick/sketch_artboard-history",
-  "compatibleVersion": 52,
+  "compatibleVersion": 53,
   "bundleVersion": 1,
+  "version": "0.3.1",
   "identifier": "com.github.jan-patrick.sketch_artboard-history",
   "icon": "icon.png",
+  "suppliesData": false,
   "commands": [
     {
-      "name": "Go to Last Artboard",
       "identifier": "ArtboardHistory_goToLastArtboard",
       "script": "commands.js",
       "shortcut": "cmd alt z",
       "handler": "goToLastArtboard",
       "description": "Go to the Last Artboard.",
-      "icon": "goBackinArtboardHistory.png"
+      "icon": "icons/goBackinArtboardHistory.png",
+      "name": "Go to Last Artboard"
     },
     {
       "script": "commands.js",
@@ -30,7 +32,7 @@
     }
   ],
   "menu": {
-    "title": "artboard-history",
+    "title": "Artboard History",
     "items": [
       "ArtboardHistory_goToLastArtboard"
     ]
