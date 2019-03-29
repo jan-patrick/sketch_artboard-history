@@ -27,6 +27,7 @@ export function goToLastArtboard(context) {
 
     //////
     var lastArtboardSaved = Settings.settingForKey("lastArtboard")
+    lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
     var actualArtboardSaved = Settings.settingForKey("actualArtboard")
     var document = require('sketch/dom').getSelectedDocument()
     var layer = document.getLayerWithID(lastArtboardSaved)
@@ -50,15 +51,25 @@ export function showSelectedLayerInfo(context) {
 }
 
 export function updateArtboardHistory(context) {
+  // get last Artboard
   var strOld = String(context.actionContext.oldArtboard)
-  strOld = strOld.substring(strOld.indexOf("(") + 1)
-  strOld = strOld.substring(0, strOld.indexOf(')'))
+  var strOldArtboard = strOld.substring(strOld.indexOf("(") + 1)
+  strOldArtboard = strOldArtboard.substring(0, strOldArtboard.indexOf(")"))
+  
+  // get last document
+  //var strOldDocument = String(context.actionContext.document)
+  strOldDocument = strOld.substring(strOld.indexOf(" ") + 1)
+  var strOldDocument = strOldDocument.substring(0, strOldDocument.indexOf(">"))
+
+  // save document + Artboard
+  strOld = strOldDocument + "." + strOldArtboard
   Settings.setSettingForKey("lastArtboard", strOld)
 
+  // save new Artboard
   var strNew = String(context.actionContext.newArtboard)
   strNew = strNew.substring(strNew.indexOf("(") + 1)
-  strNew = strNew.substring(0, strNew.indexOf(')'))
+  strNew = strNew.substring(0, strNew.indexOf(")"))
   Settings.setSettingForKey("actualArtboard", strNew)
-  //sendMessageToBottom(strOld)
-  //sendErrorMessage(context)
+  sendMessageToBottom(strOld)
+  sendErrorMessage(context)
 }
