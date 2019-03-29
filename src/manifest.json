@@ -34,7 +34,7 @@
       "name": "Update last Artboard",
       "handlers": {
         "actions": {
-          "ArtboardChanged.finish": "updateLastArtboard"
+          "ArtboardChanged.finish": "updateArtboardHistory"
         }
       },
       "identifier": "ArtboardHistory-action-listener-identifier"

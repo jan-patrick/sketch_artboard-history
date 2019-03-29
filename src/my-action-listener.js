@@ -1,6 +1,6 @@
 var UI = require('sketch/ui')
 
-export function updateLastArtboard(context) {
+export function updateArtboardHistory(context) {
   //context.actionContext.document.showMessage('artboard changed')
   
   //var document = require('sketch/dom').getSelectedDocument()
