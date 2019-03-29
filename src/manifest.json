@@ -30,6 +30,15 @@
       "name": "Get info of selected layer"
     },
     {
+      "identifier": "ArtboardHistory_showSavedArtboardHistory",
+      "script": "commands.js",
+      "shortcut": "cmd alt p",
+      "handler": "showSavedArtboardHistory",
+      "description": "Show the saved Artboard History.",
+      "icon": "icons/showSelectedLayerInfo.png",
+      "name": "Show the saved Artboard History"
+    },
+    {
       "script": "commands.js",
       "name": "Update last Artboard",
       "handlers": {
@@ -38,13 +47,24 @@
         }
       },
       "identifier": "ArtboardHistory-action-listener-identifier"
+    },
+    {
+      "script": "commands.js",
+      "name": "Clean Up Artboard History",
+      "handlers": {
+        "actions": {
+          "Shutdown": "cleanupArtboardHistory"
+        }
+      },
+      "identifier": "ArtboardHistory-action-listener-identifier-Cleanup"
     }
   ],
   "menu": {
     "title": "Artboard History",
     "items": [
       "ArtboardHistory_goToLastArtboard",
-      "ArtboardHistory_showSelectedLayerInfo"
+      "ArtboardHistory_showSavedArtboardHistory",
+      "ArtboardHistory-action-listener-identifier-Cleanup"
     ]
   }
 }
