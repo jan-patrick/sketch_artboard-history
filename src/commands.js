@@ -28,7 +28,7 @@ export function goToLastArtboard(context) {
 }
 
 export function showSavedArtboardHistory(context) {
-  sendErrorMessage(Settings.settingForKey("lastArtboard") + "\n\n" + Settings.settingForKey("actualArtboard"))
+  sendErrorMessage(Settings.settingForKey("lastArtboard") + "\n+++\n" + Settings.settingForKey("actualArtboard"))
 }
 
 export function showSelectedLayerInfo(context) {
