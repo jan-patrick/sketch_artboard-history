@@ -60,5 +60,5 @@ export function updateArtboardHistory(context) {
   strNew = strNew.substring(0, strNew.indexOf(')'))
   Settings.setSettingForKey("actualArtboard", strNew)
   //sendMessageToBottom(strOld)
-  sendErrorMessage(context)
+  //sendErrorMessage(context)
 }
