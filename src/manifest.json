@@ -6,7 +6,7 @@
   "homepage": "https://github.com/jan-patrick/sketch_artboard-history",
   "compatibleVersion": 53,
   "bundleVersion": 1,
-  "version": "1.1.0",
+  "version": "1.3.0",
   "identifier": "com.github.jan-patrick.sketch_artboard-history",
   "icon": "icon.png",
   "suppliesData": false,
@@ -41,11 +41,11 @@
     {
       "identifier": "ArtboardHistory_goToLastArtboardDEV",
       "script": "commands.js",
-      "shortcut": "cmd alt x",
+      "shortcut": "cmd alt a",
       "handler": "goToLastArtboardDEV",
       "description": "DEV",
       "icon": "icons/showSelectedLayerInfo.png",
-      "name": "Show the saved Artboard History"
+      "name": "DEV: last Artboard"
     },
     {
       "identifier": "ArtboardHistory_goToNextArtboardDEV",
@@ -54,7 +54,7 @@
       "handler": "goToNextArtboardDEV",
       "description": "DEV",
       "icon": "icons/showSelectedLayerInfo.png",
-      "name": "Show the saved Artboard History"
+      "name": "DEV: next Artboard"
     },
     {
       "script": "commands.js",
@@ -80,8 +80,7 @@
   "menu": {
     "title": "Artboard History",
     "items": [
-      "ArtboardHistory_goToLastArtboard",
-      "ArtboardHistory-action-listener-identifier-Cleanup"
+      "ArtboardHistory_goToLastArtboard"
     ]
   }
 }
