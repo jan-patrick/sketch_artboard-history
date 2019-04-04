@@ -80,5 +80,5 @@ export function updateArtboardHistory(context) {
   Settings.setSettingForKey("actualArtboard", strNewArtboard)
 
   //sendErrorMessage(strOld)
-  //sendErrorMessage(context)
+  sendErrorMessage(context)
 }
