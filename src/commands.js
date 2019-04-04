@@ -65,10 +65,9 @@ export function showSelectedLayerInfo(context) {
   sendErrorMessage(layer.objectID() + " class: " + layer.class() + " name: " + layer.name())
 
   /////////
-  var document = require('sketch/dom').getSelectedDocument()
-  var layer = document.getLayerWithID(layer.objectID())
-  //sendErrorMessage(JSON.stringify(layer))
-  document.centerOnLayer(layer)
+  //var document = require('sketch/dom').getSelectedDocument()
+  //var layer = document.getLayerWithID(layer.objectID())
+  //document.centerOnLayer(layer)
 }
 
 function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
@@ -83,6 +82,10 @@ function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
 }
 
 export function cleanupArtboardHistory(context) {
+  Settings.setSettingForKey("lastArtboardA", "")
+  Settings.setSettingForKey("actualArtboardA", "")
+
+  //DEV
   Settings.setSettingForKey("lastArtboard", "")
   Settings.setSettingForKey("actualArtboard", "")
 }

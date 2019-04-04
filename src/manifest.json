@@ -23,7 +23,7 @@
     {
       "identifier": "ArtboardHistory_showSelectedLayerInfo",
       "script": "commands.js",
-      "shortcut": "cmd alt i",
+      "shortcut": "cmd alt p",
       "handler": "showSelectedLayerInfo",
       "description": "Get info about one selected layer.",
       "icon": "icons/showSelectedLayerInfo.png",
