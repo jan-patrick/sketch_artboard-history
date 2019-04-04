@@ -63,6 +63,10 @@ export function showSelectedLayerInfo(context) {
   var selection = context.selection;
   var layer = selection.firstObject();
   sendErrorMessage(layer.objectID() + " class: " + layer.class() + " name: " + layer.name())
+  var getSelectedDocument = require('sketch/dom').getSelectedDocument
+  const document = getSelectedDocument()
+  var fofo = JSON.stringify(document.pages)
+  sendErrorMessage(fofo)
 
   /////////
   //var document = require('sketch/dom').getSelectedDocument()
