@@ -62,16 +62,20 @@ export function showSavedArtboardHistory(context) {
 export function showSelectedLayerInfo(context) {
   var selection = context.selection;
   var layer = selection.firstObject();
-  sendErrorMessage(layer.objectID() + " class: " + layer.class() + " name: " + layer.name())
+  //sendErrorMessage(layer.objectID() + " class: " + layer.class() + " name: " + layer.name())
   var getSelectedDocument = require('sketch/dom').getSelectedDocument
   const document = getSelectedDocument()
-  var fofo = JSON.stringify(document.pages)
-  sendErrorMessage(fofo)
+  var completeDocumentInfoString = JSON.stringify(document.pages)
+  //sendErrorMessage(completeDocumentInfoString)
+  if("Page" === document.pages[0].type) {
+    sendErrorMessage(document.pages[0].id)
+  }
+  sendErrorMessage(document.pages[0].type)
 
   /////////
-  //var document = require('sketch/dom').getSelectedDocument()
-  //var layer = document.getLayerWithID(layer.objectID())
-  //document.centerOnLayer(layer)
+  //var documentr = require('sketch/dom').getSelectedDocument()
+  //ar layerr = documentr.getLayerWithID("7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68")
+  //documentr.centerOnLayer(layerr)
 }
 
 function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
@@ -142,7 +146,7 @@ Settings.setSettingForKey("actualArtboardA", strOldArtboardA)
   strOld = strOldArtboard + "." + strOld
   Settings.setSettingForKey("lastArtboard", strOld)
 
-  sendMessageToBottom(String(doesStringIncludeThat(String(strOldArtboard), String(strOld))))
+  //sendMessageToBottom(String(doesStringIncludeThat(String(strOldArtboard), String(strOld))))
 
   // get actual Artboard
   var strNewArtboard = String(context.actionContext.newArtboard)

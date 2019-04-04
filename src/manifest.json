@@ -6,7 +6,7 @@
   "homepage": "https://github.com/jan-patrick/sketch_artboard-history",
   "compatibleVersion": 53,
   "bundleVersion": 1,
-  "version": "1.3.2",
+  "version": "1.3.3",
   "identifier": "com.github.jan-patrick.sketch_artboard-history",
   "icon": "icon.png",
   "suppliesData": false,
@@ -27,7 +27,7 @@
       "handler": "showSelectedLayerInfo",
       "description": "Get info about one selected layer.",
       "icon": "icons/showSelectedLayerInfo.png",
-      "name": "Get info of selected layer"
+      "name": "DEV info"
     },
     {
       "identifier": "ArtboardHistory_showSavedArtboardHistory",
