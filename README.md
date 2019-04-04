@@ -6,6 +6,15 @@ Limitations (for now):
 - Switch between two Artboards (cmd + alt + z)
 - only works on one page (no switching between Artboards on different pages for now). There will be a History for every page itself.
 
+Shortcut:
+alt + cmd + z / opt + cmd + z
+
+## Install
+1. Download the [latest release](https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip).
+2. Unzip the file
+3. Double click on the file
+
+
 ## Install with Sketch Runner
 With Sketch Runner, just go to the `install` command and search for `Artboard History`. Runner allows you to manage plugins and do much more to speed up your workflow in Sketch. [Download Runner here](http://www.sketchrunner.com).
 
