@@ -39,6 +39,24 @@
       "name": "Show the saved Artboard History"
     },
     {
+      "identifier": "ArtboardHistory_goToLastArtboardDEV",
+      "script": "commands.js",
+      "shortcut": "cmd alt x",
+      "handler": "goToLastArtboardDEV",
+      "description": "DEV",
+      "icon": "icons/showSelectedLayerInfo.png",
+      "name": "Show the saved Artboard History"
+    },
+    {
+      "identifier": "ArtboardHistory_goToNextArtboardDEV",
+      "script": "commands.js",
+      "shortcut": "cmd alt y",
+      "handler": "goToNextArtboardDEV",
+      "description": "DEV",
+      "icon": "icons/showSelectedLayerInfo.png",
+      "name": "Show the saved Artboard History"
+    },
+    {
       "script": "commands.js",
       "name": "Update last Artboard",
       "handlers": {
@@ -63,7 +81,6 @@
     "title": "Artboard History",
     "items": [
       "ArtboardHistory_goToLastArtboard",
-      "ArtboardHistory_showSavedArtboardHistory",
       "ArtboardHistory-action-listener-identifier-Cleanup"
     ]
   }
