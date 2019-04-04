@@ -80,7 +80,8 @@
   "menu": {
     "title": "Artboard History",
     "items": [
-      "ArtboardHistory_goToLastArtboard"
+      "ArtboardHistory_goToLastArtboard", 
+      "ArtboardHistory_showSelectedLayerInfo"
     ]
   }
 }

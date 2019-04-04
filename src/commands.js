@@ -14,15 +14,15 @@ function sendMessageToBottom(dataBottom) {
 }
 
 export function goToLastArtboard(context) {
-  var lastArtboardSavedA = Settings.settingForKey("lastArtboardA")
+  var lastArtboardSavedA = Settings.settingForKey("lastArtboard")
   //lastArtboardSavedA = lastArtboardSavedA.substring(lastArtboardSavedA.indexOf(".") + 1)
-  var actualArtboardSavedA = Settings.settingForKey("actualArtboardA")
+  var actualArtboardSavedA = Settings.settingForKey("actualArtboard")
   //actualArtboardSavedA = actualArtboardSavedA.substring(actualArtboardSavedA.indexOf(".") + 1)
   var documentA = require('sketch/dom').getSelectedDocument()
   var layerA = documentA.getLayerWithID(lastArtboardSavedA)
   documentA.centerOnLayer(layerA)
-  Settings.setSettingForKey("lastArtboardA", actualArtboardSavedA)
-  Settings.setSettingForKey("actualArtboardA", lastArtboardSavedA)
+  Settings.setSettingForKey("lastArtboard", actualArtboardSavedA)
+  Settings.setSettingForKey("", lastArtboardSavedA)
 }
 
 // DEV
@@ -65,12 +65,19 @@ export function showSelectedLayerInfo(context) {
   //sendErrorMessage(layer.objectID() + " class: " + layer.class() + " name: " + layer.name())
   var getSelectedDocument = require('sketch/dom').getSelectedDocument
   const document = getSelectedDocument()
-  var completeDocumentInfoString = JSON.stringify(document.pages)
+  //var completeDocumentInfoString = JSON.stringify(document.pages)
   //sendErrorMessage(completeDocumentInfoString)
-  if("Page" === document.pages[0].type) {
-    sendErrorMessage(document.pages[0].id)
+  for (var i = 0; i < document.pages.length; i++) {
+    for (var j = 0; j < document.pages[i].layers.length; j++) {
+      if("46CFD69C-A2E2-42F3-A258-1E8E9EB556E8" === document.pages[i].layers[j].id) {
+        //sendErrorMessage(document.pages[i].id)
+      }
+    }
   }
-  sendErrorMessage(document.pages[0].type)
+  getArtboardsPageByArtboardId("46CFD69C-A2E2-42F3-A258-1E8E9EB556E8")
+  //if("Page" === document.pages[0].type) {
+  //  sendErrorMessage(document.pages.length)
+  //}
 
   /////////
   //var documentr = require('sketch/dom').getSelectedDocument()
@@ -78,8 +85,21 @@ export function showSelectedLayerInfo(context) {
   //documentr.centerOnLayer(layerr)
 }
 
+function getArtboardsPageByArtboardId (artboardStringToCheck) {
+  var getSelectedDocument = require('sketch/dom').getSelectedDocument
+  const document = getSelectedDocument()
+  for (var i = 0; i < document.pages.length; i++) {
+    for (var j = 0; j < document.pages[i].layers.length; j++) {
+      if(artboardStringToCheck === document.pages[i].layers[j].id) {
+        return document.pages[i].name
+      }
+    }
+  }
+  return false
+}
+
 function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
-  while (stringCheckingWith.length>2) {
+  while (stringCheckingWith.length > 2) {
     var stringCheckingWithCutOut = stringCheckingWith.substring(0, stringCheckingWith.indexOf("."))
     stringCheckingWith = stringCheckingWith.substring(stringCheckingWith.indexOf(".") + 1)
     if (stringToCheck === stringCheckingWithCutOut) {
@@ -90,8 +110,6 @@ function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
 }
 
 export function cleanupArtboardHistory(context) {
-  Settings.setSettingForKey("lastArtboardA", "")
-  Settings.setSettingForKey("actualArtboardA", "")
 
   //DEV
   Settings.setSettingForKey("lastArtboard", "")
@@ -99,33 +117,32 @@ export function cleanupArtboardHistory(context) {
 }
 
 export function updateArtboardHistory(context) {
-// get last Artboard
-var strOldA = String(context.actionContext.oldArtboard)
-var strOldArtboardA = strOldA.substring(strOldA.indexOf("(") + 1)
-strOldArtboardA = strOldArtboardA.substring(0, strOldArtboardA.indexOf(")"))
+  // get last Artboard
+  var strOldA = String(context.actionContext.oldArtboard)
+  var strOldArtboardA = strOldA.substring(strOldA.indexOf("(") + 1)
+  strOldArtboardA = strOldArtboardA.substring(0, strOldArtboardA.indexOf(")"))
 
-// get last document
-var strOldDocumentA = strOldA.substring(strOldA.indexOf(" ") + 1)
-strOldDocumentA = strOldDocumentA.substring(0, strOldDocumentA.indexOf(">"))
+  // get last document
+  var strOldDocumentA = strOldA.substring(strOldA.indexOf(" ") + 1)
+  strOldDocumentA = strOldDocumentA.substring(0, strOldDocumentA.indexOf(">"))
 
-// save document + Artboard
-strOldA = strOldDocumentA + "." + strOldArtboardA
-Settings.setSettingForKey("lastArtboardA", strOldArtboardA)
+  // save document + Artboard
+  strOldA = strOldDocumentA + "." + strOldArtboardA
+  Settings.setSettingForKey("lastArtboard", strOldArtboardA)
 
 
-// get new Artboard
-var strNewA = String(context.actionContext.newArtboard)
-var strNewArtboardA = strNewA.substring(strNewA.indexOf("(") + 1)
-strNewArtboardA = strNewArtboardA.substring(0, strNewArtboardA.indexOf(")"))
+  // get new Artboard
+  var strNewA = String(context.actionContext.newArtboard)
+  var strNewArtboardA = strNewA.substring(strNewA.indexOf("(") + 1)
+  strNewArtboardA = strNewArtboardA.substring(0, strNewArtboardA.indexOf(")"))
 
-// get last document
-var strNewDocumentA = strNewA.substring(strNewA.indexOf(" ") + 1)
-strNewDocument = strNewDocument.substring(0, strNewDocumentA.indexOf(">"))
+  // get last document
+  var strNewDocumentA = strNewA.substring(strNewA.indexOf(" ") + 1)
+  strNewDocumentA = strNewDocumentA.substring(0, strNewDocumentA.indexOf(">"))
 
-// save document + Artboard
-strNewA = strNewDocumentA + "." + strNewArtboardA
-Settings.setSettingForKey("actualArtboardA", strOldArtboardA)
-
+  // save document + Artboard
+  strNewA = strNewDocumentA + "." + strNewArtboardA
+  Settings.setSettingForKey("actualArtboard", strNewArtboardA)
 
 
 
@@ -137,23 +154,7 @@ Settings.setSettingForKey("actualArtboardA", strOldArtboardA)
   /////////////////////////
 
   // get last Artboard
-  var strOldArtboard = String(context.actionContext.oldArtboard)
-  strOldArtboard = strOldArtboard.substring(strOldArtboard.indexOf("(") + 1)
-  strOldArtboard = strOldArtboard.substring(0, strOldArtboard.indexOf(")"))
-
-  // save last
-  var strOld = Settings.settingForKey("lastArtboard")
-  strOld = strOldArtboard + "." + strOld
-  Settings.setSettingForKey("lastArtboard", strOld)
-
-  //sendMessageToBottom(String(doesStringIncludeThat(String(strOldArtboard), String(strOld))))
-
-  // get actual Artboard
-  var strNewArtboard = String(context.actionContext.newArtboard)
-  strNewArtboard = strNewArtboard.substring(strNewArtboard.indexOf("(") + 1)
-  strNewArtboard = strNewArtboard.substring(0, strNewArtboard.indexOf(")"))
-
-  Settings.setSettingForKey("actualArtboard", strNewArtboard)
+  sendErrorMessage(getArtboardsPageByArtboardId(strNewArtboardA))
 
   //sendErrorMessage(strOld)
   //sendErrorMessage(context)
