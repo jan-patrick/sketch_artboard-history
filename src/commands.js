@@ -13,11 +13,11 @@ function sendMessageToBottom(dataBottom) {
   context.actionContext.document.showMessage(String(dataBottom))
 }
 export function goToLastArtboard(context) {
-  var lastArtboardSaved = Settings.globalSettingForKey("lastArtboard")
+  var lastArtboardSaved = Settings.sessionVariable("lastArtboard")
   if(lastArtboardSaved.indexOf(".") < 1) {
     lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
   }
-  saveString("lastArtboard", Settings.globalSettingForKey("actualArtboard"))
+  saveString("lastArtboard", Settings.sessionVariable("actualArtboard"))
   saveString("actualArtboard", lastArtboardSaved)
   var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
   var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
@@ -35,7 +35,7 @@ export function goToLastArtboard(context) {
 }
 
 export function showSavedArtboardHistory(context) {
-  sendErrorMessage(Settings.globalSettingForKey("lastArtboard") + "\n+++\n" + Settings.globalSettingForKey("actualArtboard"))
+  sendErrorMessage(Settings.sessionVariable("lastArtboard") + "\n+++\n" + Settings.sessionVariable("actualArtboard"))
 
   // DEV
   //Settings.setSettingForKey("lastArtboard", "7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68.279186E2-B68A-4D87-8ACE-AA0235421B7B")
@@ -89,14 +89,14 @@ function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
 }
 
 function saveString(stringWhere, stringValue) {
-  Settings.setGlobalSettingForKey(stringWhere, stringValue)
+  Settings.setSessionVariable(stringWhere, stringValue)
 }
 
 export function cleanupArtboardHistory(context) {
 
   //DEV
-  Settings.setGlobalSettingForKey("lastArtboard", "")
-  Settings.setGlobalSettingForKey("actualArtboard", "")
+  Settings.setSessionVariable("lastArtboard", "")
+  Settings.setSessionVariable("actualArtboard", "")
 }
 
 export function updateArtboardHistory(context) {
@@ -107,7 +107,7 @@ export function updateArtboardHistory(context) {
   strOldA = strOldA.replace(".", "")
   var strOldP = ""
   if ("<null>" === strOldA || "" === strOldA) {
-    strOldA = Settings.globalSettingForKey("lastArtboard")
+    strOldA = Settings.sessionVariable("lastArtboard")
     if ("<null>" === strOldA || "" === strOldA) {
       strOldA = ""
       strOldP = ""
@@ -118,8 +118,14 @@ export function updateArtboardHistory(context) {
     strOldP = strOldP.replace(".", "")
     strOldP = getArtboardsPageByArtboardId(strOldA)
   }
-  Settings.setGlobalSettingForKey("lastArtboard", strOldP + "." + strOldA)
-  saveString("lastArtboard", strOldP + "." + strOldA)
+  var strOldSave = ""
+  if("" === strOldP || undefined === strOldP) {
+    strOldSave = strOldA
+  }
+  else {
+    strOldSave = strOldP + "." + strOldA
+  }
+  saveString("lastArtboard", strOldSave)
 
   // get new Artboard
   var strNewA = String(context.actionContext.newArtboard)
@@ -128,7 +134,7 @@ export function updateArtboardHistory(context) {
   strNewA = strNewA.replace(".", "")
   var strNewP = ""
   if ("<null>" === strNewA || "" === strNewA) {
-    strNewA = Settings.globalSettingForKey("newArtboard")
+    strNewA = Settings.sessionVariable("newArtboard")
     if ("<null>" === strNewA || "" === strNewA) {
       strNewA = ""
       strNewP = ""
@@ -138,7 +144,14 @@ export function updateArtboardHistory(context) {
     strNewA = strNewA.replace(".", "")
     strNewP = getArtboardsPageByArtboardId(strNewA)
   }
-  saveString("actualArtboard", strNewP + "." + strNewA)
+  var strNewSave = ""
+  if("" === strNewP || undefined === strNewP) {
+    strNewSave = strNewA
+  }
+  else {
+    strNewSave = strNewP + "." + strNewA
+  }
+  saveString("actualArtboard", strNewSave)
 
 
 
