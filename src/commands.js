@@ -16,16 +16,12 @@ function sendMessageToBottom(dataBottom) {
 export function goToLastArtboard(context) {
   var lastArtboardSavedA = Settings.settingForKey("lastArtboard")
   //lastArtboardSavedA = lastArtboardSavedA.substring(lastArtboardSavedA.indexOf(".") + 1)
-  var actualArtboardSavedA = Settings.settingForKey("actualArtboard")
   //actualArtboardSavedA = actualArtboardSavedA.substring(actualArtboardSavedA.indexOf(".") + 1)
   var documentA = require('sketch/dom').getSelectedDocument()
   var layerA = documentA.getLayerWithID(lastArtboardSavedA)
   documentA.centerOnLayer(layerA)
-  Settings.setSettingForKey("lastArtboard", actualArtboardSavedA)
-  Settings.setSettingForKey("", lastArtboardSavedA)
   documentA.selectedLayers.clear()
   layerA.selected = true
-  sendErrorMessage("good")
 }
 
 // DEV
