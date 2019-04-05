@@ -6,7 +6,7 @@
   "homepage": "https://github.com/jan-patrick/sketch_artboard-history",
   "compatibleVersion": 53,
   "bundleVersion": 1,
-  "version": "1.4.0",
+  "version": "1.4.1",
   "identifier": "com.github.jan-patrick.sketch_artboard-history",
   "icon": "icon.png",
   "suppliesData": false,
@@ -62,9 +62,7 @@
   "menu": {
     "title": "Artboard History",
     "items": [
-      "ArtboardHistory_goToLastArtboard", 
-      "ArtboardHistory_showSelectedLayerInfo",
-      "ArtboardHistory_showSavedArtboardHistory"
+      "ArtboardHistory_goToLastArtboard"
     ]
   }
 }
