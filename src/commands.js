@@ -154,7 +154,7 @@ export function updateArtboardHistory(context) {
   /////////////////////////
 
   // get last Artboard
-  sendErrorMessage(getArtboardsPageByArtboardId(strNewArtboardA))
+  //sendErrorMessage(getArtboardsPageByArtboardId(strNewArtboardA))
 
   //sendErrorMessage(strOld)
   //sendErrorMessage(context)

@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icon.png" width=100>
+
 # artboard-history
 
 Switch faster between your latest used Artboards inside Sketch
@@ -9,6 +11,8 @@ Limitations (for now):
 Shortcut:
 alt + cmd + z / opt + cmd + z
 
+<a class="github-button" href="https://github.com/jan-patrick/sketch_artboard-history/subscription" >Watch</a>
+
 ## Install
 1. Download the [latest release](https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip).
 2. Unzip the file
@@ -17,7 +21,7 @@ alt + cmd + z / opt + cmd + z
 
 ## Install with Sketch Runner
 With Sketch Runner, just go to the `install` command and search for `Artboard History`. Runner allows you to manage plugins and do much more to speed up your workflow in Sketch. [Download Runner here](http://www.sketchrunner.com).
-<br/><a href="http://bit.ly/SketchRunnerWebsite"><img src="http://bit.ly/RunnerBadgeBlue" width=140></a>
+<br/><br/><a href="http://bit.ly/SketchRunnerWebsite"><img src="http://bit.ly/RunnerBadgeBlue" width=140></a>
 
 
 ## skpm (for development)
@@ -50,7 +54,7 @@ Additionally, if you wish to run the plugin every time it is built:
 npm run start
 ```
 
-### Publishing your plugin
+Publishing the plugin:
 
 ```bash
 skpm publish <bump>
@@ -58,15 +62,4 @@ skpm publish <bump>
 
 (where `bump` can be `patch`, `minor` or `major`)
 
-`skpm publish` will create a new release on your GitHub repository and create an appcast file in order for Sketch users to be notified of the update.
-
-You will need to specify a `repository` in the `package.json`:
-
-```diff
-...
-+ "repository" : {
-+   "type": "git",
-+   "url": "git+https://github.com/jan-patrick/sketch_artboard-history.git"
-+  }
-...
-```
+`skpm publish` will create a new release on the GitHub repository and create an appcast file in order for Sketch users to be notified of the update.
