@@ -14,48 +14,25 @@ function sendMessageToBottom(dataBottom) {
 }
 
 export function goToLastArtboard(context) {
-  var lastArtboardSavedA = Settings.settingForKey("lastArtboard")
+  var lastArtboardSaved = Settings.settingForKey("lastArtboard")
+  var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
+  var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
   //lastArtboardSavedA = lastArtboardSavedA.substring(lastArtboardSavedA.indexOf(".") + 1)
   //actualArtboardSavedA = actualArtboardSavedA.substring(actualArtboardSavedA.indexOf(".") + 1)
-  var documentA = require('sketch/dom').getSelectedDocument()
-  var layerA = documentA.getLayerWithID(lastArtboardSavedA)
-  documentA.centerOnLayer(layerA)
-  documentA.selectedLayers.clear()
+  var document = require('sketch/dom').getSelectedDocument()
+  var layerP = document.getLayerWithID(lastArtboardSavedP)
+  var layerA = document.getLayerWithID(lastArtboardSavedA)
+  document.selectedLayers.clear()
+  layerP.selected = true
   layerA.selected = true
-}
-
-// DEV
-export function goToLastArtboardDEV(context) {
-  var lastSaved = Settings.settingForKey("lastArtboard")
-  Settings.setSettingForKey("lastArtboard", lastSaved.substring(lastSaved.indexOf(".") + 1))
-  var lastArtboardSaved = lastSaved.substring(0, lastSaved.indexOf("."))
-
-  var strNew = Settings.settingForKey("actualArtboard")
-  strNew = lastArtboardSaved + "." + strNew
-  Settings.setSettingForKey("actualArtboard", strNew)
-  var document = require('sketch/dom').getSelectedDocument()
-  var layer = document.getLayerWithID(lastArtboardSaved)
-  document.centerOnLayer(layer)
-  //sendErrorMessage(lastArtboardSaved)
-}
-
-// DEV
-export function goToNextArtboardDEV(context) {
-  var lastSaved = Settings.settingForKey("lastArtboard")
-  Settings.setSettingForKey("lastArtboard", lastSaved.substring(lastSaved.indexOf(".") + 1))
-  var lastArtboardSaved = lastSaved.substring(0, lastSaved.indexOf("."))
-
-  var strNew = Settings.settingForKey("actualArtboard")
-  strNew = lastArtboardSaved + "." + strNew
-  Settings.setSettingForKey("actualArtboard", strNew)
-  var document = require('sketch/dom').getSelectedDocument()
-  var layer = document.getLayerWithID(lastArtboardSaved)
-  document.centerOnLayer(layer)
-  //sendErrorMessage(lastArtboardSaved)
+  document.centerOnLayer(layerA)
 }
 
 export function showSavedArtboardHistory(context) {
   sendErrorMessage(Settings.settingForKey("lastArtboard") + "\n+++\n" + Settings.settingForKey("actualArtboard"))
+
+  // DEV
+  //Settings.setSettingForKey("lastArtboard", "7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68.279186E2-B68A-4D87-8ACE-AA0235421B7B")
 }
 
 export function showSelectedLayerInfo(context) {
@@ -113,32 +90,18 @@ export function cleanupArtboardHistory(context) {
 }
 
 export function updateArtboardHistory(context) {
-  // get last Artboard
+  // get + save last Artboard
   var strOldA = String(context.actionContext.oldArtboard)
-  var strOldArtboardA = strOldA.substring(strOldA.indexOf("(") + 1)
-  strOldArtboardA = strOldArtboardA.substring(0, strOldArtboardA.indexOf(")"))
-
-  // get last document
-  var strOldDocumentA = strOldA.substring(strOldA.indexOf(" ") + 1)
-  strOldDocumentA = strOldDocumentA.substring(0, strOldDocumentA.indexOf(">"))
-
-  // save document + Artboard
-  strOldA = strOldDocumentA + "." + strOldArtboardA
-  Settings.setSettingForKey("lastArtboard", strOldArtboardA)
-
+  strOldA = strOldA.substring(strOldA.indexOf("(") + 1)
+  strOldA = strOldA.substring(0, strOldA.indexOf(")"))
+  var strOldP = getArtboardsPageByArtboardId(strOldA)
+  Settings.setSettingForKey("lastArtboard", strOldP+"."+strOldA)
 
   // get new Artboard
   var strNewA = String(context.actionContext.newArtboard)
-  var strNewArtboardA = strNewA.substring(strNewA.indexOf("(") + 1)
-  strNewArtboardA = strNewArtboardA.substring(0, strNewArtboardA.indexOf(")"))
-
-  // get last document
-  var strNewDocumentA = strNewA.substring(strNewA.indexOf(" ") + 1)
-  strNewDocumentA = strNewDocumentA.substring(0, strNewDocumentA.indexOf(">"))
-
-  // save document + Artboard
-  strNewA = strNewDocumentA + "." + strNewArtboardA
-  Settings.setSettingForKey("actualArtboard", strNewArtboardA)
+  strNewA = strNewA.substring(strNewA.indexOf("(") + 1)
+  strNewA = strNewA.substring(0, strNewA.indexOf(")"))
+  Settings.setSettingForKey("actualArtboard", strNewA)
 
 
 
