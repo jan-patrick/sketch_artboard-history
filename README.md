@@ -11,8 +11,6 @@ Limitations (for now):
 Shortcut:
 alt + cmd + z / opt + cmd + z
 
-<a class="github-button" href="https://github.com/jan-patrick/sketch_artboard-history/subscription" >Watch</a>
-
 ## Install
 1. Download the [latest release](https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip).
 2. Unzip the file

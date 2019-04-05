@@ -23,6 +23,9 @@ export function goToLastArtboard(context) {
   documentA.centerOnLayer(layerA)
   Settings.setSettingForKey("lastArtboard", actualArtboardSavedA)
   Settings.setSettingForKey("", lastArtboardSavedA)
+  documentA.selectedLayers.clear()
+  layerA.selected = true
+  sendErrorMessage("good")
 }
 
 // DEV
@@ -67,22 +70,19 @@ export function showSelectedLayerInfo(context) {
   const document = getSelectedDocument()
   //var completeDocumentInfoString = JSON.stringify(document.pages)
   //sendErrorMessage(completeDocumentInfoString)
-  for (var i = 0; i < document.pages.length; i++) {
-    for (var j = 0; j < document.pages[i].layers.length; j++) {
-      if("46CFD69C-A2E2-42F3-A258-1E8E9EB556E8" === document.pages[i].layers[j].id) {
-        //sendErrorMessage(document.pages[i].id)
-      }
-    }
-  }
-  getArtboardsPageByArtboardId("46CFD69C-A2E2-42F3-A258-1E8E9EB556E8")
+
+
   //if("Page" === document.pages[0].type) {
   //  sendErrorMessage(document.pages.length)
   //}
 
   /////////
   //var documentr = require('sketch/dom').getSelectedDocument()
-  //ar layerr = documentr.getLayerWithID("7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68")
+  //var layerr = documentr.getLayerWithID("7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68")
   //documentr.centerOnLayer(layerr)
+
+// Select all Artboards in current page
+selectLayersOfType_inContainer("MSArtboardGroup")
 }
 
 function getArtboardsPageByArtboardId (artboardStringToCheck) {
@@ -91,7 +91,7 @@ function getArtboardsPageByArtboardId (artboardStringToCheck) {
   for (var i = 0; i < document.pages.length; i++) {
     for (var j = 0; j < document.pages[i].layers.length; j++) {
       if(artboardStringToCheck === document.pages[i].layers[j].id) {
-        return document.pages[i].name
+        return document.pages[i].id
       }
     }
   }
