@@ -1,3 +1,8 @@
+# ⚠️ There seems to be a problem with Sketch version 54 in combination with the official Action API function this plugin calls! 
+This plugin calls a function in this official API to save your Artboards when you select a different one. That's why the plugin is currently not working. I'm already working on a fix / workaround (or maybe this bug get's fixed soon officially).
+
+---
+
 <img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icon.png" width=100>
 
 # artboard-history
@@ -5,7 +10,7 @@
 Switch faster between your latest used Artboards inside Sketch
 
 Limitations (for now):
-- Switch between two Artboards (cmd + opt + z)
+- Switch between two Artboards (opt + cmd + z)
 - only works between different pages after switching and selecting Artboards on different pages back once (already working on the fix).
 
 Feel free to create an [issue](https://github.com/jan-patrick/sketch_artboard-history/issues) if something does not work probably or if you have a feature request.
