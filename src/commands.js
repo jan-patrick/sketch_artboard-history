@@ -17,8 +17,8 @@ export function goToLastArtboard(context) {
   if (lastArtboardSaved.indexOf(".") < 1) {
     lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
   }
-  //saveString("lastArtboard", Settings.sessionVariable("actualArtboard"))
-  //saveString("actualArtboard", lastArtboardSaved)
+  //setSetting("lastArtboard", Settings.sessionVariable("actualArtboard"))
+  //setSetting("actualArtboard", lastArtboardSaved)
   var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
   var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
   lastArtboardSavedA = lastArtboardSavedA.replace(".", "")
@@ -88,7 +88,7 @@ function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
   return false
 }
 
-function saveString(stringWhere, stringValue) {
+function setSetting(stringWhere, stringValue) {
   Settings.setSessionVariable(stringWhere, stringValue)
 }
 
@@ -118,8 +118,8 @@ export function setZoomSetting() {
     } else {
       artboardZoomVar = false
     }
-    saveString("ArtboardHistoryZoom", artboardZoomVar)
-    sendErrorMessage(getSavedSetting("ArtboardHistoryZoom"))
+    setSetting("ArtboardHistoryZoom", artboardZoomVar)
+    //sendErrorMessage(getSavedSetting("ArtboardHistoryZoom"))
   })
 }
 
@@ -165,7 +165,7 @@ export function updateArtboardHistory(context) {
   else {
     strOldSave = strOldP + "." + strOldA
   }
-  saveString("lastArtboard", strOldSave)
+  setSetting("lastArtboard", strOldSave)
 
   // get new Artboard
   var strNewA = String(context.actionContext.newArtboard)
@@ -194,7 +194,7 @@ export function updateArtboardHistory(context) {
   //if(strNewSave) {
 
   //}
-  saveString("actualArtboard", strNewSave)
+  setSetting("actualArtboard", strNewSave)
 
 
 
