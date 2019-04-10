@@ -1,12 +1,12 @@
 {
   "name": "Artboard History",
-  "description": "Get faster to your latest artboard",
+  "description": "Get faster to your latest Artboards",
   "author": "Jan Schneider",
   "authorEmail": "hello@jan-patrick.de",
   "homepage": "https://github.com/jan-patrick/sketch_artboard-history",
   "compatibleVersion": 53,
   "bundleVersion": 1,
-  "version": "1.4.2",
+  "version": "1.4.3",
   "identifier": "com.github.jan-patrick.sketch_artboard-history",
   "icon": "icon.png",
   "suppliesData": false,
@@ -62,9 +62,7 @@
   "menu": {
     "title": "Artboard History",
     "items": [
-      "ArtboardHistory_goToLastArtboard", 
-      "ArtboardHistory_showSelectedLayerInfo",
-      "ArtboardHistory_showSavedArtboardHistory"
+      "ArtboardHistory_goToLastArtboard"
     ]
   }
 }
