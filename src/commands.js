@@ -14,15 +14,15 @@ function sendMessageToBottom(dataBottom) {
 }
 export function goToLastArtboard(context) {
   var lastArtboardSaved = Settings.sessionVariable("lastArtboard")
-  if(lastArtboardSaved.indexOf(".") < 1) {
+  if (lastArtboardSaved.indexOf(".") < 1) {
     lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
   }
-  saveString("lastArtboard", Settings.sessionVariable("actualArtboard"))
-  saveString("actualArtboard", lastArtboardSaved)
+  //saveString("lastArtboard", Settings.sessionVariable("actualArtboard"))
+  //saveString("actualArtboard", lastArtboardSaved)
   var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
   var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
   lastArtboardSavedA = lastArtboardSavedA.replace(".", "")
-  lastArtboardSavedP = lastArtboardSavedP.replace(".", "")  
+  lastArtboardSavedP = lastArtboardSavedP.replace(".", "")
   //lastArtboardSavedA = lastArtboardSavedA.substring(lastArtboardSavedA.indexOf(".") + 1)
   //actualArtboardSavedA = actualArtboardSavedA.substring(actualArtboardSavedA.indexOf(".") + 1)
   var document = require('sketch/dom').getSelectedDocument()
@@ -102,24 +102,39 @@ export function cleanupArtboardHistory(context) {
 export function updateArtboardHistory(context) {
   // get + save last Artboard
   var strOldA = String(context.actionContext.oldArtboard)
-  strOldA = strOldA.substring(strOldA.indexOf("(") + 1)
-  strOldA = strOldA.substring(0, strOldA.indexOf(")"))
-  strOldA = strOldA.replace(".", "")
   var strOldP = ""
   if ("<null>" === strOldA || "" === strOldA) {
-    strOldA = Settings.sessionVariable("lastArtboard")
-    if ("<null>" === strOldA || "" === strOldA) {
-      strOldA = ""
-      strOldP = ""
+    var strPreNewA = Settings.sessionVariable("actualArtboard")
+    //sendErrorMessage(String(strPreNewA)+ "**********"+ String(Settings.sessionVariable("lastArtboard")))
+    //if ("" != strPreNewASettings.sessionVariable("lastArtboard") && undefined != strPreNewASettings.sessionVariable("lastArtboard") && doesStringIncludeThat(strPreNewA, Settings.sessionVariable("lastArtboard"))) {
+    //strPreNewA = Settings.sessionVariable("lastArtboard")
+    //}
+    if("<null>" === strPreNewA || "" === strPreNewA|| undefined === strPreNewA) {
+      strOldA = "not defined"
+    }
+    else {
+      strOldA = strPreNewA
     }
   }
   else {
+    strOldA = strOldA.substring(strOldA.indexOf("(") + 1)
+    strOldA = strOldA.substring(0, strOldA.indexOf(")"))
     strOldA = strOldA.replace(".", "")
-    strOldP = strOldP.replace(".", "")
-    strOldP = getArtboardsPageByArtboardId(strOldA)
+    if ("<null>" === strOldA || "" === strOldA) {
+      strOldA = Settings.sessionVariable("lastArtboard")
+      if ("<null>" === strOldA || "" === strOldA) {
+        strOldA = ""
+        strOldP = ""
+      }
+    }
+    else {
+      strOldA = strOldA.replace(".", "")
+      strOldP = strOldP.replace(".", "")
+      strOldP = getArtboardsPageByArtboardId(strOldA)
+    }
   }
   var strOldSave = ""
-  if("" === strOldP || undefined === strOldP) {
+  if ("" === strOldP || undefined === strOldP) {
     strOldSave = strOldA
   }
   else {
@@ -134,7 +149,7 @@ export function updateArtboardHistory(context) {
   strNewA = strNewA.replace(".", "")
   var strNewP = ""
   if ("<null>" === strNewA || "" === strNewA) {
-    strNewA = Settings.sessionVariable("newArtboard")
+    strNewA = Settings.sessionVariable("actualArtboard")
     if ("<null>" === strNewA || "" === strNewA) {
       strNewA = ""
       strNewP = ""
@@ -145,12 +160,15 @@ export function updateArtboardHistory(context) {
     strNewP = getArtboardsPageByArtboardId(strNewA)
   }
   var strNewSave = ""
-  if("" === strNewP || undefined === strNewP) {
+  if ("" === strNewP || undefined === strNewP) {
     strNewSave = strNewA
   }
   else {
     strNewSave = strNewP + "." + strNewA
   }
+  //if(strNewSave) {
+
+  //}
   saveString("actualArtboard", strNewSave)
 
 
