@@ -92,14 +92,39 @@ function saveString(stringWhere, stringValue) {
   Settings.setSessionVariable(stringWhere, stringValue)
 }
 
-export function cleanupArtboardHistory(context) {
+function getSavedSetting(stringWhere) {
+  return Settings.sessionVariable(stringWhere)
+}
 
-  //DEV
+export function cleanupArtboardHistory(context) {
   Settings.setSessionVariable("lastArtboard", "")
   Settings.setSessionVariable("actualArtboard", "")
+  Settings.setSessionVariable("ArtboardHistoryZoom", false)
+}
+
+export function setZoomSetting() {
+  var artboardZoomVar = getSavedSetting("ArtboardHistoryZoom")
+  UI.getInputFromUser("Zoom to Artboard when using this plugin?", {
+    type: UI.INPUT_TYPE.selection,
+    possibleValues: [artboardZoomVar === true ? 'Yes' : 'No', artboardZoomVar === true ? 'No' : 'Yes']
+  }, (err, value) => {
+    if (err) {
+      // most likely the user canceled the input
+      return
+    }
+    artboardZoomVar
+    if("Yes" === value) {
+      artboardZoomVar = true
+    } else {
+      artboardZoomVar = false
+    }
+    saveString("ArtboardHistoryZoom", artboardZoomVar)
+    sendErrorMessage(getSavedSetting("ArtboardHistoryZoom"))
+  })
 }
 
 export function updateArtboardHistory(context) {
+  Settings.setSessionVariable("ArtboardHistoryZoom", false)
   // get + save last Artboard
   var strOldA = String(context.actionContext.oldArtboard)
   var strOldP = ""

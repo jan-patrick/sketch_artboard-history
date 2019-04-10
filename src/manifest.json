@@ -39,6 +39,15 @@
       "name": "Show the saved Artboard History"
     },
     {
+      "identifier": "ArtboardHistory_setZoomSetting",
+      "script": "commands.js",
+      "shortcut": "cmd alt m",
+      "handler": "setZoomSetting",
+      "description": "Set if zoom to Artboard or not.",
+      "icon": "icons/showSelectedLayerInfo.png",
+      "name": "Set if zoom to Artboard or not"
+    },
+    {
       "script": "commands.js",
       "name": "Update last Artboard",
       "handlers": {
@@ -63,6 +72,7 @@
     "title": "Artboard History",
     "items": [
       "ArtboardHistory_goToLastArtboard", 
+      "ArtboardHistory_setZoomSetting",
       "ArtboardHistory_showSelectedLayerInfo",
       "ArtboardHistory_showSavedArtboardHistory"
     ]
