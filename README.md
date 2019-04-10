@@ -1,8 +1,3 @@
-# ⚠️ There seems to be a problem with Sketch version 54 in combination with the official Action API function this plugin calls! 
-This plugin calls a function in this official API to save your Artboards when you select a different one. That's why the plugin is currently not working. I'm already working on a fix / workaround (or maybe this bug get's fixed soon officially).
-
----
-
 <img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icon.png" width=100>
 
 # artboard-history
