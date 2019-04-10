@@ -5,13 +5,13 @@
 Switch faster between your latest used Artboards inside Sketch
 
 Limitations (for now):
-- Switch between two Artboards (opt + cmd + z)
+- Switch between two Artboards (opt + cmd + a)
 - only works between different pages after switching and selecting Artboards on different pages back once (already working on the fix).
 
 Feel free to create an [issue](https://github.com/jan-patrick/sketch_artboard-history/issues) if something does not work probably or if you have a feature request.
 
 Shortcut:
-opt (⌥) + cmd (⇧) + z (Z)
+opt (⌥) + cmd (⇧) + a (A)
 
 ## Install
 1. Download the [latest release](https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip).
