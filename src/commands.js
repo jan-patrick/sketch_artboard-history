@@ -13,11 +13,12 @@ function sendMessageToBottom(dataBottom) {
   context.actionContext.document.showMessage(String(dataBottom))
 }
 export function goToLastArtboard(context) {
-  var lastArtboardSaved = Settings.sessionVariable("lastArtboard")
+  checkIfZoomSettingSet()
+  var lastArtboardSaved = getSavedSetting("lastArtboard")
   if (lastArtboardSaved.indexOf(".") < 1) {
     lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
   }
-  //setSetting("lastArtboard", Settings.sessionVariable("actualArtboard"))
+  //setSetting("lastArtboard", getSavedSetting("actualArtboard"))
   //setSetting("actualArtboard", lastArtboardSaved)
   var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
   var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
@@ -35,7 +36,7 @@ export function goToLastArtboard(context) {
 }
 
 export function showSavedArtboardHistory(context) {
-  sendErrorMessage(Settings.sessionVariable("lastArtboard") + "\n+++\n" + Settings.sessionVariable("actualArtboard"))
+  sendErrorMessage(getSavedSetting("lastArtboard") + "\n+++\n" + getSavedSetting("actualArtboard"))
 
   // DEV
   //Settings.setSettingForKey("lastArtboard", "7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68.279186E2-B68A-4D87-8ACE-AA0235421B7B")
@@ -89,20 +90,28 @@ function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
 }
 
 function setSetting(stringWhere, stringValue) {
-  Settings.setSessionVariable(stringWhere, stringValue)
+  Settings.setGlobalSettingForKey(stringWhere, stringValue)
 }
 
 function getSavedSetting(stringWhere) {
-  return Settings.sessionVariable(stringWhere)
+  return Settings.globalSettingForKey(stringWhere)
 }
 
 export function cleanupArtboardHistory(context) {
-  Settings.setSessionVariable("lastArtboard", "")
-  Settings.setSessionVariable("actualArtboard", "")
-  Settings.setSessionVariable("ArtboardHistoryZoom", false)
+  setSetting("lastArtboard", "")
+  setSetting("actualArtboard", "")
+  //setSetting("ArtboardHistoryZoom", "")
+}
+
+function checkIfZoomSettingSet() {
+  var z = getSavedSetting("ArtboardHistoryZoom")
+  if(typeof z != "boolean") {
+    setSetting("ArtboardHistoryZoom", true)
+  }
 }
 
 export function setZoomSetting() {
+  checkIfZoomSettingSet()
   var artboardZoomVar = getSavedSetting("ArtboardHistoryZoom")
   UI.getInputFromUser("Zoom to Artboard when using this plugin?", {
     type: UI.INPUT_TYPE.selection,
@@ -124,16 +133,12 @@ export function setZoomSetting() {
 }
 
 export function updateArtboardHistory(context) {
-  Settings.setSessionVariable("ArtboardHistoryZoom", false)
+  checkIfZoomSettingSet()
   // get + save last Artboard
   var strOldA = String(context.actionContext.oldArtboard)
   var strOldP = ""
   if ("<null>" === strOldA || "" === strOldA) {
-    var strPreNewA = Settings.sessionVariable("actualArtboard")
-    //sendErrorMessage(String(strPreNewA)+ "**********"+ String(Settings.sessionVariable("lastArtboard")))
-    //if ("" != strPreNewASettings.sessionVariable("lastArtboard") && undefined != strPreNewASettings.sessionVariable("lastArtboard") && doesStringIncludeThat(strPreNewA, Settings.sessionVariable("lastArtboard"))) {
-    //strPreNewA = Settings.sessionVariable("lastArtboard")
-    //}
+    var strPreNewA = getSavedSetting("actualArtboard")
     if("<null>" === strPreNewA || "" === strPreNewA|| undefined === strPreNewA) {
       strOldA = "not defined"
     }
@@ -146,7 +151,7 @@ export function updateArtboardHistory(context) {
     strOldA = strOldA.substring(0, strOldA.indexOf(")"))
     strOldA = strOldA.replace(".", "")
     if ("<null>" === strOldA || "" === strOldA) {
-      strOldA = Settings.sessionVariable("lastArtboard")
+      strOldA = getSavedSetting("lastArtboard")
       if ("<null>" === strOldA || "" === strOldA) {
         strOldA = ""
         strOldP = ""
@@ -174,7 +179,7 @@ export function updateArtboardHistory(context) {
   strNewA = strNewA.replace(".", "")
   var strNewP = ""
   if ("<null>" === strNewA || "" === strNewA) {
-    strNewA = Settings.sessionVariable("actualArtboard")
+    strNewA = getSavedSetting("actualArtboard")
     if ("<null>" === strNewA || "" === strNewA) {
       strNewA = ""
       strNewP = ""
