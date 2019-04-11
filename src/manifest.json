@@ -59,13 +59,13 @@
     },
     {
       "script": "commands.js",
-      "name": "Clean Up Artboard History",
+      "name": "ckeck if all variables already exist and are saved",
       "handlers": {
         "actions": {
-          "Shutdown": "cleanupArtboardHistory"
+          "Startup": "checkIfAllThisExists"
         }
       },
-      "identifier": "ArtboardHistory-action-listener-identifier-Cleanup"
+      "identifier": "ArtboardHistory-action-listener-identifier-StartUp"
     }
   ],
   "menu": {

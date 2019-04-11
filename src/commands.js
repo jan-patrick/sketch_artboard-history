@@ -10,10 +10,9 @@ function sendErrorMessage(dataError) {
 }
 
 function sendMessageToBottom(dataBottom) {
-  context.actionContext.document.showMessage(String(dataBottom))
+  UI.message(String(dataBottom))
 }
 export function goToLastArtboard(context) {
-  checkIfZoomSettingSet()
   var lastArtboardSaved = getSavedSetting("lastArtboard")
   if (lastArtboardSaved.indexOf(".") < 1) {
     lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
@@ -36,7 +35,7 @@ export function goToLastArtboard(context) {
 }
 
 export function showSavedArtboardHistory(context) {
-  sendErrorMessage(getSavedSetting("lastArtboard") + "\n+++\n" + getSavedSetting("actualArtboard"))
+  sendErrorMessage(getSavedSetting("lastArtboard") + "\n+++\n" + getSavedSetting("actualArtboard") + "\n###\n" + objectToJson(getSavedSetting("ArtboardHistory")))
 
   // DEV
   //Settings.setSettingForKey("lastArtboard", "7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68.279186E2-B68A-4D87-8ACE-AA0235421B7B")
@@ -97,9 +96,10 @@ function getSavedSetting(stringWhere) {
   return Settings.globalSettingForKey(stringWhere)
 }
 
-export function cleanupArtboardHistory(context) {
+function cleanupArtboardHistory(context) {
   setSetting("lastArtboard", "")
   setSetting("actualArtboard", "")
+  setSetting("ArtboardHistory", )
   //setSetting("ArtboardHistoryZoom", "")
 }
 
@@ -110,8 +110,37 @@ function checkIfZoomSettingSet() {
   }
 }
 
-export function setZoomSetting() {
+function checkIfSameDocument() {
+  var getSelectedDocument = require('sketch/dom').getSelectedDocument
+  const document = getSelectedDocument()
+  sendErrorMessage(document.id)
+  checkIfArtboardHistoryAlreadySaved()
+}
+
+export function checkIfAllThisExists() {
   checkIfZoomSettingSet()
+  checkIfArtboardHistoryAlreadySaved()
+}
+
+function checkIfArtboardHistoryAlreadySaved() {
+  var a = getSavedSetting("ArtboardHistory")
+  if(typeof a != "object") {
+    var artboardHistory = {
+      document: "not defined",
+      id : "001",
+      storedHistory : []
+    }
+    setSetting("ArtboardHistory", artboardHistory)
+  }
+  sendErrorMessage(objectToJson(getSavedSetting("ArtboardHistory")))
+}
+
+function objectToJson(obj) {
+  var json = JSON.stringify(obj)
+  return json
+}
+
+export function setZoomSetting() {
   var artboardZoomVar = getSavedSetting("ArtboardHistoryZoom")
   UI.getInputFromUser("Zoom to Artboard when using this plugin?", {
     type: UI.INPUT_TYPE.selection,
@@ -128,12 +157,12 @@ export function setZoomSetting() {
       artboardZoomVar = false
     }
     setSetting("ArtboardHistoryZoom", artboardZoomVar)
-    //sendErrorMessage(getSavedSetting("ArtboardHistoryZoom"))
+    //sendMessageToBottom(getSavedSetting("ArtboardHistoryZoom"))
+    checkIfSameDocument()
   })
 }
 
 export function updateArtboardHistory(context) {
-  checkIfZoomSettingSet()
   // get + save last Artboard
   var strOldA = String(context.actionContext.oldArtboard)
   var strOldP = ""
@@ -210,8 +239,9 @@ export function updateArtboardHistory(context) {
   // DEVELOPMENT SECTION //
   /////////////////////////
 
-  // get last Artboard
-  //sendErrorMessage(getArtboardsPageByArtboardId(strNewArtboardA))
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  artboardHistory.storedHistory.push("Hola");
+  setSetting("ArtboardHistory", artboardHistory)
 
   //sendErrorMessage(strOld)
   //sendErrorMessage(context)
