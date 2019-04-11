@@ -96,16 +96,17 @@ function getSavedSetting(stringWhere) {
   return Settings.globalSettingForKey(stringWhere)
 }
 
-function cleanupArtboardHistory(context) {
+export function resetAllSetSettings() {
   setSetting("lastArtboard", "")
   setSetting("actualArtboard", "")
-  setSetting("ArtboardHistory", )
-  //setSetting("ArtboardHistoryZoom", "")
+  setSetting("ArtboardHistory", "")
+  setSetting("ArtboardHistoryZoom", "")
+  sendMessageToBottom("everything resetted. Hopefully 😇")
 }
 
 function checkIfZoomSettingSet() {
   var z = getSavedSetting("ArtboardHistoryZoom")
-  if(typeof z != "boolean") {
+  if (typeof z != "boolean") {
     setSetting("ArtboardHistoryZoom", true)
   }
 }
@@ -114,25 +115,27 @@ function checkIfSameDocument() {
   var getSelectedDocument = require('sketch/dom').getSelectedDocument
   const document = getSelectedDocument()
   sendErrorMessage(document.id)
-  checkIfArtboardHistoryAlreadySaved()
 }
 
 export function checkIfAllThisExists() {
   checkIfZoomSettingSet()
   checkIfArtboardHistoryAlreadySaved()
+  //checkIfSameDocument()
 }
 
 function checkIfArtboardHistoryAlreadySaved() {
   var a = getSavedSetting("ArtboardHistory")
-  if(typeof a != "object") {
+  if (typeof a != "object") {
     var artboardHistory = {
-      document: "not defined",
-      id : "001",
-      storedHistory : []
+      id: 42,
+      documents: [{
+        id: "documentId",
+        storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
+      }]
     }
     setSetting("ArtboardHistory", artboardHistory)
   }
-  sendErrorMessage(objectToJson(getSavedSetting("ArtboardHistory")))
+  //sendErrorMessage(objectToJson(getSavedSetting("ArtboardHistory")))
 }
 
 function objectToJson(obj) {
@@ -151,7 +154,7 @@ export function setZoomSetting() {
       return
     }
     artboardZoomVar
-    if("Yes" === value) {
+    if ("Yes" === value) {
       artboardZoomVar = true
     } else {
       artboardZoomVar = false
@@ -168,7 +171,7 @@ export function updateArtboardHistory(context) {
   var strOldP = ""
   if ("<null>" === strOldA || "" === strOldA) {
     var strPreNewA = getSavedSetting("actualArtboard")
-    if("<null>" === strPreNewA || "" === strPreNewA|| undefined === strPreNewA) {
+    if ("<null>" === strPreNewA || "" === strPreNewA || undefined === strPreNewA) {
       strOldA = "not defined"
     }
     else {
@@ -240,9 +243,9 @@ export function updateArtboardHistory(context) {
   /////////////////////////
 
   var artboardHistory = getSavedSetting("ArtboardHistory")
-  artboardHistory.storedHistory.push("Hola");
+  artboardHistory.documents[0].storedHistory.push("Hola");
   setSetting("ArtboardHistory", artboardHistory)
 
-  //sendErrorMessage(strOld)
+  sendErrorMessage(strOldSave)
   //sendErrorMessage(context)
 }

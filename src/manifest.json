@@ -58,8 +58,17 @@
       "identifier": "ArtboardHistory-action-listener-identifier"
     },
     {
+      "identifier": "ArtboardHistory_ResetAllSettings",
       "script": "commands.js",
-      "name": "ckeck if all variables already exist and are saved",
+      "shortcut": "cmd alt r",
+      "handler": "resetAllSetSettings",
+      "description": "Clear all saved data in Settings.",
+      "icon": "icons/showSelectedLayerInfo.png",
+      "name": "Clear all saved data in Settings"
+    },
+    {
+      "script": "commands.js",
+      "name": "ckeck if ArtboardHistory already exists and is saved",
       "handlers": {
         "actions": {
           "Startup": "checkIfAllThisExists"
@@ -73,7 +82,7 @@
     "items": [
       "ArtboardHistory_goToLastArtboard", 
       "ArtboardHistory_setZoomSetting",
-      "ArtboardHistory_showSelectedLayerInfo",
+      "ArtboardHistory_ResetAllSettings",
       "ArtboardHistory_showSavedArtboardHistory"
     ]
   }
