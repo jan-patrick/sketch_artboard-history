@@ -24,8 +24,7 @@ With Sketch Runner, just go to the `install` command and search for `Artboard Hi
 <br/><br/><a href="http://bit.ly/SketchRunnerWebsite"><img src="http://bit.ly/RunnerBadgeBlue" width=140></a>
 
 ## History Structure (in DEV for now)
-<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/artboardHistory_object.svg?sanitize=true" width=100%>
-<img src="https://github.com/jan-patrick/sketch_artboard-history/blob/master/artboardHistory_object.svg">
+<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/artboardHistory_object.png">
 
 ## skpm (for development)
 
