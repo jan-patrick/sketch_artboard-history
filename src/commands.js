@@ -130,6 +130,7 @@ function checkIfArtboardHistoryAlreadySaved() {
       id: 42,
       documents: [{
         id: "documentId",
+        lastHistoryIndex : -1,
         storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
       }]
     }
