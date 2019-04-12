@@ -30,38 +30,5 @@ With Sketch Runner, just go to the `install` command and search for `Artboard Hi
 
 _This plugin was created using `skpm`. For a detailed explanation on how things work, checkout the [skpm Readme](https://github.com/skpm/skpm/blob/master/README.md)._
 
-### Usage for development
-
-Install the dependencies
-
-```bash
-npm install
-```
-
-Once the installation is done, you can run some commands inside the project folder:
-
-```bash
-npm run build
-```
-
-To watch for changes:
-
-```bash
-npm run watch
-```
-
-Additionally, if you wish to run the plugin every time it is built:
-
-```bash
-npm run start
-```
-
-Publishing the plugin:
-
-```bash
-skpm publish <bump>
-```
-
-(where `bump` can be `patch`, `minor` or `major`)
-
-`skpm publish` will create a new release on the GitHub repository and create an appcast file in order for Sketch users to be notified of the update.
+### terminal commands for development
+<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/terminal_commands.png">
