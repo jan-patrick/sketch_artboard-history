@@ -118,10 +118,18 @@ function getDocumentId() {
 }
 
 function getDocumentsArtboardHistory(artboardHistory, documentId) {
-  sendErrorMessage(artboardHistory.documents.length)
   for (var i = 0; i < artboardHistory.documents.length; i++) {
       if (documentId === artboardHistory.documents[i].id) {
         return artboardHistory.documents[i].storedHistory
+      }
+  }
+  return false
+}
+
+function getDocumentsIndexById(artboardHistory, documentId) {
+  for (var i = 0; i < artboardHistory.documents.length; i++) {
+      if (documentId === artboardHistory.documents[i].id) {
+        return artboardHistory.documents[i]
       }
   }
   return false
@@ -252,10 +260,53 @@ export function updateArtboardHistory(context) {
   // DEVELOPMENT SECTION //
   /////////////////////////
 
+  // get new Artboard out of Action API function call
+  var newA = String(context.actionContext.newArtboard)
+  newA = newA.substring(newA.indexOf("(") + 1)
+  newA = newA.substring(0, newA.indexOf(")"))
+  newA = newA.replace(".", "")
+  var newP = ""
+  if ("<null>" === newA || "" === newA) {
+    newA = getSavedSetting("actualArtboard")
+    if ("<null>" === newA || "" === newA) {
+      newA = ""
+      newP = ""
+    }
+  }
+  else {
+    newA = newA.replace(".", "")
+    newP = getArtboardsPageByArtboardId(newA)
+  }
+
+  // organize ArtboardHistory
+
   var artboardHistory = getSavedSetting("ArtboardHistory")
-  artboardHistory.documents[0].storedHistory[0].page = "Hola"
+  var documentId = getDocumentId()
+  var documentIndex = 0
+  var newHistoryIndex = 0
+  var previousHistoryinDoc = getDocumentsArtboardHistory(artboardHistory, documentId)
+  if(false === previousHistoryinDoc) {
+    documentIndex = artboardHistory.documents.length
+    artboardHistory.documents.push({
+      id: documentId,
+      lastHistoryIndex : -1,
+      storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
+    })
+    artboardHistory.documents[documentIndex].id = documentId
+    //sendErrorMessage(objectToJson(artboardHistory))
+        //storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
+  } else {
+    documentIndex = getDocumentsIndexById(artboardHistory, documentId)
+  }
+
+  // save into Settings
+  //sendErrorMessage(documentId + documentIndex + newHistoryIndex)
+  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = artboardHistory.documents[documentIndex].storedHistory.length
+  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
+  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
   setSetting("ArtboardHistory", artboardHistory)
 
   //sendErrorMessage(strOldSave)
+  //sendErrorMessage(artboardHistory)
   //sendErrorMessage(context)
 }
