@@ -111,16 +111,25 @@ function checkIfZoomSettingSet() {
   }
 }
 
-function checkIfSameDocument() {
+function getDocumentId() {
   var getSelectedDocument = require('sketch/dom').getSelectedDocument
   const document = getSelectedDocument()
-  sendErrorMessage(document.id)
+  return document.id
+}
+
+function getDocumentsArtboardHistory(artboardHistory, documentId) {
+  sendErrorMessage(artboardHistory.documents.length)
+  for (var i = 0; i < artboardHistory.documents.length; i++) {
+      if (documentId === artboardHistory.documents[i].id) {
+        return artboardHistory.documents[i].storedHistory
+      }
+  }
+  return false
 }
 
 export function checkIfAllThisExists() {
   checkIfZoomSettingSet()
   checkIfArtboardHistoryAlreadySaved()
-  //checkIfSameDocument()
 }
 
 function checkIfArtboardHistoryAlreadySaved() {
@@ -162,7 +171,7 @@ export function setZoomSetting() {
     }
     setSetting("ArtboardHistoryZoom", artboardZoomVar)
     //sendMessageToBottom(getSavedSetting("ArtboardHistoryZoom"))
-    checkIfSameDocument()
+    sendErrorMessage(String(getDocumentsArtboardHistory(getSavedSetting("ArtboardHistory"),"documentId")))
   })
 }
 
@@ -247,6 +256,6 @@ export function updateArtboardHistory(context) {
   artboardHistory.documents[0].storedHistory.push("Hola");
   setSetting("ArtboardHistory", artboardHistory)
 
-  sendErrorMessage(strOldSave)
+  //sendErrorMessage(strOldSave)
   //sendErrorMessage(context)
 }
