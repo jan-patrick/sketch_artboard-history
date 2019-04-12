@@ -1,6 +1,6 @@
-<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icon.png" width=100>
+<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/iconGitHubReadMe.png">
 
-# artboard-history
+# Artboard History - Sketch plugin
 
 Switch faster between your latest used Artboards inside Sketch
 
