@@ -253,7 +253,7 @@ export function updateArtboardHistory(context) {
   /////////////////////////
 
   var artboardHistory = getSavedSetting("ArtboardHistory")
-  artboardHistory.documents[0].storedHistory.push("Hola");
+  artboardHistory.documents[0].storedHistory[0].page = "Hola"
   setSetting("ArtboardHistory", artboardHistory)
 
   //sendErrorMessage(strOldSave)
