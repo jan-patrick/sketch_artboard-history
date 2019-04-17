@@ -318,6 +318,7 @@ export function updateArtboardHistory(context) {
   // save into Settings
   //sendErrorMessage(documentId + documentIndex + newHistoryIndex)
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = artboardHistory.documents[documentIndex].storedHistory.length
+  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].timestamp = getCurrentTime()
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
   setSetting("ArtboardHistory", artboardHistory)
