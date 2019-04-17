@@ -2,6 +2,7 @@ import sketch from 'sketch'
 var UI = require('sketch/ui')
 var util = require('util')
 var Settings = require('sketch/settings')
+const timeToSaveArtboardHistory = 604800000 // in millis (week for now)
 
 
 
@@ -147,6 +148,7 @@ function checkIfArtboardHistoryAlreadySaved() {
       id: 42,
       documents: [{
         id: "documentId",
+        timestamp: getCurrentTime(),
         lastHistoryIndex : -1,
         storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
       }]
@@ -181,6 +183,19 @@ export function setZoomSetting() {
     //sendMessageToBottom(getSavedSetting("ArtboardHistoryZoom"))
     sendErrorMessage(String(getDocumentsArtboardHistory(getSavedSetting("ArtboardHistory"),"documentId")))
   })
+}
+
+function getCurrentTime() {
+  return Date.now()
+}
+
+function getIfStillInIntervall(millisOutOfSavedTimestamp) {
+  var t = getCurrentTime()
+  t -= timeToSaveArtboardHistory
+  if (t >= millisOutOfSavedTimestamp) {
+    return false
+  }
+  return true
 }
 
 export function updateArtboardHistory(context) {
@@ -289,6 +304,7 @@ export function updateArtboardHistory(context) {
     documentIndex = artboardHistory.documents.length
     artboardHistory.documents.push({
       id: documentId,
+      timestamp: getCurrentTime(),
       lastHistoryIndex : -1,
       storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
     })
