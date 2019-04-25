@@ -130,7 +130,7 @@ function getDocumentsArtboardHistory(artboardHistory, documentId) {
 function getDocumentsIndexById(artboardHistory, documentId) {
   for (var i = 0; i < artboardHistory.documents.length; i++) {
       if (documentId === artboardHistory.documents[i].id) {
-        return artboardHistory.documents[i]
+        return i
       }
   }
   return false
@@ -146,12 +146,7 @@ function checkIfArtboardHistoryAlreadySaved() {
   if (typeof a != "object") {
     var artboardHistory = {
       id: 42,
-      documents: [{
-        id: "documentId",
-        timestamp: getCurrentTime(),
-        lastHistoryIndex : -1,
-        storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
-      }]
+      documents: []
     }
     setSetting("ArtboardHistory", artboardHistory)
   }
@@ -313,12 +308,17 @@ export function updateArtboardHistory(context) {
         //storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
+    newHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length
+    artboardHistory.documents[documentIndex].storedHistory.push({ id: newHistoryIndex, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
+    //artboardHistory.documents[documentIndex].storedHistory.push({ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
   }
 
   // save into Settings
   //sendErrorMessage(documentId + documentIndex + newHistoryIndex)
-  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = artboardHistory.documents[documentIndex].storedHistory.length
-  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].timestamp = getCurrentTime()
+  //sendErrorMessage(newHistoryIndex)
+  this.splice( index, 0, item )
+  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = newHistoryIndex
+  artboardHistory.documents[documentIndex].timestamp = getCurrentTime()
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
   setSetting("ArtboardHistory", artboardHistory)

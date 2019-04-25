@@ -12,21 +12,22 @@
   "suppliesData": false,
   "commands": [
     {
+      "name": "Go to Last Artboard",
       "identifier": "ArtboardHistory_goToLastArtboard",
       "script": "commands.js",
       "shortcut": "cmd alt a",
       "handler": "goToLastArtboard",
-      "description": "Go to the Last Artboard.",
       "icon": "icons/goBackinArtboardHistory.png",
-      "name": "Go to Last Artboard"
+      "iconDark": "icons/goBackinArtboardHistoryDark.png",
+      "description": "Go to the Last Artboard."
     },
     {
       "identifier": "ArtboardHistory_showSelectedLayerInfo",
       "script": "commands.js",
       "shortcut": "cmd alt l",
       "handler": "showSelectedLayerInfo",
-      "description": "Get info about one selected layer.",
-      "icon": "icons/showSelectedLayerInfo.png",
+      "icon": "icons/goBackinArtboardHistory.png",
+      "iconDark": "icons/iconRunnerDark.png",
       "name": "DEV info"
     },
     {
@@ -35,7 +36,8 @@
       "shortcut": "cmd alt p",
       "handler": "showSavedArtboardHistory",
       "description": "Show the saved Artboard History.",
-      "icon": "icons/showSelectedLayerInfo.png",
+      "icon": "icons/goBackinArtboardHistory.png",
+      "iconDark": "icons/iconRunnerDark.png",
       "name": "Show the saved Artboard History"
     },
     {
@@ -44,7 +46,8 @@
       "shortcut": "cmd alt m",
       "handler": "setZoomSetting",
       "description": "Set if zoom to Artboard or not.",
-      "icon": "icons/showSelectedLayerInfo.png",
+      "icon": "goBackinArtboardHistory.png",
+      "iconDark": "goBackinArtboardHistoryDark.png",
       "name": "Set if zoom to Artboard or not"
     },
     {
@@ -63,7 +66,8 @@
       "shortcut": "cmd alt r",
       "handler": "resetAllSetSettings",
       "description": "Clear all saved data in Settings.",
-      "icon": "icons/showSelectedLayerInfo.png",
+      "icon": "icons/goBackinArtboardHistory.png",
+      "iconDark": "icons/goBackinArtboardHistoryDark.png",
       "name": "Clear all saved data in Settings"
     },
     {
