@@ -1,8 +1,9 @@
-<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/iconGitHubReadMe.png">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icon.png">
+</p>
+<h1 align="center"> Artboard History - Sketch plugin </h1>
 
-# Artboard History - Sketch plugin
-
-Switch faster between your latest used Artboards inside Sketch
+<h6 align="center"> Switch faster between your latest used Artboards inside Sketch.</h6>
 
 Limitations (for now):
 - Switch between two Artboards (opt + cmd + a), can be done infinitely.
@@ -24,11 +25,19 @@ With Sketch Runner, just go to the `install` command and search for `Artboard Hi
 <br/><br/><a href="http://bit.ly/SketchRunnerWebsite"><img src="http://bit.ly/RunnerBadgeBlue" width=140></a>
 
 ## History Structure (in DEV for now)
-<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/artboardHistory_object.png">
+```javascript
+var artboardHistory = {
+  id: 42,
+  documents: [{
+    id: "documentId",
+    timestamp: Date.now(),
+    lastHistoryIndex: -1,
+    storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "artboardId1" },
+                    { id: 1, page: "pageIdOfArtboard2", artboard: "artboardId2" }] 
+  }]
+}
+```
 
-## skpm (for development)
+##### skpm (for development)
 
 _This plugin was created using `skpm`. For a detailed explanation on how things work, checkout the [skpm Readme](https://github.com/skpm/skpm/blob/master/README.md)._
-
-### terminal commands for development
-<img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/terminal_commands.png">
