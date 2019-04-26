@@ -22,12 +22,20 @@
       "description": "Go to the Last Artboard."
     },
     {
+      "name": "Go to Next Artboard",
+      "identifier": "ArtboardHistory_goToNextArtboard",
+      "script": "commands.js",
+      "shortcut": "cmd alt h",
+      "handler": "goToLastArtboard",
+      "icon": "icons/goForeinArtboardHistory.png",
+      "iconDark": "icons/goForeinArtboardHistoryDark.png",
+      "description": "Go to the Last Artboard."
+    },
+    {
       "identifier": "ArtboardHistory_showSelectedLayerInfo",
       "script": "commands.js",
       "shortcut": "cmd alt l",
       "handler": "showSelectedLayerInfo",
-      "icon": "icons/goBackinArtboardHistory.png",
-      "iconDark": "icons/iconRunnerDark.png",
       "name": "DEV info"
     },
     {
@@ -36,19 +44,19 @@
       "shortcut": "cmd alt p",
       "handler": "showSavedArtboardHistory",
       "description": "Show the saved Artboard History.",
-      "icon": "icons/goBackinArtboardHistory.png",
-      "iconDark": "icons/iconRunnerDark.png",
-      "name": "Show the saved Artboard History"
+      "icon": "icons/showArtboardHistory.png",
+      "iconDark": "icons/showArtboardHistoryDark.png",
+      "name": "Show the Saved Artboard History"
     },
     {
       "identifier": "ArtboardHistory_setZoomSetting",
       "script": "commands.js",
       "shortcut": "cmd alt m",
       "handler": "setZoomSetting",
-      "description": "Set if zoom to Artboard or not.",
-      "icon": "goBackinArtboardHistory.png",
-      "iconDark": "goBackinArtboardHistoryDark.png",
-      "name": "Set if zoom to Artboard or not"
+      "description": "Set if Zoom to Artboard or not.",
+      "icon": "icons/setZoomArtboardHistory.png",
+      "iconDark": "icons/setZoomArtboardHistoryDark.png",
+      "name": "Set if Zoom to Artboard or not"
     },
     {
       "script": "commands.js",
@@ -66,8 +74,8 @@
       "shortcut": "cmd alt r",
       "handler": "resetAllSetSettings",
       "description": "Clear all saved data in Settings.",
-      "icon": "icons/goBackinArtboardHistory.png",
-      "iconDark": "icons/goBackinArtboardHistoryDark.png",
+      "icon": "icons/resetArtboardHistory.png",
+      "iconDark": "icons/resetArtboardHistoryDark.png",
       "name": "Clear all saved data in Settings"
     },
     {
@@ -85,6 +93,7 @@
     "title": "Artboard History",
     "items": [
       "ArtboardHistory_goToLastArtboard", 
+      "ArtboardHistory_goToNextArtboard",
       "ArtboardHistory_setZoomSetting",
       "ArtboardHistory_ResetAllSettings",
       "ArtboardHistory_showSavedArtboardHistory"
