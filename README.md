@@ -14,7 +14,7 @@ Feel free to create an [issue](https://github.com/jan-patrick/sketch_artboard-hi
 Shortcut:
 opt (⌥) + cmd (⇧) + a (A)
 
-## Install
+## :arrow_down: Install
 1. Download the [latest release](https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip).
 2. Unzip the file
 3. Double click on the file
@@ -24,7 +24,7 @@ opt (⌥) + cmd (⇧) + a (A)
 With Sketch Runner, just go to the `install` command and search for `Artboard History`. Runner allows you to manage plugins and do much more to speed up your workflow in Sketch. [Download Runner here](http://www.sketchrunner.com).
 <br/><br/><a href="http://bit.ly/SketchRunnerWebsite"><img src="http://bit.ly/RunnerBadgeBlue" width=140></a>
 
-## History Structure (in DEV for now)
+## :construction: History Structure 
 ```javascript
 var artboardHistory = {
   id: 42,
@@ -38,6 +38,6 @@ var artboardHistory = {
 }
 ```
 
-##### skpm (for development)
+#### :computer: skpm
 
 _This plugin was created using `skpm`. For a detailed explanation on how things work, checkout the [skpm Readme](https://github.com/skpm/skpm/blob/master/README.md)._
