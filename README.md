@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/github/release/jan-patrick/sketch_artboard-history.svg">
   <img src="https://img.shields.io/github/release-date/jan-patrick/sketch_artboard-history.svg">
   <img src="https://img.shields.io/github/issues/jan-patrick/sketch_artboard-history.svg">
-  <img src="https://img.shields.io/badge/Runner%20Pro%20compatibile-Yes-brightgreen.svg">
+  <img src="https://img.shields.io/badge/Runner%20Pro%20compatible-Yes-brightgreen.svg">
   </a>
 </p>
 
