@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/badge/compatible%20Sketch%20version-54.1-brightgreen.svg">
   </a>
   <a href="https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip">
-    <img src="https://img.shields.io/github/downloads/jan-patrick/sketch_artboard-history/total.svg">
+    <img src="https://img.shields.io/github/downloads/jan-patrick/sketch_artboard-history/total.svg?color=brightgreen">
     <img src="https://img.shields.io/github/release/jan-patrick/sketch_artboard-history.svg">
     <img src="https://img.shields.io/github/release-date/jan-patrick/sketch_artboard-history.svg">
   </a>
