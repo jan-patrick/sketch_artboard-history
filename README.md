@@ -8,7 +8,7 @@
 ## Functions
 <table style="width:100%">
   <tr>
-	  <th></th>
+    <th></th>
     <th>Go Back in Artboard History</th>
     <th>Go Forward in Artboard History</th> 
     <th>Show saved History</th>
@@ -16,20 +16,28 @@
     <th>Reset complete History</th>
   </tr>
   <tr>
-    <td>Runner icon</td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goBackinArtboardHistory.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistory.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistory.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setZoomArtboardHistory.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/resetArtboardHistory.png"></td>
+    <td>Status</td>
+    <td>✅</td>
+    <td>🚧</td>
+    <td>🚧</td>
+    <td>🚧</td>
+    <td>🚧</td>
   </tr>
   <tr>
+    <td>Runner icon</td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goBackinArtboardHistory.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistory.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistory.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setZoomArtboardHistory.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/resetArtboardHistory.png"></p></td>
+  </tr>
+  <tr style="background-color: #000000">
     <td>Runner icon dark</td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goBackinArtboardHistoryDark.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistoryDark.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistoryDark.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setZoomArtboardHistoryDark.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/resetArtboardHistoryDark.png"></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goBackinArtboardHistoryDark.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistoryDark.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistoryDark.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setZoomArtboardHistoryDark.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/resetArtboardHistoryDark.png"></p></td>
   </tr>
   <tr>
     <td>Shortcut</td>
