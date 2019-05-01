@@ -5,7 +5,43 @@
 
 <h6 align="center"> Switch faster between your latest used Artboards inside Sketch.</h6>
 
-Limitations (for now):
+## Functions
+<table style="width:100%">
+  <tr>
+	  <th></th>
+    <th>Go Back in Artboard History</th>
+    <th>Go Forward in Artboard History</th> 
+    <th>Show saved History</th>
+    <th>Zoom On / Off</th>
+    <th>Reset complete History</th>
+  </tr>
+  <tr>
+    <td>Runner icon</td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goBackinArtboardHistory.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistory.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistory.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setZoomArtboardHistory.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/resetArtboardHistory.png"></td>
+  </tr>
+  <tr>
+    <td>Runner icon dark</td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goBackinArtboardHistoryDark.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistoryDark.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistoryDark.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setZoomArtboardHistoryDark.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/resetArtboardHistoryDark.png"></td>
+  </tr>
+  <tr>
+    <td>Shortcut</td>
+    <td>⌥ + ⇧ + A</td>
+    <td>-</td>
+    <td>⌥ + ⇧ + P</td>
+    <td>⌥ + ⇧ + M</td>
+    <td>⌥ + ⇧ + R</td>
+  </tr>
+</table>
+
+## Limitations (for now):
 - Switch between two Artboards (opt + cmd + a), can be done infinitely.
 - only works within one document (the history is overwritten when opening another document / works with the current used document only).
 
@@ -27,7 +63,7 @@ With Sketch Runner, just go to the `install` command and search for `Artboard Hi
 ## :construction: History Structure 
 ```javascript
 var artboardHistory = {
-  id: 42,
+  zoom: true,
   documents: [{
     id: "documentId",
     timestamp: Date.now(),
