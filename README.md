@@ -24,7 +24,7 @@
 
 <p align="center">
   <a href="https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip">
-    <img src="https://img.shields.io/badge/download%20now-important.svg" width="175">
+    <img src="https://img.shields.io/badge/download%20now-blue.svg" width="175">
   </a>
 
 ## Functions
