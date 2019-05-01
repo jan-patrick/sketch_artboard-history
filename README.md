@@ -9,8 +9,8 @@
 <table style="width:100%">
   <tr>
     <th></th>
-    <th>Go Back in Artboard History</th>
-    <th>Go Forward in Artboard History</th> 
+    <th>Go Back</th>
+    <th>Go Forward</th> 
     <th>Show saved History</th>
     <th>Zoom On / Off</th>
     <th>Reset complete History</th>
