@@ -7,7 +7,7 @@ const timeToSaveArtboardHistory = 604800000 // in millis (week for now)
 
 
 function sendErrorMessage(dataError) {
-  UI.alert('what I got:', String(dataError))
+  UI.alert('Artboard History', String(dataError))
 }
 
 function sendMessageToBottom(dataBottom) {
@@ -36,7 +36,16 @@ export function goToLastArtboard(context) {
 }
 
 export function showSavedArtboardHistory(context) {
-  sendErrorMessage(getSavedSetting("lastArtboard") + "\n+++\n" + getSavedSetting("actualArtboard") + "\n###\n" + objectToJson(getSavedSetting("ArtboardHistory")))
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  sendErrorMessage(
+    "Zoom to Artboard: " + artboardHistory.zoom 
+    + "\n\n" +
+    "previous Artboard id: " + getSavedSetting("lastArtboard") 
+    + "\n\n" +
+    "current Artboard id: " + getSavedSetting("actualArtboard") 
+    + "\n\n" +
+    objectToJson(artboardHistory)
+    )
 
   // DEV
   //Settings.setSettingForKey("lastArtboard", "7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68.279186E2-B68A-4D87-8ACE-AA0235421B7B")
@@ -289,7 +298,6 @@ export function updateArtboardHistory(context) {
   }
 
   // organize ArtboardHistory
-
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var documentId = getDocumentId()
   var documentIndex = 0
@@ -316,7 +324,6 @@ export function updateArtboardHistory(context) {
   // save into Settings
   //sendErrorMessage(documentId + documentIndex + newHistoryIndex)
   //sendErrorMessage(newHistoryIndex)
-  this.splice( index, 0, item )
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = newHistoryIndex
   artboardHistory.documents[documentIndex].timestamp = getCurrentTime()
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
