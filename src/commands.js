@@ -37,15 +37,29 @@ export function goToLastArtboard(context) {
 
 export function showSavedArtboardHistory(context) {
   var artboardHistory = getSavedSetting("ArtboardHistory")
+  var string = ""
+  for (var i = 0; i < artboardHistory.documents.length; i++) {
+    string += i+1 + ".\n" +"Document id: " + artboardHistory.documents[i].id + "\n" +
+      "Last used: " + Date(artboardHistory.documents[i].timestamp) + "\n\n" + 
+      "Artboard ids:" + "\n" 
+    for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
+      string += artboardHistory.documents[i].storedHistory[j].artboard + "\n"
+      if(j===artboardHistory.documents[i].storedHistory.length-1) {
+        string += "\n\n"
+      }
+    }
+  }
   sendErrorMessage(
-    "Zoom to Artboard: " + artboardHistory.zoom 
+    "Zoom to Artboard: " + artboardHistory.zoom
     + "\n\n" +
-    "previous Artboard id: " + getSavedSetting("lastArtboard") 
+    "previous Artboard id: " + getSavedSetting("lastArtboard")
     + "\n\n" +
-    "current Artboard id: " + getSavedSetting("actualArtboard") 
+    "current Artboard id: " + getSavedSetting("actualArtboard")
     + "\n\n" +
-    objectToJson(artboardHistory)
-    )
+    string
+    //+ "\n\n" +
+    //objectToJson(artboardHistory)
+  )
 
   // DEV
   //Settings.setSettingForKey("lastArtboard", "7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68.279186E2-B68A-4D87-8ACE-AA0235421B7B")
@@ -129,18 +143,18 @@ function getDocumentId() {
 
 function getDocumentsArtboardHistory(artboardHistory, documentId) {
   for (var i = 0; i < artboardHistory.documents.length; i++) {
-      if (documentId === artboardHistory.documents[i].id) {
-        return artboardHistory.documents[i].storedHistory
-      }
+    if (documentId === artboardHistory.documents[i].id) {
+      return artboardHistory.documents[i].storedHistory
+    }
   }
   return false
 }
 
 function getDocumentsIndexById(artboardHistory, documentId) {
   for (var i = 0; i < artboardHistory.documents.length; i++) {
-      if (documentId === artboardHistory.documents[i].id) {
-        return i
-      }
+    if (documentId === artboardHistory.documents[i].id) {
+      return i
+    }
   }
   return false
 }
@@ -185,7 +199,7 @@ export function setZoomSetting() {
     }
     setSetting("ArtboardHistoryZoom", artboardZoomVar)
     //sendMessageToBottom(getSavedSetting("ArtboardHistoryZoom"))
-    sendErrorMessage(String(getDocumentsArtboardHistory(getSavedSetting("ArtboardHistory"),"documentId")))
+    sendErrorMessage(String(getDocumentsArtboardHistory(getSavedSetting("ArtboardHistory"), "documentId")))
   })
 }
 
@@ -303,22 +317,21 @@ export function updateArtboardHistory(context) {
   var documentIndex = 0
   var newHistoryIndex = 0
   var previousHistoryinDoc = getDocumentsArtboardHistory(artboardHistory, documentId)
-  if(false === previousHistoryinDoc) {
+  if (false === previousHistoryinDoc) {
     documentIndex = artboardHistory.documents.length
     artboardHistory.documents.push({
       id: documentId,
       timestamp: getCurrentTime(),
-      lastHistoryIndex : -1,
+      lastHistoryIndex: -1,
       storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
     })
     artboardHistory.documents[documentIndex].id = documentId
     //sendErrorMessage(objectToJson(artboardHistory))
-        //storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
+    //storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
     newHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length
     artboardHistory.documents[documentIndex].storedHistory.push({ id: newHistoryIndex, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
-    //artboardHistory.documents[documentIndex].storedHistory.push({ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
   }
 
   // save into Settings
