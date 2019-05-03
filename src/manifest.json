@@ -43,20 +43,20 @@
       "script": "commands.js",
       "shortcut": "cmd alt p",
       "handler": "showSavedArtboardHistory",
-      "description": "Show the saved Artboard History.",
+      "description": "Get an overview of your local saved Artboard History.",
       "icon": "icons/showArtboardHistory.png",
       "iconDark": "icons/showArtboardHistoryDark.png",
-      "name": "Get an overview of your local saved Artboard History."
+      "name": "Show Artboard History"
     },
     {
       "identifier": "ArtboardHistory_setZoomSetting",
       "script": "commands.js",
       "shortcut": "cmd alt m",
       "handler": "setZoomSetting",
-      "description": "Set if Zoom to Artboard or not.",
+      "description": "When changing the Artboard the plugin can zoom to the Artboard or not - depending on your decision.",
       "icon": "icons/setZoomArtboardHistory.png",
       "iconDark": "icons/setZoomArtboardHistoryDark.png",
-      "name": "When changing the Artboard the plugin can zoom to the Artboard or not - depending on your decision."
+      "name": "Set if Zoom to Artboard"
     },
     {
       "script": "commands.js",
@@ -73,10 +73,10 @@
       "script": "commands.js",
       "shortcut": "cmd alt r",
       "handler": "resetAllSetSettings",
-      "description": "Clear all saved data in Settings.",
+      "description": "Resets the saved data of your Artboard Setting.",
       "icon": "icons/resetArtboardHistory.png",
       "iconDark": "icons/resetArtboardHistoryDark.png",
-      "name": "Resets the saved data of your Artboard Setting."
+      "name": "Reset Artboard History"
     },
     {
       "script": "commands.js",
@@ -94,9 +94,10 @@
     "items": [
       "ArtboardHistory_goToLastArtboard", 
       "ArtboardHistory_goToNextArtboard",
+      "-",
+      "ArtboardHistory_showSavedArtboardHistory",
       "ArtboardHistory_setZoomSetting",
-      "ArtboardHistory_ResetAllSettings",
-      "ArtboardHistory_showSavedArtboardHistory"
+      "ArtboardHistory_ResetAllSettings"
     ]
   }
 }
