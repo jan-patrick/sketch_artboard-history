@@ -19,7 +19,7 @@
       "handler": "goToLastArtboard",
       "icon": "icons/goBackinArtboardHistory.png",
       "iconDark": "icons/goBackinArtboardHistoryDark.png",
-      "description": "Go to the Last Artboard."
+      "description": "Go one step back in Artboard History."
     },
     {
       "name": "Go to Next Artboard",
@@ -29,7 +29,7 @@
       "handler": "goToLastArtboard",
       "icon": "icons/goForeinArtboardHistory.png",
       "iconDark": "icons/goForeinArtboardHistoryDark.png",
-      "description": "Go to the Last Artboard."
+      "description": "Go one step fore in Artboard History."
     },
     {
       "identifier": "ArtboardHistory_showSelectedLayerInfo",
@@ -46,7 +46,7 @@
       "description": "Show the saved Artboard History.",
       "icon": "icons/showArtboardHistory.png",
       "iconDark": "icons/showArtboardHistoryDark.png",
-      "name": "Show the Saved Artboard History"
+      "name": "Get an overview of your local saved Artboard History."
     },
     {
       "identifier": "ArtboardHistory_setZoomSetting",
@@ -56,7 +56,7 @@
       "description": "Set if Zoom to Artboard or not.",
       "icon": "icons/setZoomArtboardHistory.png",
       "iconDark": "icons/setZoomArtboardHistoryDark.png",
-      "name": "Set if Zoom to Artboard or not"
+      "name": "When changing the Artboard the plugin can zoom to the Artboard or not - depending on your decision."
     },
     {
       "script": "commands.js",
@@ -76,7 +76,7 @@
       "description": "Clear all saved data in Settings.",
       "icon": "icons/resetArtboardHistory.png",
       "iconDark": "icons/resetArtboardHistoryDark.png",
-      "name": "Clear all saved data in Settings"
+      "name": "Resets the saved data of your Artboard Setting."
     },
     {
       "script": "commands.js",
