@@ -130,15 +130,7 @@ export function resetAllSetSettings() {
   setSetting("lastArtboard", "")
   setSetting("actualArtboard", "")
   setSetting("ArtboardHistory", "")
-  setSetting("ArtboardHistoryZoom", "")
   sendMessageToBottom("Everything resetted. Hopefully 😇")
-}
-
-function checkIfZoomSettingSet() {
-  var z = getSavedSetting("ArtboardHistoryZoom")
-  if (typeof z != "boolean") {
-    setSetting("ArtboardHistoryZoom", true)
-  }
 }
 
 function getDocumentId() {
@@ -166,7 +158,6 @@ function getDocumentsIndexById(artboardHistory, documentId) {
 }
 
 export function checkIfAllThisExists() {
-  checkIfZoomSettingSet()
   checkIfArtboardHistoryAlreadySaved()
 }
 
@@ -188,24 +179,22 @@ function objectToJson(obj) {
 }
 
 export function setZoomSetting() {
-  var artboardZoomVar = getSavedSetting("ArtboardHistoryZoom")
-  UI.getInputFromUser("Zoom to Artboard when using this plugin?", {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  UI.getInputFromUser("Zoom to Artboard?", {
+    description: "When using the Artboard History of this plugin.",
     type: UI.INPUT_TYPE.selection,
-    possibleValues: [artboardZoomVar === true ? 'Yes' : 'No', artboardZoomVar === true ? 'No' : 'Yes']
+    possibleValues: [artboardHistory.zoom === true ? 'Yes' : 'No', artboardHistory.zoom === true ? 'No' : 'Yes']
   }, (err, value) => {
     if (err) {
       // most likely the user canceled the input
       return
     }
-    artboardZoomVar
     if ("Yes" === value) {
-      artboardZoomVar = true
+      artboardHistory.zoom = true
     } else {
-      artboardZoomVar = false
+      artboardHistory.zoom = false
     }
-    setSetting("ArtboardHistoryZoom", artboardZoomVar)
-    //sendMessageToBottom(getSavedSetting("ArtboardHistoryZoom"))
-    sendErrorMessage(String(getDocumentsArtboardHistory(getSavedSetting("ArtboardHistory"), "documentId")))
+    setSetting("ArtboardHistory", artboardHistory)
   })
 }
 
