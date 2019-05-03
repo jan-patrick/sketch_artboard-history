@@ -130,6 +130,7 @@ export function resetAllSetSettings() {
   setSetting("lastArtboard", "")
   setSetting("actualArtboard", "")
   setSetting("ArtboardHistory", "")
+  newArtboardHistoryObject()
   sendMessageToBottom("Everything resetted. Hopefully 😇")
 }
 
@@ -161,14 +162,18 @@ export function checkIfAllThisExists() {
   checkIfArtboardHistoryAlreadySaved()
 }
 
+function newArtboardHistoryObject() {
+  var artboardHistory = {
+    zoom: true,
+    documents: []
+  }
+  setSetting("ArtboardHistory", artboardHistory)
+}
+
 function checkIfArtboardHistoryAlreadySaved() {
   var a = getSavedSetting("ArtboardHistory")
   if (typeof a != "object") {
-    var artboardHistory = {
-      zoom: true,
-      documents: []
-    }
-    setSetting("ArtboardHistory", artboardHistory)
+    newArtboardHistoryObject()
   }
   //sendErrorMessage(objectToJson(getSavedSetting("ArtboardHistory")))
 }
