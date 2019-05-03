@@ -55,6 +55,9 @@ export function showSavedArtboardHistory(context) {
       }
     }
   }
+  if(string.length<=1) {
+    string = "No stored Artboard History available."
+  }
   sendErrorMessage(
     "Zoom to Artboard: " + artboardHistory.zoom
     + "\n\n" +
