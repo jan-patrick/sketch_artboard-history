@@ -33,18 +33,24 @@ export function goToLastArtboard(context) {
   layerP.selected = true
   layerA.selected = true
   document.centerOnLayer(layerA)
+  // zoom
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  if (true === artboardHistory.zoom) {
+    document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+  }
 }
 
 export function showSavedArtboardHistory(context) {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var string = ""
   for (var i = 0; i < artboardHistory.documents.length; i++) {
-    string += i+1 + ".\n" +"Document id: " + artboardHistory.documents[i].id + "\n" +
-      "Last used: " + Date(artboardHistory.documents[i].timestamp) + "\n\n" + 
-      "Artboard ids:" + "\n" 
+    string += i + 1 + ".\n" + "Document id: " + artboardHistory.documents[i].id + "\n" +
+      "Last used: " + Date(artboardHistory.documents[i].timestamp) + "\n" +
+      "Last index used: " + artboardHistory.documents[i].lastHistoryIndex + "\n\n" +
+      "Artboard ids:" + "\n"
     for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
       string += artboardHistory.documents[i].storedHistory[j].artboard + "\n"
-      if(j===artboardHistory.documents[i].storedHistory.length-1) {
+      if (j === artboardHistory.documents[i].storedHistory.length - 1) {
         string += "\n\n"
       }
     }
@@ -125,7 +131,7 @@ export function resetAllSetSettings() {
   setSetting("actualArtboard", "")
   setSetting("ArtboardHistory", "")
   setSetting("ArtboardHistoryZoom", "")
-  sendMessageToBottom("everything resetted. Hopefully 😇")
+  sendMessageToBottom("Everything resetted. Hopefully 😇")
 }
 
 function checkIfZoomSettingSet() {
