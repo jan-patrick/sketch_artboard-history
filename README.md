@@ -11,7 +11,7 @@
   </a>
   <a href="https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip">
     <img src="https://img.shields.io/github/downloads/jan-patrick/sketch_artboard-history/total.svg?color=brightgreen">
-    <img src="https://img.shields.io/github/release/jan-patrick/sketch_artboard-history.svg">
+    <img src="https://img.shields.io/github/release/jan-patrick/sketch_artboard-history.svg?color=0279FF">
     <img src="https://img.shields.io/github/release-date/jan-patrick/sketch_artboard-history.svg">
   </a>
   <a href="https://github.com/jan-patrick/sketch_artboard-history/issues">
@@ -24,7 +24,7 @@
 
 <p align="center">
   <a href="https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip">
-    <img src="https://img.shields.io/badge/download%20now-blue.svg" width="175">
+    <img src="https://img.shields.io/badge/download%20now-0279FF.svg" width="175">
   </a>
 
 ## Functions
