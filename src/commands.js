@@ -145,7 +145,7 @@ function checkIfArtboardHistoryAlreadySaved() {
   var a = getSavedSetting("ArtboardHistory")
   if (typeof a != "object") {
     var artboardHistory = {
-      id: 42,
+      zoom: true,
       documents: []
     }
     setSetting("ArtboardHistory", artboardHistory)
