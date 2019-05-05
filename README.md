@@ -39,11 +39,11 @@
   </tr>
   <tr>
     <td>Status</td>
+    <td>✅*</td>
+    <td>❌</td>
     <td>✅</td>
-    <td>🚧</td>
-    <td>🚧</td>
     <td>✅</td>
-    <td>🚧</td>
+    <td>✅</td>
   </tr>
   <tr>
     <td>Runner icon</td>
@@ -71,7 +71,7 @@
   </tr>
 </table>
 
-## Limitations (for now):
+## ‼️*Limitations (for now):
 - Switch between two Artboards (opt + cmd + a), can be done infinitely.
 - only works within one document (the history is overwritten when opening another document / works with the current used document only).
 
