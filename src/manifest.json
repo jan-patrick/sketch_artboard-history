@@ -1,6 +1,6 @@
 {
   "name": "Artboard History",
-  "description": "Get faster to your latest Artboards",
+  "description": "Get faster to your latest Artboards.",
   "author": "Jan Schneider",
   "authorEmail": "hello@jan-patrick.de",
   "homepage": "https://github.com/jan-patrick/sketch_artboard-history",
@@ -30,13 +30,6 @@
       "icon": "icons/goForeinArtboardHistory.png",
       "iconDark": "icons/goForeinArtboardHistoryDark.png",
       "description": "Go one step fore in Artboard History."
-    },
-    {
-      "identifier": "ArtboardHistory_showSelectedLayerInfo",
-      "script": "commands.js",
-      "shortcut": "cmd alt l",
-      "handler": "showSelectedLayerInfo",
-      "name": "DEV info"
     },
     {
       "identifier": "ArtboardHistory_showSavedArtboardHistory",
