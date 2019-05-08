@@ -97,6 +97,7 @@ var artboardHistory = {
   documents: [{
     id: "documentId",
     timestamp: Date.now(),
+    lifetime: 604800000 // in millis (1 week as standard)
     lastHistoryIndex: -1,
     storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "artboardId1" },
                     { id: 1, page: "pageIdOfArtboard2", artboard: "artboardId2" }] 
