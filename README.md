@@ -71,7 +71,7 @@
   </tr>
 </table>
 
-## ‼️*Limitations (for now):
+## ‼️* Limitations (for now):
 - Switch between two Artboards (opt + cmd + a), can be done infinitely.
 - only works within one document (the history is overwritten when opening another document / works with the current used document only).
 
@@ -94,6 +94,7 @@ With Sketch Runner, just go to the `install` command and search for `Artboard Hi
 ```javascript
 var artboardHistory = {
   zoom: true,
+  lifetime: 604800000 // in millis (1 week as standard)
   documents: [{
     id: "documentId",
     timestamp: Date.now(),
@@ -107,3 +108,10 @@ var artboardHistory = {
 #### :computer: skpm
 
 _This plugin was created using `skpm`. For a detailed explanation on how things work, checkout the [skpm Readme](https://github.com/skpm/skpm/blob/master/README.md)._
+
+#### privacy 
+
+This plugin stores your personal Artboard History on your local machine only. You can access this data by using the `Show` command. No data is stored outside your computer and no backup is made. If you reset / delete the stored history via the `Reset` command all data will be overwritten.
+
+#### warranty
+The software is provided "as is", without warranty of any kind.
