@@ -168,6 +168,7 @@ export function checkIfAllThisExists() {
 function newArtboardHistoryObject() {
   var artboardHistory = {
     zoom: true,
+    lifetime: 604800000,
     documents: []
   }
   setSetting("ArtboardHistory", artboardHistory)
