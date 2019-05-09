@@ -207,6 +207,26 @@ export function setZoomSetting() {
   })
 }
 
+export function setLifetimeSetting() {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  UI.getInputFromUser("How long do you want your hisorty be saved?", {
+    description: "When using the Artboard History of this plugin.",
+    type: UI.INPUT_TYPE.selection,
+    possibleValues: [artboardHistory.lifetime === 604800000 ? 'Yes' : 'No', artboardHistory.lifetime === 0 ? 'No' : 'Yes']
+  }, (err, value) => {
+    if (err) {
+      // most likely the user canceled the input
+      return
+    }
+    if ("Yes" === value) {
+      artboardHistory.lifetime = lifetime
+    } else {
+      artboardHistory.lifetime = 0
+    }
+    setSetting("ArtboardHistory", artboardHistory)
+  })
+}
+
 function getCurrentTime() {
   return Date.now()
 }

@@ -52,6 +52,15 @@
       "name": "Set if Zoom to Artboard"
     },
     {
+      "identifier": "ArtboardHistory_setLifetimeSetting",
+      "script": "commands.js",
+      "handler": "setLifetimeSetting",
+      "description": "Set how long your History shall be saved.",
+      "icon": "icons/setZoomArtboardHistory.png",
+      "iconDark": "icons/setZoomArtboardHistoryDark.png",
+      "name": "Set History Lifetime"
+    },
+    {
       "script": "commands.js",
       "name": "Update last Artboard",
       "handlers": {
@@ -90,6 +99,7 @@
       "-",
       "ArtboardHistory_showSavedArtboardHistory",
       "ArtboardHistory_setZoomSetting",
+      "ArtboardHistory_setLifetimeSetting",
       "ArtboardHistory_ResetAllSettings"
     ]
   }
