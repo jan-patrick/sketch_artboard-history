@@ -8,6 +8,7 @@ const possibleDates = [
   { millis: 604800000, description: "1 week" },
   { millis: 2629746000, description: "1 month" },
   { millis: 15778476000, description: "1/2 year" },
+  { millis: 31556952000, description: "1 year" },
   { millis: -1, description: "infinity" },
 ]
 
@@ -182,14 +183,16 @@ export function checkIfAllThisExists() {
 
 function checkIfInLifeTimeSpan() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
-  var timeForComparison = getCurrentTime()
-  for(var i = 0; i < artboardHistory.documents.length; i++) {
-    if(timeForComparison >= artboardHistory.lifetime + artboardHistory.documents[i].timestamp) {
-      artboardHistory.documents.splice(i, 1)
+  if (-1 != artboardHistory.lifetime) {
+    var timeForComparison = getCurrentTime()
+    for (var i = 0; i < artboardHistory.documents.length; i++) {
+      if (timeForComparison >= artboardHistory.lifetime + artboardHistory.documents[i].timestamp) {
+        artboardHistory.documents.splice(i, 1)
+      }
     }
+    setSetting("ArtboardHistory", artboardHistory)
   }
-  setSetting("ArtboardHistory", artboardHistory)
-} 
+}
 
 function newArtboardHistoryObject() {
   var artboardHistory = {
@@ -394,9 +397,9 @@ export function updateArtboardHistory(context) {
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
     newHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length
-    for(var i = 0; i < newHistoryIndex; i++) {
-      if (newP === artboardHistory.documents[documentIndex].storedHistory[i].page){
-        if (newA === artboardHistory.documents[documentIndex].storedHistory[i].artboard){
+    for (var i = 0; i < newHistoryIndex; i++) {
+      if (newP === artboardHistory.documents[documentIndex].storedHistory[i].page) {
+        if (newA === artboardHistory.documents[documentIndex].storedHistory[i].artboard) {
           artboardHistory.documents[documentIndex].storedHistory.splice(i, 1)
           newHistoryIndex--
           sendErrorMessage(newA + " " + artboardHistory.documents[documentIndex].storedHistory[i].id + " " + i)
