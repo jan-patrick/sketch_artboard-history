@@ -35,14 +35,16 @@
     <th>Go Forward</th> 
     <th>Show saved History</th>
     <th>Zoom On / Off</th>
+    <th>Set History lifetime</th>
     <th>Reset complete History</th>
   </tr>
   <tr>
     <td>Status</td>
     <td>✅*</td>
-    <td>❌</td>
+    <td>❌*</td>
     <td>✅</td>
     <td>✅</td>
+    <td>✅*</td>
     <td>✅</td>
   </tr>
   <tr>
@@ -51,6 +53,7 @@
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistory.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistory.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setZoomArtboardHistory.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setLifetimeHistory.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/resetArtboardHistory.png"></p></td>
   </tr>
   <tr style="background-color: #000000">
@@ -59,6 +62,7 @@
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistoryDark.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistoryDark.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setZoomArtboardHistoryDark.png"></p></td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/setLifetimeHistoryDark.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/resetArtboardHistoryDark.png"></p></td>
   </tr>
   <tr>
@@ -67,6 +71,7 @@
     <td>-</td>
     <td>⌥ + ⇧ + P</td>
     <td>⌥ + ⇧ + M</td>
+    <td>-</td>
     <td>⌥ + ⇧ + R</td>
   </tr>
 </table>
