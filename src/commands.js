@@ -192,7 +192,7 @@ function objectToJson(obj) {
 export function setZoomSetting() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   UI.getInputFromUser("Zoom to Artboard?", {
-    description: "When using the Artboard History of this plugin.",
+    description: "When using the Artboard History plugin.",
     type: UI.INPUT_TYPE.selection,
     possibleValues: [artboardHistory.zoom === true ? 'Yes' : 'No', artboardHistory.zoom === true ? 'No' : 'Yes']
   }, (err, value) => {
@@ -248,7 +248,7 @@ export function setLifetimeSetting() {
   }  
 
   UI.getInputFromUser("How long do you want your Artboard History to be saved?", {
-    description: "When using the Artboard History of this plugin.",
+    description: "The time span the History is saved after using a document.",
     type: UI.INPUT_TYPE.selection,
     possibleValues: datesInOrderToPrint
   }, (err, value) => {
