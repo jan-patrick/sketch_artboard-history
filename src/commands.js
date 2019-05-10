@@ -194,7 +194,7 @@ function checkIfInLifeTimeSpan() {
 function newArtboardHistoryObject() {
   var artboardHistory = {
     zoom: true,
-    lifetime: 604800000,
+    lifetime: 2629746000, // 1 month as standard
     documents: []
   }
   setSetting("ArtboardHistory", artboardHistory)
