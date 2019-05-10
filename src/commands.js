@@ -207,9 +207,23 @@ export function setZoomSetting() {
   })
 }
 
+function getMillisDateAsString(millis) {
+  var date = new Date(millis);
+  return date.toString()
+}
+
 export function setLifetimeSetting() {
+  var possibleDates = {
+    0: 0,             // refresh with every restart
+    1: 86400000,      // 1 day
+    2: 604800000,     // 1 week
+    3: 2629746000,    // 1 month
+    4: 15778476000,   // 0.5 year
+    5: -1,            // infinity
+  }
+  
   var artboardHistory = getSavedSetting("ArtboardHistory")
-  UI.getInputFromUser("How long do you want your hisorty be saved?", {
+  UI.getInputFromUser("How long do you want your Artboard History to be saved?", {
     description: "When using the Artboard History of this plugin.",
     type: UI.INPUT_TYPE.selection,
     possibleValues: [artboardHistory.lifetime === 604800000 ? 'Yes' : 'No', artboardHistory.lifetime === 0 ? 'No' : 'Yes']
