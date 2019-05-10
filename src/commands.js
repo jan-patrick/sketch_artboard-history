@@ -80,8 +80,8 @@ export function showSavedArtboardHistory(context) {
     "current Artboard id: " + getSavedSetting("actualArtboard")
     + "\n\n" +
     string
-    //+ "\n\n" +
-    //objectToJson(artboardHistory)
+    + "\n\n" +
+    objectToJson(artboardHistory)
   )
 
   // DEV
@@ -394,8 +394,20 @@ export function updateArtboardHistory(context) {
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
     newHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length
+    for(var i = 0; i < newHistoryIndex; i++) {
+      if (newP === artboardHistory.documents[documentIndex].storedHistory[i].page){
+        if (newA === artboardHistory.documents[documentIndex].storedHistory[i].artboard){
+          artboardHistory.documents[documentIndex].storedHistory.splice(i, 1)
+          newHistoryIndex--
+          sendErrorMessage(newA + " " + artboardHistory.documents[documentIndex].storedHistory[i].id + " " + i)
+        }
+      }
+      sendErrorMessage(i + "-" + newHistoryIndex)
+    }
+    sendErrorMessage("ho")
     artboardHistory.documents[documentIndex].storedHistory.push({ id: newHistoryIndex, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
   }
+  sendErrorMessage("hi")
 
   // save into Settings
   //sendErrorMessage(documentId + documentIndex + newHistoryIndex)
