@@ -21,19 +21,44 @@ function sendMessageToBottom(dataBottom) {
   UI.message(String(dataBottom))
 }
 export function goToLastArtboard(context) {
-  var lastArtboardSaved = getSavedSetting("lastArtboard")
+  //var lastArtboardSaved = getSavedSetting("lastArtboard")
+  //var artboardHistory = getSavedSetting("ArtboardHistory")
+  //if (lastArtboardSaved.indexOf(".") < 1) {
+  //  lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
+  //}
+  //var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
+  //var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
+  //lastArtboardSavedA = lastArtboardSavedA.replace(".", "")
+  //lastArtboardSavedP = lastArtboardSavedP.replace(".", "")
+
   var artboardHistory = getSavedSetting("ArtboardHistory")
-  if (lastArtboardSaved.indexOf(".") < 1) {
-    lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
+  var documentId = getDocumentId()
+  var lastArtboardSavedP = ""
+  var lastArtboardSavedA = "" 
+  for (var l = 0; l < artboardHistory.documents.length; l++) {
+    if (documentId === artboardHistory.documents[l].id) {
+      if(-1 === artboardHistory.documents[l].lastHistoryIndex) {
+        var firstStoredHistoryId = -2
+        for(var m = 0; m < artboardHistory.documents[l].storedHistory.length; m ++){
+          if(firstStoredHistoryId <= artboardHistory.documents[l].storedHistory[m].id) {
+            firstStoredHistoryId = artboardHistory.documents[l].storedHistory[m].id
+          }
+        }
+        artboardHistory.documents[l].lastHistoryIndex = firstStoredHistoryId
+      }
+      var previousArtboardTime = 0
+
+      for(var o = 0; o < artboardHistory.documents[l].storedHistory.length; o ++){
+        if(previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id && artboardHistory.documents[l].lastHistoryIndex > artboardHistory.documents[l].storedHistory[o].id) {
+          previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
+          lastArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
+          lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
+          //sendErrorMessage(previousArtboardTime)
+        }
+      }
+    artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
+    }
   }
-  //setSetting("lastArtboard", getSavedSetting("actualArtboard"))
-  //setSetting("actualArtboard", lastArtboardSaved)
-  var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
-  var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
-  lastArtboardSavedA = lastArtboardSavedA.replace(".", "")
-  lastArtboardSavedP = lastArtboardSavedP.replace(".", "")
-  //lastArtboardSavedA = lastArtboardSavedA.substring(lastArtboardSavedA.indexOf(".") + 1)
-  //actualArtboardSavedA = actualArtboardSavedA.substring(actualArtboardSavedA.indexOf(".") + 1)
   var document = require('sketch/dom').getSelectedDocument()
   var layerP = document.getLayerWithID(lastArtboardSavedP)
   var layerA = document.getLayerWithID(lastArtboardSavedA)
@@ -45,6 +70,7 @@ export function goToLastArtboard(context) {
   if (true === artboardHistory.zoom) {
     document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
   }
+  setSetting("ArtboardHistory", artboardHistory)
 }
 
 export function showSavedArtboardHistory(context) {
@@ -418,6 +444,6 @@ export function updateArtboardHistory(context) {
   setSetting("ArtboardHistory", artboardHistory)
 
   //sendErrorMessage(strOldSave)
-  sendErrorMessage(objectToJson(artboardHistory))
+  //sendErrorMessage(objectToJson(artboardHistory))
   //sendErrorMessage(context)
 }
