@@ -226,14 +226,28 @@ export function setLifetimeSetting() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   for (var i = 0; i < possibleDates.length; i++) {
     if (artboardHistory.lifetime === possibleDates[i].millis) {
-      sendErrorMessage(possibleDates[i].description)
+      var c = i
     }
   }
+  var datesInOrderToPrint = []
+  while (datesInOrderToPrint.length <= possibleDates.length) {
+    if (c >= possibleDates.length) {
+      c = 0
+    }
+    datesInOrderToPrint.push(possibleDates[c].description)
+    c++
+  }
+
+  var tr = ""
+  for(var t = 0; t < datesInOrderToPrint.length; t++) {
+    tr += "\n\n" + datesInOrderToPrint[t]
+  }  
+  sendErrorMessage(tr)
 
   UI.getInputFromUser("How long do you want your Artboard History to be saved?", {
     description: "When using the Artboard History of this plugin.",
     type: UI.INPUT_TYPE.selection,
-    possibleValues: [artboardHistory.lifetime === 604800000 ? 'Yes' : 'No', artboardHistory.lifetime === 0 ? 'No' : 'Yes']
+    possibleValues: datesInOrderToPrint
   }, (err, value) => {
     if (err) {
       // most likely the user canceled the input
