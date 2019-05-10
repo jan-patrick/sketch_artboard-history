@@ -56,8 +56,8 @@
       "script": "commands.js",
       "handler": "setLifetimeSetting",
       "description": "Set how long your History shall be saved.",
-      "icon": "icons/setZoomArtboardHistory.png",
-      "iconDark": "icons/setZoomArtboardHistoryDark.png",
+      "icon": "icons/setLifetimeHistory.png",
+      "iconDark": "icons/setLifetimeHistoryDark.png",
       "name": "Set History Lifetime"
     },
     {
