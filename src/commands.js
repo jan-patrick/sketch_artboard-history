@@ -55,11 +55,13 @@ export function showSavedArtboardHistory(context) {
       }
     }
   }
-  if(string.length<=1) {
+  if (string.length <= 1) {
     string = "No stored Artboard History available."
   }
   sendErrorMessage(
     "Zoom to Artboard: " + artboardHistory.zoom
+    + "\n\n" +
+    "Saving History for " + artboardHistory.lifetime + " millis."
     + "\n\n" +
     "previous Artboard id: " + getSavedSetting("lastArtboard")
     + "\n\n" +
@@ -213,16 +215,21 @@ function getMillisDateAsString(millis) {
 }
 
 export function setLifetimeSetting() {
-  var possibleDates = {
-    0: 0,             // refresh with every restart
-    1: 86400000,      // 1 day
-    2: 604800000,     // 1 week
-    3: 2629746000,    // 1 month
-    4: 15778476000,   // 0.5 year
-    5: -1,            // infinity
-  }
-  
+  var possibleDates = [
+    { millis: 0, description: "refresh with every restart" },
+    { millis: 86400000, description: "1 day" },
+    { millis: 604800000, description: "1 week" },
+    { millis: 2629746000, description: "1 month" },
+    { millis: 15778476000, description: "1/2 year" },
+    { millis: -1, description: "infinity" },
+  ]
   var artboardHistory = getSavedSetting("ArtboardHistory")
+  for (var i = 0; i < possibleDates.length; i++) {
+    if (artboardHistory.lifetime === possibleDates[i].millis) {
+      sendErrorMessage(possibleDates[i].description)
+    }
+  }
+
   UI.getInputFromUser("How long do you want your Artboard History to be saved?", {
     description: "When using the Artboard History of this plugin.",
     type: UI.INPUT_TYPE.selection,
