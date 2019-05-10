@@ -224,16 +224,21 @@ export function setLifetimeSetting() {
     { millis: -1, description: "infinity" },
   ]
   var artboardHistory = getSavedSetting("ArtboardHistory")
+  var c = 42
   for (var i = 0; i < possibleDates.length; i++) {
     if (artboardHistory.lifetime === possibleDates[i].millis) {
-      var c = i
+      c = i
     }
   }
+  if(42 === c) {
+    c = 0
+  }
   var datesInOrderToPrint = []
-  while (datesInOrderToPrint.length <= possibleDates.length) {
+  while (datesInOrderToPrint.length <= possibleDates.length-1) {
     if (c >= possibleDates.length) {
       c = 0
     }
+    sendErrorMessage(c)
     datesInOrderToPrint.push(possibleDates[c].description)
     c++
   }
