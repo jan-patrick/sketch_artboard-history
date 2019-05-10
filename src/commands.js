@@ -238,7 +238,6 @@ export function setLifetimeSetting() {
     if (c >= possibleDates.length) {
       c = 0
     }
-    sendErrorMessage(c)
     datesInOrderToPrint.push(possibleDates[c].description)
     c++
   }
@@ -247,7 +246,6 @@ export function setLifetimeSetting() {
   for(var t = 0; t < datesInOrderToPrint.length; t++) {
     tr += "\n\n" + datesInOrderToPrint[t]
   }  
-  sendErrorMessage(tr)
 
   UI.getInputFromUser("How long do you want your Artboard History to be saved?", {
     description: "When using the Artboard History of this plugin.",
@@ -258,10 +256,10 @@ export function setLifetimeSetting() {
       // most likely the user canceled the input
       return
     }
-    if ("Yes" === value) {
-      artboardHistory.lifetime = lifetime
-    } else {
-      artboardHistory.lifetime = 0
+    for (var i = 0; i < possibleDates.length; i++) {
+      if (value === possibleDates[i].description) {
+        artboardHistory.lifetime = possibleDates[i].millis
+      }
     }
     setSetting("ArtboardHistory", artboardHistory)
   })
