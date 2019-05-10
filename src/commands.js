@@ -177,7 +177,19 @@ function getDocumentsIndexById(artboardHistory, documentId) {
 
 export function checkIfAllThisExists() {
   checkIfArtboardHistoryAlreadySaved()
+  checkIfInLifeTimeSpan()
 }
+
+function checkIfInLifeTimeSpan() {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  var timeForComparison = getCurrentTime()
+  for(var i = 0; i < artboardHistory.documents.length; i++) {
+    if(timeForComparison >= artboardHistory.lifetime + artboardHistory.documents[i].timestamp) {
+      artboardHistory.documents.splice(i, 1)
+    }
+  }
+  setSetting("ArtboardHistory", artboardHistory)
+} 
 
 function newArtboardHistoryObject() {
   var artboardHistory = {
@@ -245,12 +257,6 @@ export function setLifetimeSetting() {
     datesInOrderToPrint.push(possibleDates[c].description)
     c++
   }
-
-  var tr = ""
-  for (var t = 0; t < datesInOrderToPrint.length; t++) {
-    tr += "\n\n" + datesInOrderToPrint[t]
-  }
-
   UI.getInputFromUser("How long do you want your Artboard History to be saved?", {
     description: "The time span the History is saved after using a document.",
     type: UI.INPUT_TYPE.selection,
