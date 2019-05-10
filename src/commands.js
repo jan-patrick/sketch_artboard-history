@@ -402,26 +402,22 @@ export function updateArtboardHistory(context) {
         if (newA === artboardHistory.documents[documentIndex].storedHistory[i].artboard) {
           artboardHistory.documents[documentIndex].storedHistory.splice(i, 1)
           newHistoryIndex--
-          sendErrorMessage(newA + " " + artboardHistory.documents[documentIndex].storedHistory[i].id + " " + i)
         }
       }
-      sendErrorMessage(i + "-" + newHistoryIndex)
     }
-    sendErrorMessage("ho")
     artboardHistory.documents[documentIndex].storedHistory.push({ id: newHistoryIndex, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
   }
-  sendErrorMessage("hi")
 
   // save into Settings
   //sendErrorMessage(documentId + documentIndex + newHistoryIndex)
   //sendErrorMessage(newHistoryIndex)
-  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = newHistoryIndex
+  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = Date.now()
   artboardHistory.documents[documentIndex].timestamp = getCurrentTime()
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
   setSetting("ArtboardHistory", artboardHistory)
 
   //sendErrorMessage(strOldSave)
-  //sendErrorMessage(artboardHistory)
+  sendErrorMessage(objectToJson(artboardHistory))
   //sendErrorMessage(context)
 }
