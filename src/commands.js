@@ -2,8 +2,14 @@ import sketch from 'sketch'
 var UI = require('sketch/ui')
 var util = require('util')
 var Settings = require('sketch/settings')
-const timeToSaveArtboardHistory = 604800000 // in millis (week for now)
-
+const possibleDates = [
+  { millis: 0, description: "refresh with every restart" },
+  { millis: 86400000, description: "1 day" },
+  { millis: 604800000, description: "1 week" },
+  { millis: 2629746000, description: "1 month" },
+  { millis: 15778476000, description: "1/2 year" },
+  { millis: -1, description: "infinity" },
+]
 
 
 function sendErrorMessage(dataError) {
@@ -45,7 +51,7 @@ export function showSavedArtboardHistory(context) {
   var string = ""
   for (var i = 0; i < artboardHistory.documents.length; i++) {
     string += i + 1 + ".\n" + "Document id: " + artboardHistory.documents[i].id + "\n" +
-      "Last used: " + Date(artboardHistory.documents[i].timestamp) + "\n" +
+      "Last used: " + getMillisDateAsString(artboardHistory.documents[i].timestamp) + "\n" +
       "Last index used: " + artboardHistory.documents[i].lastHistoryIndex + "\n\n" +
       "Artboard ids:" + "\n"
     for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
@@ -58,10 +64,16 @@ export function showSavedArtboardHistory(context) {
   if (string.length <= 1) {
     string = "No stored Artboard History available."
   }
+  var stringLifetime = ""
+  for (var t = 0; t < possibleDates.length; t++) {
+    if (artboardHistory.lifetime === possibleDates[t].millis) {
+      stringLifetime = possibleDates[t].description
+    }
+  }
   sendErrorMessage(
     "Zoom to Artboard: " + artboardHistory.zoom
     + "\n\n" +
-    "Saving History for " + artboardHistory.lifetime + " millis."
+    "Saving History for " + stringLifetime + "."
     + "\n\n" +
     "previous Artboard id: " + getSavedSetting("lastArtboard")
     + "\n\n" +
@@ -215,14 +227,6 @@ function getMillisDateAsString(millis) {
 }
 
 export function setLifetimeSetting() {
-  var possibleDates = [
-    { millis: 0, description: "refresh with every restart" },
-    { millis: 86400000, description: "1 day" },
-    { millis: 604800000, description: "1 week" },
-    { millis: 2629746000, description: "1 month" },
-    { millis: 15778476000, description: "1/2 year" },
-    { millis: -1, description: "infinity" },
-  ]
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var c = 42
   for (var i = 0; i < possibleDates.length; i++) {
@@ -230,11 +234,11 @@ export function setLifetimeSetting() {
       c = i
     }
   }
-  if(42 === c) {
+  if (42 === c) {
     c = 0
   }
   var datesInOrderToPrint = []
-  while (datesInOrderToPrint.length <= possibleDates.length-1) {
+  while (datesInOrderToPrint.length <= possibleDates.length - 1) {
     if (c >= possibleDates.length) {
       c = 0
     }
@@ -243,9 +247,9 @@ export function setLifetimeSetting() {
   }
 
   var tr = ""
-  for(var t = 0; t < datesInOrderToPrint.length; t++) {
+  for (var t = 0; t < datesInOrderToPrint.length; t++) {
     tr += "\n\n" + datesInOrderToPrint[t]
-  }  
+  }
 
   UI.getInputFromUser("How long do you want your Artboard History to be saved?", {
     description: "The time span the History is saved after using a document.",
@@ -267,15 +271,6 @@ export function setLifetimeSetting() {
 
 function getCurrentTime() {
   return Date.now()
-}
-
-function getIfStillInIntervall(millisOutOfSavedTimestamp) {
-  var t = getCurrentTime()
-  t -= timeToSaveArtboardHistory
-  if (t >= millisOutOfSavedTimestamp) {
-    return false
-  }
-  return true
 }
 
 export function updateArtboardHistory(context) {
