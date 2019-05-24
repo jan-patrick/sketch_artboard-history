@@ -171,7 +171,7 @@ export function exportArtboardHistory() {
 
 export function userResetAllSetSettings() {
   UI.getInputFromUser(
-    "Are you sure to reset your Artboard History?",
+    "Are you sure you want to reset your Artboard History?",
     {
       description: "This will reset your Artboard History including all saved data to standard and delete the stored history.\n\n Click \"Ok\" if you want to proceed and \"Cancel\" if not.",
       initialValue: '-',
