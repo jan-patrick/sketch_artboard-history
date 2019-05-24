@@ -127,32 +127,6 @@ export function showSavedArtboardHistory(context) {
     + "\n\n" +
     objectToJson(artboardHistory)
   )
-
-  // DEV
-  //Settings.setSettingForKey("lastArtboard", "7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68.279186E2-B68A-4D87-8ACE-AA0235421B7B")
-}
-
-export function showSelectedLayerInfo(context) {
-  var selection = context.selection;
-  var layer = selection.firstObject();
-  //sendErrorMessage(layer.objectID() + " class: " + layer.class() + " name: " + layer.name())
-  var getSelectedDocument = require('sketch/dom').getSelectedDocument
-  const document = getSelectedDocument()
-  //var completeDocumentInfoString = JSON.stringify(document.pages)
-  //sendErrorMessage(completeDocumentInfoString)
-
-
-  //if("Page" === document.pages[0].type) {
-  //  sendErrorMessage(document.pages.length)
-  //}
-
-  /////////
-  //var documentr = require('sketch/dom').getSelectedDocument()
-  //var layerr = documentr.getLayerWithID("7D4CD49D-D6C2-44EE-9D1C-A8786CD96C68")
-  //documentr.centerOnLayer(layerr)
-
-  // Select all Artboards in current page
-  selectLayersOfType_inContainer("MSArtboardGroup")
 }
 
 function getArtboardsPageByArtboardId(artboardStringToCheck) {
@@ -199,6 +173,7 @@ export function userResetAllSetSettings() {
         // most likely the user canceled the input
         return
       }
+      // if clicked ok reset
       resetAllSetSettings()
     })
 }
@@ -292,6 +267,7 @@ export function setZoomSetting() {
       artboardHistory.zoom = false
     }
     setSetting("ArtboardHistory", artboardHistory)
+    sendMessageToBottom("Artboard History Zoom is successfully set to "+artboardHistory.zoom+".")
   })
 }
 
@@ -334,6 +310,7 @@ export function setLifetimeSetting() {
       }
     }
     setSetting("ArtboardHistory", artboardHistory)
+    sendMessageToBottom("Saving Artboard History for "+value+".")
   })
 }
 
