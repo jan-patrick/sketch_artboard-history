@@ -27,8 +27,8 @@
   <tr>
     <th></th>
     <th>Switch between the 2 latest</th>
-    <th>Go Back</th>
-    <th>Go Forward</th> 
+    <th>Go Backwards</th>
+    <th>Go Forwards</th> 
     <th>Show saved History</th>
     <th>Zoom On / Off</th>
     <th>Set History lifetime</th>
