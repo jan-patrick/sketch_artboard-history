@@ -11,11 +11,6 @@
   </a>
   <a href="https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip">
     <img src="https://img.shields.io/github/downloads/jan-patrick/sketch_artboard-history/total.svg?color=brightgreen">
-    <img src="https://img.shields.io/github/release/jan-patrick/sketch_artboard-history.svg?color=0279FF">
-    <img src="https://img.shields.io/github/release-date/jan-patrick/sketch_artboard-history.svg">
-  </a>
-  <a href="https://github.com/jan-patrick/sketch_artboard-history/issues">
-    <img src="https://img.shields.io/github/issues/jan-patrick/sketch_artboard-history.svg">
   </a>
   <a href="https://sketchrunner.com/">
     <img src="https://img.shields.io/badge/Runner%20Pro%20compatible-Yes-brightgreen.svg">
