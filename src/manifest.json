@@ -12,10 +12,20 @@
   "suppliesData": false,
   "commands": [
     {
+      "name": "Switch between two Artboards",
+      "identifier": "ArtboardHistory_switchBetweenTwoArtboard",
+      "script": "commands.js",
+      "shortcut": "ctrl a",
+      "handler": "goToLastArtboard",
+      "icon": "icons/switchArtboard.png",
+      "iconDark": "icons/switchArtboardDark.png",
+      "description": "Switch between the two latest used Artboards."
+    },
+    {
       "name": "Go to Last Artboard",
       "identifier": "ArtboardHistory_goToLastArtboard",
       "script": "commands.js",
-      "shortcut": "cmd alt a",
+      "shortcut": "ctrl q",
       "handler": "goToLastArtboard",
       "icon": "icons/goBackinArtboardHistory.png",
       "iconDark": "icons/goBackinArtboardHistoryDark.png",
@@ -25,7 +35,7 @@
       "name": "Go to Next Artboard",
       "identifier": "ArtboardHistory_goToNextArtboard",
       "script": "commands.js",
-      "shortcut": "cmd alt h",
+      "shortcut": "ctrl w",
       "handler": "goToLastArtboard",
       "icon": "icons/goForeinArtboardHistory.png",
       "iconDark": "icons/goForeinArtboardHistoryDark.png",
@@ -34,7 +44,7 @@
     {
       "identifier": "ArtboardHistory_showSavedArtboardHistory",
       "script": "commands.js",
-      "shortcut": "cmd alt p",
+      "shortcut": "ctrl h",
       "handler": "showSavedArtboardHistory",
       "description": "Get an overview of your local saved Artboard History.",
       "icon": "icons/showArtboardHistory.png",
@@ -44,7 +54,7 @@
     {
       "identifier": "ArtboardHistory_setZoomSetting",
       "script": "commands.js",
-      "shortcut": "cmd alt m",
+      "shortcut": "ctrl m",
       "handler": "setZoomSetting",
       "description": "When changing the Artboard the plugin can zoom to the Artboard or not - depending on your decision.",
       "icon": "icons/setZoomArtboardHistory.png",
@@ -61,19 +71,8 @@
       "name": "Set History Lifetime"
     },
     {
-      "script": "commands.js",
-      "name": "Update last Artboard",
-      "handlers": {
-        "actions": {
-          "ArtboardChanged.finish": "updateArtboardHistory"
-        }
-      },
-      "identifier": "ArtboardHistory-action-listener-identifier"
-    },
-    {
       "identifier": "ArtboardHistory_ResetAllSettings",
       "script": "commands.js",
-      "shortcut": "cmd alt r",
       "handler": "resetAllSetSettings",
       "description": "Resets the saved data of your Artboard Setting.",
       "icon": "icons/resetArtboardHistory.png",
@@ -89,11 +88,22 @@
         }
       },
       "identifier": "ArtboardHistory-action-listener-identifier-StartUp"
+    },
+    {
+      "script": "commands.js",
+      "name": "Update last Artboard",
+      "handlers": {
+        "actions": {
+          "ArtboardChanged.finish": "updateArtboardHistory"
+        }
+      },
+      "identifier": "ArtboardHistory-action-listener-identifier"
     }
   ],
   "menu": {
     "title": "Artboard History",
     "items": [
+      "ArtboardHistory_switchBetweenTwoArtboard",
       "ArtboardHistory_goToLastArtboard", 
       "ArtboardHistory_goToNextArtboard",
       "-",

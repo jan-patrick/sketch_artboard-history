@@ -49,7 +49,8 @@ export function goToLastArtboard(context) {
       var previousArtboardTime = 0
 
       for(var o = 0; o < artboardHistory.documents[l].storedHistory.length; o ++){
-        if(previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id && artboardHistory.documents[l].lastHistoryIndex > artboardHistory.documents[l].storedHistory[o].id) {
+        if(previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id && 
+          artboardHistory.documents[l].lastHistoryIndex > artboardHistory.documents[l].storedHistory[o].id) {
           previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
           lastArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
           lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
@@ -437,7 +438,7 @@ export function updateArtboardHistory(context) {
   // save into Settings
   //sendErrorMessage(documentId + documentIndex + newHistoryIndex)
   //sendErrorMessage(newHistoryIndex)
-  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = Date.now()
+  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = getCurrentTime()
   artboardHistory.documents[documentIndex].timestamp = getCurrentTime()
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA

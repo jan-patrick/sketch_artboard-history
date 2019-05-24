@@ -67,7 +67,7 @@
   </tr>
   <tr>
     <td>Shortcut</td>
-    <td>⌥ + ⇧ + A</td>
+    <td>⌃ + A</td>
     <td>-</td>
     <td>⌥ + ⇧ + P</td>
     <td>⌥ + ⇧ + M</td>
