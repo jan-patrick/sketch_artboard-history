@@ -32,7 +32,7 @@
     <th>Show saved History</th>
     <th>Zoom On / Off</th>
     <th>Set History lifetime</th>
-    <th>Reset complete History</th>
+    <th>Reset History</th>
   </tr>
   <tr>
     <td>Status</td>
@@ -95,11 +95,23 @@ opt (⌥) + cmd (⇧) + a (A)
 With Sketch Runner, just go to the `install` command and search for `Artboard History`. Runner allows you to manage plugins and do much more to speed up your workflow in Sketch. [Download Runner here](http://www.sketchrunner.com).
 <br/><br/><a href="http://bit.ly/SketchRunnerWebsite"><img src="http://bit.ly/RunnerBadgeBlue" width=140></a>
 
-## :construction: History Structure 
+## :information_source: further information
+
+#### privacy 
+
+This plugin stores your personal Artboard History on your local machine only. You can access this data by using the `Show` command. No data is stored outside your computer and no backup is made. If you reset / delete the stored history via the `Reset` command all data will be overwritten.
+
+#### warranty
+The software is provided "as is", without warranty of any kind.
+
+
+## development
+
+#### History Structure 
 ```javascript
 var artboardHistory = {
   zoom: true,
-  lifetime: 604800000, // in millis (1 week as standard)
+  lifetime: 2629746000, // in millis (1 month as standard)
   documents: [{
     id: "documentId",
     timestamp: Date.now(),
@@ -110,13 +122,6 @@ var artboardHistory = {
 }
 ```
 
-#### :computer: skpm
+#### skpm
 
 _This plugin was created using `skpm`. For a detailed explanation on how things work, checkout the [skpm Readme](https://github.com/skpm/skpm/blob/master/README.md)._
-
-#### privacy 
-
-This plugin stores your personal Artboard History on your local machine only. You can access this data by using the `Show` command. No data is stored outside your computer and no backup is made. If you reset / delete the stored history via the `Reset` command all data will be overwritten.
-
-#### warranty
-The software is provided "as is", without warranty of any kind.
