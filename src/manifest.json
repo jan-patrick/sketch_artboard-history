@@ -22,7 +22,7 @@
       "description": "Switch between the two latest used Artboards."
     },
     {
-      "name": "Go to Last Artboard",
+      "name": "Go to Previous Artboard",
       "identifier": "ArtboardHistory_goToLastArtboard",
       "script": "commands.js",
       "shortcut": "alt + cmd + q",
@@ -32,7 +32,7 @@
       "description": "Go one step back in Artboard History."
     },
     {
-      "name": "Go to Next Artboard",
+      "name": "Go to Following Artboard",
       "identifier": "ArtboardHistory_goToNextArtboard",
       "script": "commands.js",
       "shortcut": "alt + cmd + w",
@@ -78,6 +78,15 @@
       "name": "Reset Artboard History"
     },
     {
+      "identifier": "ArtboardHistory_Export",
+      "script": "commands.js",
+      "handler": "exportArtboardHistory",
+      "description": "Exports your Artboard History as json.",
+      "icon": "icons/resetArtboardHistory.png",
+      "iconDark": "icons/resetArtboardHistoryDark.png",
+      "name": "Export Artboard History"
+    },
+    {
       "script": "commands.js",
       "name": "ckeck if ArtboardHistory already exists and is saved",
       "handlers": {
@@ -105,9 +114,9 @@
       "ArtboardHistory_goToLastArtboard", 
       "ArtboardHistory_goToNextArtboard",
       "-",
-      "ArtboardHistory_showSavedArtboardHistory",
       "ArtboardHistory_setZoomSetting",
       "ArtboardHistory_setLifetimeSetting",
+      "ArtboardHistory_showSavedArtboardHistory",
       "ArtboardHistory_ResetAllSettings"
     ]
   }

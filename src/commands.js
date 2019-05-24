@@ -161,6 +161,14 @@ function getSavedSetting(stringWhere) {
   return Settings.globalSettingForKey(stringWhere)
 }
 
+export function exportArtboardHistory() {
+  var sketch = require('sketch/dom')
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  const options = { formats: 'json', output: false }
+  const sketchJSON = sketch.export(artboardHistory, options)
+  sendErrorMessage(sketchJSON)
+}
+
 export function userResetAllSetSettings() {
   UI.getInputFromUser(
     "Are you sure to reset your Artboard History?",
