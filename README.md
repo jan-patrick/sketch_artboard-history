@@ -66,9 +66,9 @@
   </tr>
   <tr>
     <td>Shortcut</td>
-    <td>⌃ + A</td>
-    <td>⌃ + Q</td>
-    <td>⌃ + W</td>
+    <td>alt + cmd + A</td>
+    <td>alt + cmd + Q</td>
+    <td>alt + cmd + W</td>
     <td>-</td>
     <td>-</td>
     <td>-</td>

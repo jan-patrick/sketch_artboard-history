@@ -124,8 +124,8 @@ export function showSavedArtboardHistory(context) {
     "current Artboard id: " + getSavedSetting("actualArtboard")
     + "\n\n" +
     string
-    + "\n\n" +
-    objectToJson(artboardHistory)
+    //+ "\n\n" +
+    //objectToJson(artboardHistory)
   )
 }
 
