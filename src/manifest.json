@@ -16,7 +16,7 @@
       "identifier": "ArtboardHistory_switchBetweenTwoArtboard",
       "script": "commands.js",
       "shortcut": "ctrl a",
-      "handler": "goToLastArtboard",
+      "handler": "switchBetweenTwoLatestArtboards",
       "icon": "icons/switchArtboard.png",
       "iconDark": "icons/switchArtboardDark.png",
       "description": "Switch between the two latest used Artboards."
@@ -44,7 +44,6 @@
     {
       "identifier": "ArtboardHistory_showSavedArtboardHistory",
       "script": "commands.js",
-      "shortcut": "ctrl h",
       "handler": "showSavedArtboardHistory",
       "description": "Get an overview of your local saved Artboard History.",
       "icon": "icons/showArtboardHistory.png",
@@ -54,7 +53,6 @@
     {
       "identifier": "ArtboardHistory_setZoomSetting",
       "script": "commands.js",
-      "shortcut": "ctrl m",
       "handler": "setZoomSetting",
       "description": "When changing the Artboard the plugin can zoom to the Artboard or not - depending on your decision.",
       "icon": "icons/setZoomArtboardHistory.png",
@@ -73,7 +71,7 @@
     {
       "identifier": "ArtboardHistory_ResetAllSettings",
       "script": "commands.js",
-      "handler": "resetAllSetSettings",
+      "handler": "userResetAllSetSettings",
       "description": "Resets the saved data of your Artboard Setting.",
       "icon": "icons/resetArtboardHistory.png",
       "iconDark": "icons/resetArtboardHistoryDark.png",

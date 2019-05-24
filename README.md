@@ -26,7 +26,7 @@
 <table style="width:100%">
   <tr>
     <th></th>
-    <th>Switch between the 2 latest</th>
+    <th>Switch between two Artboards</th>
     <th>Go Backwards</th>
     <th>Go Forwards</th> 
     <th>Show saved History</th>

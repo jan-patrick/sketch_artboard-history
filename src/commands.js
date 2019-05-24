@@ -20,16 +20,32 @@ function sendErrorMessage(dataError) {
 function sendMessageToBottom(dataBottom) {
   UI.message(String(dataBottom))
 }
+
+export function switchBetweenTwoLatestArtboards(context) {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  var lastArtboardSaved = getSavedSetting("lastArtboard")
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  if (lastArtboardSaved.indexOf(".") < 1) {
+    lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
+  }
+  var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
+  var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
+  lastArtboardSavedA = lastArtboardSavedA.replace(".", "")
+  lastArtboardSavedP = lastArtboardSavedP.replace(".", "")
+  var document = require('sketch/dom').getSelectedDocument()
+  var layerP = document.getLayerWithID(lastArtboardSavedP)
+  var layerA = document.getLayerWithID(lastArtboardSavedA)
+  document.selectedLayers.clear()
+  layerP.selected = true
+  layerA.selected = true
+  document.centerOnLayer(layerA)
+  // zoom
+  if (true === artboardHistory.zoom) {
+    document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+  }
+}
+
 export function goToLastArtboard(context) {
-  //var lastArtboardSaved = getSavedSetting("lastArtboard")
-  //var artboardHistory = getSavedSetting("ArtboardHistory")
-  //if (lastArtboardSaved.indexOf(".") < 1) {
-  //  lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
-  //}
-  //var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
-  //var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
-  //lastArtboardSavedA = lastArtboardSavedA.replace(".", "")
-  //lastArtboardSavedP = lastArtboardSavedP.replace(".", "")
 
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var documentId = getDocumentId()
@@ -169,6 +185,22 @@ function setSetting(stringWhere, stringValue) {
 
 function getSavedSetting(stringWhere) {
   return Settings.globalSettingForKey(stringWhere)
+}
+
+export function userResetAllSetSettings() {
+  UI.getInputFromUser(
+    "Are you sure to reset your Artboard History?",
+    {
+      description: "This will reset your Artboard History including all saved data to standard and delete the stored history.\n\n Click \"Ok\" if you want to proceed and \"Cancel\" if not.",
+      initialValue: '-',
+    },
+    (err, value) => {
+      if (err) {
+        // most likely the user canceled the input
+        return
+      }
+      resetAllSetSettings()
+    })
 }
 
 export function resetAllSetSettings() {
