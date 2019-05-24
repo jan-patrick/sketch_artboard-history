@@ -26,6 +26,7 @@
 <table style="width:100%">
   <tr>
     <th></th>
+    <th>Switch between the 2 latest</th>
     <th>Go Back</th>
     <th>Go Forward</th> 
     <th>Show saved History</th>
@@ -37,6 +38,7 @@
     <td>Status</td>
     <td>✅*</td>
     <td>❌*</td>
+    <td>❌*</td>
     <td>✅</td>
     <td>✅</td>
     <td>✅*</td>
@@ -44,6 +46,7 @@
   </tr>
   <tr>
     <td>Runner icon</td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/switchArtboard.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goBackinArtboardHistory.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistory.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistory.png"></p></td>
@@ -53,6 +56,7 @@
   </tr>
   <tr style="background-color: #000000">
     <td>Runner icon dark</td>
+    <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/switchArtboardDark.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goBackinArtboardHistoryDark.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/goForeinArtboardHistoryDark.png"></p></td>
     <td><p align="center"><img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icons/showArtboardHistoryDark.png"></p></td>
@@ -63,11 +67,12 @@
   <tr>
     <td>Shortcut</td>
     <td>⌃ + A</td>
+    <td>⌃ + Q</td>
+    <td>⌃ + W</td>
     <td>-</td>
-    <td>⌥ + ⇧ + P</td>
-    <td>⌥ + ⇧ + M</td>
     <td>-</td>
-    <td>⌥ + ⇧ + R</td>
+    <td>-</td>
+    <td>-</td>
   </tr>
 </table>
 
