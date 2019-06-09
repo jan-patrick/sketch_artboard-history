@@ -91,7 +91,7 @@ opt (⌥) + cmd (⇧) + a (A)
 3. Double click on the file
 
 
-## Install with Sketch Runner
+## Install with Sketch Runner (Pro)
 With Sketch Runner, just go to the `install` command and search for `Artboard History`. Runner allows you to manage plugins and do much more to speed up your workflow in Sketch. [Download Runner here](http://www.sketchrunner.com).
 <br/><br/><a href="http://bit.ly/SketchRunnerWebsite"><img src="http://bit.ly/RunnerBadgeBlue" width=140></a>
 
