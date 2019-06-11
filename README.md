@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://www.sketch.com/updates/">
-    <img src="https://img.shields.io/badge/latest%20tested%20compatible%20Sketch%20version-54.1-brightgreen.svg">
+    <img src="https://img.shields.io/badge/latest%20tested%20compatible%20Sketch%20version-55.1-brightgreen.svg">
   </a>
   <a href="https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip">
     <img src="https://img.shields.io/github/downloads/jan-patrick/sketch_artboard-history/total.svg?color=brightgreen">
@@ -21,6 +21,7 @@
   <a href="https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip">
     <img src="https://img.shields.io/badge/download-0279FF.svg" width="125">
   </a>
+  </p>
 
 ## Functions
 <table style="width:100%">
