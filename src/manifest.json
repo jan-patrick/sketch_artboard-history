@@ -114,10 +114,15 @@
       "ArtboardHistory_goToLastArtboard", 
       "ArtboardHistory_goToNextArtboard",
       "-",
-      "ArtboardHistory_setZoomSetting",
-      "ArtboardHistory_setLifetimeSetting",
-      "ArtboardHistory_showSavedArtboardHistory",
-      "ArtboardHistory_ResetAllSettings"
+      {
+        "title": "Settings",
+        "items": [
+          "ArtboardHistory_setZoomSetting",
+          "ArtboardHistory_setLifetimeSetting",
+          "ArtboardHistory_showSavedArtboardHistory",
+          "ArtboardHistory_ResetAllSettings"
+        ]
+      }
     ]
   }
 }
