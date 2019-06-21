@@ -126,12 +126,15 @@ export function showSavedDocumentArtboardHistory() {
   documentName = documentName.substring(0, documentName.indexOf(".sketch"))
   for (var i = 0; i < artboardHistory.documents.length; i++) {
     if(document.id === artboardHistory.documents[i].id) {
-      string += "Document id: " + artboardHistory.documents[i].id + "\n" +
-      "Last used: " + getMillisDateAsString(artboardHistory.documents[i].timestamp) + "\n" +
-      "Last index used: " + artboardHistory.documents[i].lastHistoryIndex + "\n\n" +
-      "Artboard ids:" + "\n"
+      string += "Last used: " + getMillisDateAsString(artboardHistory.documents[i].timestamp) + "\n\n" +
+      "Artboards:" + "\n"
+      var count = 0
       for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
-        string += artboardHistory.documents[i].storedHistory[j].artboard + "\n"
+        var layerA = document.getLayerWithID(artboardHistory.documents[i].storedHistory[j].artboard)
+        if (typeof layerA === "object") {
+          count++
+          string += count + ". " + layerA.name + "\n"
+        }
         if (j === artboardHistory.documents[i].storedHistory.length - 1) {
           string += "\n\n"
         }
