@@ -115,25 +115,34 @@ export function showCompleteObject() {
   sendErrorMessage("Complete stored Artboard History", string )
 }
 
-export function showSavedDocumentArtboardHistory(context) {
+export function showSavedDocumentArtboardHistory() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var string = ""
+  var document = require('sketch/dom').getSelectedDocument()
+  var documentName = document.path
+  while(documentName.includes("/")){
+    documentName = documentName.substring(documentName.indexOf("/") + 1)
+  }
+  documentName = documentName.substring(0, documentName.indexOf(".sketch"))
   for (var i = 0; i < artboardHistory.documents.length; i++) {
-    string += i + 1 + ".\n" + "Document id: " + artboardHistory.documents[i].id + "\n" +
+    if(document.id === artboardHistory.documents[i].id) {
+      string += "Document id: " + artboardHistory.documents[i].id + "\n" +
       "Last used: " + getMillisDateAsString(artboardHistory.documents[i].timestamp) + "\n" +
       "Last index used: " + artboardHistory.documents[i].lastHistoryIndex + "\n\n" +
       "Artboard ids:" + "\n"
-    for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
-      string += artboardHistory.documents[i].storedHistory[j].artboard + "\n"
-      if (j === artboardHistory.documents[i].storedHistory.length - 1) {
-        string += "\n\n"
+      for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
+        string += artboardHistory.documents[i].storedHistory[j].artboard + "\n"
+        if (j === artboardHistory.documents[i].storedHistory.length - 1) {
+          string += "\n\n"
+        }
       }
     }
+    
   }
   if (1 >= string.length) {
     string = "No stored Artboard History available."
   }
-  sendErrorMessage("Artboard History (specific)",
+  sendErrorMessage("Artboard History of " + documentName,
     "previous Artboard id: " + getSavedSetting("lastArtboard")
     + "\n\n" +
     "current Artboard id: " + getSavedSetting("actualArtboard")
