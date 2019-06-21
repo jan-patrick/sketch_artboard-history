@@ -82,9 +82,9 @@
       "script": "commands.js",
       "handler": "exportArtboardHistory",
       "description": "Exports your Artboard History as json.",
-      "icon": "icons/resetArtboardHistory.png",
-      "iconDark": "icons/resetArtboardHistoryDark.png",
-      "name": "Export Artboard History"
+      "icon": "icons/exportArtboardHistory.png",
+      "iconDark": "icons/exportArtboardHistoryDark.png",
+      "name": "Export Artboard History to \"~/Documents/Sketch Exports\""
     },
     {
       "name": "Open Website",
