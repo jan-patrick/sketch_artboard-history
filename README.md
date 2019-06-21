@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/assets/icon.png">
+  <img src="https://raw.githubusercontent.com/jan-patrick/sketch_artboard-history/master/GithubSocialPreview.jpg" width=400>
 </p>
 <h1 align="center"> Artboard History - Sketch plugin </h1>
 
