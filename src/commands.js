@@ -245,6 +245,10 @@ function newArtboardHistoryObject() {
   setSetting("ArtboardHistory", artboardHistory)
 }
 
+function openUrlInBrowser(url) {
+  NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
+}
+
 function checkIfArtboardHistoryAlreadySaved() {
   var a = getSavedSetting("ArtboardHistory")
   if (typeof a != "object") {
@@ -324,6 +328,14 @@ export function setLifetimeSetting() {
 
 function getCurrentTime() {
   return Date.now()
+}
+
+export function showWebsite() {
+  openUrlInBrowser("https://github.com/jan-patrick/sketch_artboard-history");
+}
+
+export function showIssues() {
+  openUrlInBrowser("https://github.com/jan-patrick/sketch_artboard-history/issues");
 }
 
 export function updateArtboardHistory(context) {

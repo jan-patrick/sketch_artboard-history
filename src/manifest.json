@@ -87,6 +87,24 @@
       "name": "Export Artboard History"
     },
     {
+      "name": "Open Website",
+      "identifier": "ArtboardHistory_website",
+      "script": "commands.js",
+      "handler": "showWebsite",
+      "icon": "icons/help.png",
+      "iconDark": "icons/helpDark.png",
+      "description": "Opens the Website (official Github repository) of this plugin."
+    },
+    {
+      "name": "Report Issue",
+      "identifier": "ArtboardHistory_issue",
+      "script": "commands.js",
+      "handler": "showIssues",
+      "icon": "icons/help.png",
+      "iconDark": "icons/helpDark.png",
+      "description": "Opens the issue overview website of this plugin."
+    },
+    {
       "script": "commands.js",
       "name": "ckeck if ArtboardHistory already exists and is saved",
       "handlers": {
@@ -121,6 +139,13 @@
           "ArtboardHistory_setLifetimeSetting",
           "ArtboardHistory_showSavedArtboardHistory",
           "ArtboardHistory_ResetAllSettings"
+        ]
+      },
+      {
+        "title": "Help",
+        "items": [
+          "ArtboardHistory_website",
+          "ArtboardHistory_issue"
         ]
       }
     ]
