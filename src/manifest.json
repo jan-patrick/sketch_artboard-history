@@ -15,7 +15,7 @@
       "name": "Switch between two Artboards",
       "identifier": "ArtboardHistory_switchBetweenTwoArtboard",
       "script": "commands.js",
-      "shortcut": "alt + cmd + a",
+      "shortcut": "cmd + alt + a",
       "handler": "switchBetweenTwoLatestArtboards",
       "icon": "icons/switchArtboard.png",
       "iconDark": "icons/switchArtboardDark.png",
@@ -25,7 +25,7 @@
       "name": "Go to Previous Artboard",
       "identifier": "ArtboardHistory_goToLastArtboard",
       "script": "commands.js",
-      "shortcut": "ctrl + s",
+      "shortcut": "cmd + j",
       "handler": "goToLastArtboard",
       "icon": "icons/goBackinArtboardHistory.png",
       "iconDark": "icons/goBackinArtboardHistoryDark.png",
@@ -35,7 +35,7 @@
       "name": "Go to Following Artboard",
       "identifier": "ArtboardHistory_goToNextArtboard",
       "script": "commands.js",
-      "shortcut": "ctrl + d",
+      "shortcut": "cmd + alt + j",
       "handler": "goToLastArtboard",
       "icon": "icons/goForeinArtboardHistory.png",
       "iconDark": "icons/goForeinArtboardHistoryDark.png",
@@ -44,7 +44,7 @@
     {
       "identifier": "ArtboardHistory_showSavedArtboardHistory",
       "script": "commands.js",
-      "handler": "showSavedArtboardHistory",
+      "handler": "showSavedDocumentArtboardHistory",
       "description": "Get an overview of your local saved Artboard History.",
       "icon": "icons/showArtboardHistory.png",
       "iconDark": "icons/showArtboardHistoryDark.png",
@@ -81,10 +81,10 @@
       "identifier": "ArtboardHistory_Export",
       "script": "commands.js",
       "handler": "exportArtboardHistory",
-      "description": "Exports your Artboard History as json.",
+      "description": "Exports your Artboard History as json to \"~/Documents/Sketch Exports\".",
       "icon": "icons/exportArtboardHistory.png",
       "iconDark": "icons/exportArtboardHistoryDark.png",
-      "name": "Export Artboard History to \"~/Documents/Sketch Exports\""
+      "name": "Export Artboard History"
     },
     {
       "name": "Open Website",
@@ -129,8 +129,6 @@
     "title": "Artboard History",
     "items": [
       "ArtboardHistory_switchBetweenTwoArtboard",
-      "ArtboardHistory_goToLastArtboard", 
-      "ArtboardHistory_goToNextArtboard",
       "-",
       {
         "title": "Settings",
@@ -138,7 +136,6 @@
           "ArtboardHistory_setZoomSetting",
           "ArtboardHistory_setLifetimeSetting",
           "ArtboardHistory_showSavedArtboardHistory",
-          "ArtboardHistory_Export",
           "ArtboardHistory_ResetAllSettings"
         ]
       },
@@ -147,6 +144,16 @@
         "items": [
           "ArtboardHistory_website",
           "ArtboardHistory_issue"
+        ]
+      },
+      "-",
+      {
+        "title": "In Development (may not work)",
+        "items": [
+          "ArtboardHistory_goToLastArtboard", 
+          "ArtboardHistory_goToNextArtboard",
+          "-",
+          "ArtboardHistory_Export"
         ]
       }
     ]

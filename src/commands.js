@@ -13,8 +13,12 @@ const possibleDates = [
 ]
 
 
-function sendErrorMessage(dataError) {
-  UI.alert('Artboard History', String(dataError))
+function sendErrorMessage(dataHeader, dataError) {
+  dataHeader = String(dataHeader)
+  if(1>=dataHeader.length){
+    dataHeader = "Artboard History"
+  }
+  UI.alert(dataHeader, String(dataError))
 }
 
 function sendMessageToBottom(dataBottom) {
@@ -70,7 +74,7 @@ export function goToLastArtboard(context) {
           previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
           lastArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
           lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
-          //sendErrorMessage(previousArtboardTime)
+          //sendErrorMessage("",previousArtboardTime)
         }
       }
       artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
@@ -90,7 +94,7 @@ export function goToLastArtboard(context) {
   setSetting("ArtboardHistory", artboardHistory)
 }
 
-export function showSavedArtboardHistory(context) {
+export function showSavedDocumentArtboardHistory(context) {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var string = ""
   for (var i = 0; i < artboardHistory.documents.length; i++) {
@@ -105,7 +109,7 @@ export function showSavedArtboardHistory(context) {
       }
     }
   }
-  if (string.length <= 1) {
+  if (1 >= string.length) {
     string = "No stored Artboard History available."
   }
   var stringLifetime = ""
@@ -114,7 +118,7 @@ export function showSavedArtboardHistory(context) {
       stringLifetime = possibleDates[t].description
     }
   }
-  sendErrorMessage(
+  sendErrorMessage("Artboard History (specific)",
     "Zoom to Artboard: " + artboardHistory.zoom
     + "\n\n" +
     "Saving History for " + stringLifetime + "."
@@ -207,7 +211,7 @@ export function exportArtboardHistory() {
   })
 
   text.remove()
-  sendMessageToBottom(textstring + ".json is successfully exported to \"~/Documents/Sketch Exports\"")
+  sendMessageToBottom(textstring + ".json successfully exported to \"~/Documents/Sketch Exports\"")
 }
 
 export function userResetAllSetSettings() {
@@ -295,7 +299,7 @@ function checkIfArtboardHistoryAlreadySaved() {
   if (typeof a != "object") {
     newArtboardHistoryObject()
   }
-  //sendErrorMessage(objectToJson(getSavedSetting("ArtboardHistory")))
+  //sendErrorMessage("",objectToJson(getSavedSetting("ArtboardHistory")))
 }
 
 function objectToJson(obj) {
@@ -320,7 +324,7 @@ export function setZoomSetting() {
       artboardHistory.zoom = false
     }
     setSetting("ArtboardHistory", artboardHistory)
-    sendMessageToBottom("Artboard History Zoom is successfully set to " + artboardHistory.zoom + ".")
+    sendMessageToBottom("Artboard History Zoom successfully set to " + artboardHistory.zoom + ".")
   })
 }
 
@@ -489,7 +493,7 @@ export function updateArtboardHistory(context) {
       storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
     })
     artboardHistory.documents[documentIndex].id = documentId
-    //sendErrorMessage(objectToJson(artboardHistory))
+    //sendErrorMessage("",objectToJson(artboardHistory))
     //storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
@@ -506,15 +510,15 @@ export function updateArtboardHistory(context) {
   }
 
   // save into Settings
-  //sendErrorMessage(documentId + documentIndex + newHistoryIndex)
-  //sendErrorMessage(newHistoryIndex)
+  //sendErrorMessage("",documentId + documentIndex + newHistoryIndex)
+  //sendErrorMessage("",newHistoryIndex)
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = getCurrentTime()
   artboardHistory.documents[documentIndex].timestamp = getCurrentTime()
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
   setSetting("ArtboardHistory", artboardHistory)
 
-  //sendErrorMessage(strOldSave)
-  //sendErrorMessage(objectToJson(artboardHistory))
-  //sendErrorMessage(context)
+  //sendErrorMessage("",strOldSave)
+  //sendErrorMessage("",objectToJson(artboardHistory))
+  //sendErrorMessage("",context)
 }
