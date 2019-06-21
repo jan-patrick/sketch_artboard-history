@@ -42,13 +42,22 @@
       "description": "Go one step fore in Artboard History."
     },
     {
-      "identifier": "ArtboardHistory_showSavedArtboardHistory",
+      "identifier": "ArtboardHistory_showSavedDocumentArtboardHistory",
       "script": "commands.js",
       "handler": "showSavedDocumentArtboardHistory",
-      "description": "Get an overview of your local saved Artboard History.",
+      "description": "Get an overview of your local saved Artboard History of the current document.",
       "icon": "icons/showArtboardHistory.png",
       "iconDark": "icons/showArtboardHistoryDark.png",
-      "name": "Show Artboard History"
+      "name": "History of this Document"
+    },
+    {
+      "identifier": "ArtboardHistory_showGeneralData",
+      "script": "commands.js",
+      "handler": "showGeneralSavedData",
+      "description": "Get an overview of your general saved data / settings.",
+      "icon": "icons/showArtboardHistory.png",
+      "iconDark": "icons/showArtboardHistoryDark.png",
+      "name": "General Settings"
     },
     {
       "identifier": "ArtboardHistory_setZoomSetting",
@@ -135,7 +144,13 @@
         "items": [
           "ArtboardHistory_setZoomSetting",
           "ArtboardHistory_setLifetimeSetting",
-          "ArtboardHistory_showSavedArtboardHistory",
+          {
+            "title": "Show saved Data",
+            "items": [
+              "ArtboardHistory_showGeneralData",
+              "ArtboardHistory_showSavedDocumentArtboardHistory"
+            ]
+          },
           "ArtboardHistory_ResetAllSettings"
         ]
       },

@@ -94,6 +94,21 @@ export function goToLastArtboard(context) {
   setSetting("ArtboardHistory", artboardHistory)
 }
 
+export function showGeneralSavedData() {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  var stringLifetime = ""
+  for (var t = 0; t < possibleDates.length; t++) {
+    if (artboardHistory.lifetime === possibleDates[t].millis) {
+      stringLifetime = possibleDates[t].description
+    }
+  }
+  sendErrorMessage("General Artboard History Settings",
+    "Zoom to Artboard: " + artboardHistory.zoom
+    + "\n\n" +
+    "Saving History for " + stringLifetime + "."
+  )
+}
+
 export function showSavedDocumentArtboardHistory(context) {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var string = ""
@@ -112,17 +127,7 @@ export function showSavedDocumentArtboardHistory(context) {
   if (1 >= string.length) {
     string = "No stored Artboard History available."
   }
-  var stringLifetime = ""
-  for (var t = 0; t < possibleDates.length; t++) {
-    if (artboardHistory.lifetime === possibleDates[t].millis) {
-      stringLifetime = possibleDates[t].description
-    }
-  }
   sendErrorMessage("Artboard History (specific)",
-    "Zoom to Artboard: " + artboardHistory.zoom
-    + "\n\n" +
-    "Saving History for " + stringLifetime + "."
-    + "\n\n" +
     "previous Artboard id: " + getSavedSetting("lastArtboard")
     + "\n\n" +
     "current Artboard id: " + getSavedSetting("actualArtboard")
