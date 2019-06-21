@@ -15,7 +15,7 @@ const possibleDates = [
 
 function sendErrorMessage(dataHeader, dataError) {
   dataHeader = String(dataHeader)
-  if(1>=dataHeader.length){
+  if (1 >= dataHeader.length) {
     dataHeader = "Artboard History"
   }
   UI.alert(dataHeader, String(dataError))
@@ -109,6 +109,12 @@ export function showGeneralSavedData() {
   )
 }
 
+export function showCompleteObject() {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  var string = objectToJson(artboardHistory)
+  sendErrorMessage("Complete stored Artboard History", string )
+}
+
 export function showSavedDocumentArtboardHistory(context) {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var string = ""
@@ -179,28 +185,28 @@ export function exportArtboardHistory() {
   var now = new Date
   var month = now.getMonth() + 1
   month = "" + month
-  if(month.length <=1) {
-    month = "0"+month
+  if (month.length <= 1) {
+    month = "0" + month
   }
   var day = now.getDate()
   day = "" + day
-  if(day.length <=1) {
-    day = "0"+day
+  if (day.length <= 1) {
+    day = "0" + day
   }
   var hours = now.getHours()
   hours = "" + hours
-  if(hours.length <=1) {
-    hours = "0"+hours
+  if (hours.length <= 1) {
+    hours = "0" + hours
   }
   var minutes = now.getMinutes()
   minutes = "" + minutes
-  if(minutes.length <=1) {
-    minutes = "0"+minutes
+  if (minutes.length <= 1) {
+    minutes = "0" + minutes
   }
   var seconds = now.getSeconds()
   seconds = "" + seconds
-  if(seconds.length <=1) {
-    seconds = "0"+seconds
+  if (seconds.length <= 1) {
+    seconds = "0" + seconds
   }
 
   var textstring = "AH_" + now.getFullYear() + month + day + "_" + hours + ":" + minutes + ":" + seconds

@@ -60,6 +60,15 @@
       "name": "General Settings"
     },
     {
+      "identifier": "ArtboardHistory_showCompleteObject",
+      "script": "commands.js",
+      "handler": "showCompleteObject",
+      "description": "Get the whole saved data all in one.",
+      "icon": "icons/showArtboardHistory.png",
+      "iconDark": "icons/showArtboardHistoryDark.png",
+      "name": "Everything"
+    },
+    {
       "identifier": "ArtboardHistory_setZoomSetting",
       "script": "commands.js",
       "handler": "setZoomSetting",
@@ -148,7 +157,9 @@
             "title": "Show saved Data",
             "items": [
               "ArtboardHistory_showGeneralData",
-              "ArtboardHistory_showSavedDocumentArtboardHistory"
+              "ArtboardHistory_showSavedDocumentArtboardHistory",
+              "-",
+              "ArtboardHistory_showCompleteObject"
             ]
           },
           "ArtboardHistory_ResetAllSettings"
