@@ -138,6 +138,7 @@
           "ArtboardHistory_setZoomSetting",
           "ArtboardHistory_setLifetimeSetting",
           "ArtboardHistory_showSavedArtboardHistory",
+          "ArtboardHistory_Export",
           "ArtboardHistory_ResetAllSettings"
         ]
       },

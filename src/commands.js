@@ -50,13 +50,13 @@ export function goToLastArtboard(context) {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var documentId = getDocumentId()
   var lastArtboardSavedP = ""
-  var lastArtboardSavedA = "" 
+  var lastArtboardSavedA = ""
   for (var l = 0; l < artboardHistory.documents.length; l++) {
     if (documentId === artboardHistory.documents[l].id) {
-      if(-1 === artboardHistory.documents[l].lastHistoryIndex) {
+      if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
         var firstStoredHistoryId = -2
-        for(var m = 0; m < artboardHistory.documents[l].storedHistory.length; m ++){
-          if(firstStoredHistoryId <= artboardHistory.documents[l].storedHistory[m].id) {
+        for (var m = 0; m < artboardHistory.documents[l].storedHistory.length; m++) {
+          if (firstStoredHistoryId <= artboardHistory.documents[l].storedHistory[m].id) {
             firstStoredHistoryId = artboardHistory.documents[l].storedHistory[m].id
           }
         }
@@ -64,8 +64,8 @@ export function goToLastArtboard(context) {
       }
       var previousArtboardTime = 0
 
-      for(var o = 0; o < artboardHistory.documents[l].storedHistory.length; o ++){
-        if(previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id && 
+      for (var o = 0; o < artboardHistory.documents[l].storedHistory.length; o++) {
+        if (previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id &&
           artboardHistory.documents[l].lastHistoryIndex > artboardHistory.documents[l].storedHistory[o].id) {
           previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
           lastArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
@@ -73,7 +73,7 @@ export function goToLastArtboard(context) {
           //sendErrorMessage(previousArtboardTime)
         }
       }
-    artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
+      artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
     }
   }
   var document = require('sketch/dom').getSelectedDocument()
@@ -163,10 +163,51 @@ function getSavedSetting(stringWhere) {
 
 export function exportArtboardHistory() {
   var sketch = require('sketch/dom')
+
   var artboardHistory = getSavedSetting("ArtboardHistory")
-  const options = { formats: 'json', output: false }
-  const sketchJSON = sketch.export(artboardHistory, options)
-  sendErrorMessage(sketchJSON)
+  var json = objectToJson(artboardHistory)
+  var Text = require('sketch/dom').Text
+  var now = new Date
+  var month = now.getMonth() + 1
+  month = "" + month
+  if(month.length <=1) {
+    month = "0"+month
+  }
+  var day = now.getDate()
+  day = "" + day
+  if(day.length <=1) {
+    day = "0"+day
+  }
+  var hours = now.getHours()
+  hours = "" + hours
+  if(hours.length <=1) {
+    hours = "0"+hours
+  }
+  var minutes = now.getMinutes()
+  minutes = "" + minutes
+  if(minutes.length <=1) {
+    minutes = "0"+minutes
+  }
+  var seconds = now.getSeconds()
+  seconds = "" + seconds
+  if(seconds.length <=1) {
+    seconds = "0"+seconds
+  }
+
+  var textstring = "AH_" + now.getFullYear() + month + day + "_" + hours + ":" + minutes + ":" + seconds
+  var text = new Text({
+    text: textstring + json,
+    locked: true,
+    hidden: true
+  })
+
+  sketch.export(text, {
+    formats: 'json',
+    overwriting: true
+  })
+
+  text.remove()
+  sendMessageToBottom(textstring + ".json is successfully exported to \"~/Documents/Sketch Exports\"")
 }
 
 export function userResetAllSetSettings() {
@@ -279,7 +320,7 @@ export function setZoomSetting() {
       artboardHistory.zoom = false
     }
     setSetting("ArtboardHistory", artboardHistory)
-    sendMessageToBottom("Artboard History Zoom is successfully set to "+artboardHistory.zoom+".")
+    sendMessageToBottom("Artboard History Zoom is successfully set to " + artboardHistory.zoom + ".")
   })
 }
 
@@ -322,7 +363,7 @@ export function setLifetimeSetting() {
       }
     }
     setSetting("ArtboardHistory", artboardHistory)
-    sendMessageToBottom("Saving Artboard History for "+value+".")
+    sendMessageToBottom("Saving Artboard History for " + value + ".")
   })
 }
 
