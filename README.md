@@ -38,7 +38,7 @@
   <tr>
     <td>Status</td>
     <td>✅*</td>
-    <td>❌*</td>
+    <td>⚠️*</td>
     <td>❌*</td>
     <td>✅</td>
     <td>✅</td>
@@ -68,8 +68,8 @@
   <tr>
     <td>Shortcut</td>
     <td>alt + cmd + A</td>
-    <td>alt + cmd + Q</td>
-    <td>alt + cmd + W</td>
+    <td>ctrl + A</td>
+    <td>ctrl + cmd + A</td>
     <td>-</td>
     <td>-</td>
     <td>-</td>
@@ -82,9 +82,6 @@
 - only works within one document (the history is overwritten when opening another document / works with the current used document only).
 
 Feel free to create an [issue](https://github.com/jan-patrick/sketch_artboard-history/issues) if something does not work probably or if you have a feature request.
-
-Shortcut:
-opt (⌥) + cmd (⇧) + a (A)
 
 ## Install
 1. Download the [latest release](https://github.com/jan-patrick/sketch_artboard-history/releases/latest/download/artboard-history.sketchplugin.zip).
