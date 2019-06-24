@@ -39,13 +39,17 @@ export function switchBetweenTwoLatestArtboards(context) {
   var document = require('sketch/dom').getSelectedDocument()
   var layerP = document.getLayerWithID(lastArtboardSavedP)
   var layerA = document.getLayerWithID(lastArtboardSavedA)
-  document.selectedLayers.clear()
-  layerP.selected = true
-  layerA.selected = true
-  document.centerOnLayer(layerA)
-  // zoom
-  if (true === artboardHistory.zoom) {
-    document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+  if (typeof layerA === "object" && typeof layerP === "object") {
+    document.selectedLayers.clear()
+    layerP.selected = true
+    layerA.selected = true
+    document.centerOnLayer(layerA)
+    // zoom
+    if (true === artboardHistory.zoom) {
+      document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+    }
+  } else {
+    sendMessageToBottom("No valid Artboard History available.")
   }
 }
 
@@ -83,15 +87,19 @@ export function goToLastArtboard(context) {
   var document = require('sketch/dom').getSelectedDocument()
   var layerP = document.getLayerWithID(lastArtboardSavedP)
   var layerA = document.getLayerWithID(lastArtboardSavedA)
-  document.selectedLayers.clear()
-  layerP.selected = true
-  layerA.selected = true
-  document.centerOnLayer(layerA)
-  // zoom
-  if (true === artboardHistory.zoom) {
-    document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+  if (typeof layerA === "object" && typeof layerP === "object") {
+    document.selectedLayers.clear()
+    layerP.selected = true
+    layerA.selected = true
+    document.centerOnLayer(layerA)
+    // zoom
+    if (true === artboardHistory.zoom) {
+      document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+    }
+    setSetting("ArtboardHistory", artboardHistory)
+  } else {
+    sendMessageToBottom("No valid Artboard History available.")
   }
-  setSetting("ArtboardHistory", artboardHistory)
 }
 
 export function showGeneralSavedData() {
@@ -127,14 +135,14 @@ export function showSavedDocumentArtboardHistory() {
   for (var i = 0; i < artboardHistory.documents.length; i++) {
     if (document.id === artboardHistory.documents[i].id) {
       string += "Last updated: " + getMillisDateAsString(artboardHistory.documents[i].timestamp) + "\n\n" +
-        "Artboards (ordered by time, ascending):" + "\n"
+        "Artboards (ordered by time, ascending ⇧):" + "\n\n"
       var count = 0
       var lastTime = getCurrentTime()
       for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
         var timedifference = lastTime
-        for(var m = 0; m < artboardHistory.documents[i].storedHistory.length; m++) {
-          if(artboardHistory.documents[i].storedHistory[j].id - lastTime >= timedifference)
-          timedifference = artboardHistory.documents[i].storedHistory[j].id - lastTime
+        for (var m = 0; m < artboardHistory.documents[i].storedHistory.length; m++) {
+          if (artboardHistory.documents[i].storedHistory[j].id - lastTime >= timedifference)
+            timedifference = artboardHistory.documents[i].storedHistory[j].id - lastTime
           lastTime = artboardHistory.documents[i].storedHistory[j].id
           var k = j
         }

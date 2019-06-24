@@ -153,6 +153,7 @@
         "items": [
           "ArtboardHistory_setZoomSetting",
           "ArtboardHistory_setLifetimeSetting",
+          "-",
           {
             "title": "Show saved Data",
             "items": [
