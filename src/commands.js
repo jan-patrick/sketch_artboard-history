@@ -112,7 +112,7 @@ export function showGeneralSavedData() {
 export function showCompleteObject() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var string = objectToJson(artboardHistory)
-  sendErrorMessage("Complete stored Artboard History", string )
+  sendErrorMessage("Complete stored Artboard History (unformatted)", string)
 }
 
 export function showSavedDocumentArtboardHistory() {
@@ -120,27 +120,37 @@ export function showSavedDocumentArtboardHistory() {
   var string = ""
   var document = require('sketch/dom').getSelectedDocument()
   var documentName = document.path
-  while(documentName.includes("/")){
+  while (documentName.includes("/")) {
     documentName = documentName.substring(documentName.indexOf("/") + 1)
   }
   documentName = documentName.substring(0, documentName.indexOf(".sketch"))
   for (var i = 0; i < artboardHistory.documents.length; i++) {
-    if(document.id === artboardHistory.documents[i].id) {
-      string += "Last used: " + getMillisDateAsString(artboardHistory.documents[i].timestamp) + "\n\n" +
-      "Artboards:" + "\n"
+    if (document.id === artboardHistory.documents[i].id) {
+      string += "Last updated: " + getMillisDateAsString(artboardHistory.documents[i].timestamp) + "\n\n" +
+        "Artboards (ordered by time, ascending):" + "\n"
       var count = 0
+      var lastTime = getCurrentTime()
       for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
-        var layerA = document.getLayerWithID(artboardHistory.documents[i].storedHistory[j].artboard)
+        var timedifference = lastTime
+        for(var m = 0; m < artboardHistory.documents[i].storedHistory.length; m++) {
+          if(artboardHistory.documents[i].storedHistory[j].id - lastTime >= timedifference)
+          timedifference = artboardHistory.documents[i].storedHistory[j].id - lastTime
+          lastTime = artboardHistory.documents[i].storedHistory[j].id
+          var k = j
+        }
+        var layerA = document.getLayerWithID(artboardHistory.documents[i].storedHistory[k].artboard)
         if (typeof layerA === "object") {
           count++
           string += count + ". " + layerA.name + "\n"
+        } else {
+          artboardHistory.documents[i].storedHistory.splice(j, 1)
         }
         if (j === artboardHistory.documents[i].storedHistory.length - 1) {
           string += "\n\n"
         }
       }
     }
-    
+
   }
   if (1 >= string.length) {
     string = "No stored Artboard History available."
