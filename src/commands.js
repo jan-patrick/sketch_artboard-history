@@ -75,6 +75,7 @@ export function goToLastArtboard() {
       var previousArtboardTime = 0
 
       for (var o = 0; o < artboardHistory.documents[l].storedHistory.length; o++) {
+        var countRuntimeO = 0
         if (previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id &&
           artboardHistory.documents[l].lastHistoryIndex > artboardHistory.documents[l].storedHistory[o].id) {
           previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
@@ -82,15 +83,21 @@ export function goToLastArtboard() {
           lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
           j = o
           b = m
+          countRuntimeO ++
           //sendErrorMessage("",previousArtboardTime)
         }
       }
       artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
+      if(0 <= countRuntimeO) {
+      artboardHistory.documents[l].lastMoveByUser = false
+      } else {
+      artboardHistory.documents[l].lastMoveByUser = true
+      }
     }
   }
   // dev start
-  var previousArtboardDate = new Date(previousArtboardTime)
-  sendErrorMessage("previousArtboardTime",getHoursFromDate(previousArtboardDate)+":"+getMinutesFromDate(previousArtboardDate)+":"+getSecondsFromDate(previousArtboardDate))
+  //var previousArtboardDate = new Date(previousArtboardTime)
+  //sendErrorMessage("previousArtboardTime",getHoursFromDate(previousArtboardDate)+":"+getMinutesFromDate(previousArtboardDate)+":"+getSecondsFromDate(previousArtboardDate))
   // dev end
   var document = require('sketch/dom').getSelectedDocument()
   var layerP = document.getLayerWithID(lastArtboardSavedP)
@@ -148,7 +155,7 @@ export function showSavedDocumentArtboardHistory() {
     if (document.id === artboardHistory.documents[i].id) {
       var previousArtboardDate = new Date(artboardHistory.documents[i].timestamp)
 
-      string += "Last updated: " +  getYearFromDate(previousArtboardDate) + "." + getMonthFromDate(previousArtboardDate) + "." + getDayFromDate(previousArtboardDate) + " at " + getHoursFromDate(previousArtboardDate) + ":" + getMinutesFromDate(previousArtboardDate) + ":" + getSecondsFromDate(previousArtboardDate)
+      string += "Last updated: " + getDateAsString(previousArtboardDate)
         + "\n\n" +
         "Artboards (ordered by time, ascending ⇧):" + "\n\n"
       var count = 0
@@ -164,7 +171,8 @@ export function showSavedDocumentArtboardHistory() {
         var layerA = document.getLayerWithID(artboardHistory.documents[i].storedHistory[k].artboard)
         if (typeof layerA === "object") {
           count++
-          string += count + ".  " + layerA.name + "\n"
+          var date = new Date(artboardHistory.documents[i].storedHistory[k].id)
+          string += count + ".  " + layerA.name + "\n" + "     " + getDateAsString(date) + "\n"
         } else {
           artboardHistory.documents[i].storedHistory.splice(j, 1)
         }
@@ -277,6 +285,10 @@ function getSecondsFromDate(date) {
     seconds = "0" + seconds
   }
   return seconds
+}
+
+function getDateAsString(date) {
+  return getYearFromDate(date) + "." + getMonthFromDate(date) + "." + getDayFromDate(date) + " at " + getHoursFromDate(date) + ":" + getMinutesFromDate(date) + ":" + getSecondsFromDate(date)
 }
 
 export function exportArtboardHistory() {
@@ -585,6 +597,7 @@ export function updateArtboardHistory(context) {
       id: documentId,
       timestamp: getCurrentTime(),
       lastHistoryIndex: -1,
+      lastMoveByUser: true,
       storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
     })
     artboardHistory.documents[documentIndex].id = documentId
@@ -608,9 +621,15 @@ export function updateArtboardHistory(context) {
   //sendErrorMessage("",documentId + documentIndex + newHistoryIndex)
   //sendErrorMessage("",newHistoryIndex)
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = getCurrentTime()
-  artboardHistory.documents[documentIndex].timestamp = getCurrentTime()
+  artboardHistory.documents[documentIndex].timestamp = artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
+  if(true === artboardHistory.documents[documentIndex].lastMoveByUser) {
+    artboardHistory.documents[documentIndex].lastHistoryIndex = artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id
+    artboardHistory.documents[documentIndex].lastMoveByUser = false
+  } else {
+    artboardHistory.documents[documentIndex].lastMoveByUser = true
+  }
   setSetting("ArtboardHistory", artboardHistory)
 
   //sendErrorMessage("",strOldSave)

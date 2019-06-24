@@ -117,6 +117,7 @@ var artboardHistory = {
     id: "documentId",
     timestamp: Date.now(),
     lastHistoryIndex: -1,
+    lastMoveByUser: true,
     storedHistory: [{ id: Date.now(), page: "pageIdOfArtboard1", artboard: "artboardId1" },
                     { id: Date.now(), page: "pageIdOfArtboard2", artboard: "artboardId2" }] 
   }]
