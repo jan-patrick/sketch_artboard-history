@@ -115,6 +115,7 @@ export function goToLastArtboard() {
     if(j >= 1) {
       artboardHistory.documents[b].storedHistory.splice(j, 1)
     } else {
+      artboardHistory.documents[b].lastMoveByUser = true
       sendMessageToBottom("No valid Artboard History available.")
     }
   }
