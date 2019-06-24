@@ -88,7 +88,10 @@ export function goToLastArtboard() {
       artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
     }
   }
-  sendErrorMessage(getMillisDateAsString(previousArtboardTime))
+  // dev start
+  var previousArtboardDate = new Date(previousArtboardTime)
+  sendErrorMessage("previousArtboardTime",getHoursFromDate(previousArtboardDate)+":"+getMinutesFromDate(previousArtboardDate)+":"+getSecondsFromDate(previousArtboardDate))
+  // dev end
   var document = require('sketch/dom').getSelectedDocument()
   var layerP = document.getLayerWithID(lastArtboardSavedP)
   var layerA = document.getLayerWithID(lastArtboardSavedA)
@@ -143,7 +146,10 @@ export function showSavedDocumentArtboardHistory() {
   documentName = documentName.substring(0, documentName.indexOf(".sketch"))
   for (var i = 0; i < artboardHistory.documents.length; i++) {
     if (document.id === artboardHistory.documents[i].id) {
-      string += "Last updated: " + getMillisDateAsString(artboardHistory.documents[i].timestamp) + "\n\n" +
+      var previousArtboardDate = new Date(artboardHistory.documents[i].timestamp)
+
+      string += "Last updated: " +  getYearFromDate(previousArtboardDate) + "." + getMonthFromDate(previousArtboardDate) + "." + getDayFromDate(previousArtboardDate) + " at " + getHoursFromDate(previousArtboardDate) + ":" + getMinutesFromDate(previousArtboardDate) + ":" + getSecondsFromDate(previousArtboardDate)
+        + "\n\n" +
         "Artboards (ordered by time, ascending ⇧):" + "\n\n"
       var count = 0
       var lastTime = getCurrentTime()
