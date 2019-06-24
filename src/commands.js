@@ -53,7 +53,7 @@ export function switchBetweenTwoLatestArtboards(context) {
   }
 }
 
-export function goToLastArtboard(context) {
+export function goToLastArtboard() {
 
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var documentId = getDocumentId()
@@ -88,6 +88,7 @@ export function goToLastArtboard(context) {
       artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
     }
   }
+  sendErrorMessage(getMillisDateAsString(previousArtboardTime))
   var document = require('sketch/dom').getSelectedDocument()
   var layerP = document.getLayerWithID(lastArtboardSavedP)
   var layerA = document.getLayerWithID(lastArtboardSavedA)
@@ -157,7 +158,7 @@ export function showSavedDocumentArtboardHistory() {
         var layerA = document.getLayerWithID(artboardHistory.documents[i].storedHistory[k].artboard)
         if (typeof layerA === "object") {
           count++
-          string += count + ". " + layerA.name + "\n"
+          string += count + ".  " + layerA.name + "\n"
         } else {
           artboardHistory.documents[i].storedHistory.splice(j, 1)
         }
@@ -214,6 +215,64 @@ function getSavedSetting(stringWhere) {
   return Settings.globalSettingForKey(stringWhere)
 }
 
+function getYearFromDate(date) {
+  var year = date.getFullYear()
+  year = "" + year
+  if (year.length <= 1) {
+    year = "000" + year
+  } else if (year.length <= 2) {
+    year = "00" + year
+  } else if (year.length <= 3) {
+    year = "0" + year
+  }
+  return year
+}
+
+function getMonthFromDate(date) {
+  var month = date.getMonth() + 1
+  month = "" + month
+  if (month.length <= 1) {
+    month = "0" + month
+  }
+  return month
+}
+
+function getDayFromDate(date) {
+  var day = date.getDate()
+  day = "" + day
+  if (day.length <= 1) {
+    day = "0" + day
+  }
+  return day
+}
+
+function getHoursFromDate(date) {
+  var hours = date.getHours()
+  hours = "" + hours
+  if (hours.length <= 1) {
+    hours = "0" + hours
+  }
+  return hours
+}
+
+function getMinutesFromDate(date) {
+  var minutes = date.getMinutes()
+  minutes = "" + minutes
+  if (minutes.length <= 1) {
+    minutes = "0" + minutes
+  }
+  return minutes
+}
+
+function getSecondsFromDate(date) {
+  var seconds = date.getSeconds()
+  seconds = "" + seconds
+  if (seconds.length <= 1) {
+    seconds = "0" + seconds
+  }
+  return seconds
+}
+
 export function exportArtboardHistory() {
   var sketch = require('sketch/dom')
 
@@ -221,33 +280,14 @@ export function exportArtboardHistory() {
   var json = objectToJson(artboardHistory)
   var Text = require('sketch/dom').Text
   var now = new Date
-  var month = now.getMonth() + 1
-  month = "" + month
-  if (month.length <= 1) {
-    month = "0" + month
-  }
-  var day = now.getDate()
-  day = "" + day
-  if (day.length <= 1) {
-    day = "0" + day
-  }
-  var hours = now.getHours()
-  hours = "" + hours
-  if (hours.length <= 1) {
-    hours = "0" + hours
-  }
-  var minutes = now.getMinutes()
-  minutes = "" + minutes
-  if (minutes.length <= 1) {
-    minutes = "0" + minutes
-  }
-  var seconds = now.getSeconds()
-  seconds = "" + seconds
-  if (seconds.length <= 1) {
-    seconds = "0" + seconds
-  }
+  var year = getYearFromDate(now)
+  var month = getMonthFromDate(now)
+  var day = getDayFromDate(now)
+  var hours = getHoursFromDate(now)
+  var minutes = getMinutesFromDate(now)
+  var seconds = getSecondsFromDate(now)
 
-  var textstring = "AH_" + now.getFullYear() + month + day + "_" + hours + ":" + minutes + ":" + seconds
+  var textstring = "AH_" + year + month + day + "_" + hours + ":" + minutes + ":" + seconds
   var text = new Text({
     text: textstring + json,
     locked: true,
