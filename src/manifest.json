@@ -147,7 +147,6 @@
     "title": "Artboard History",
     "items": [
       "ArtboardHistory_switchBetweenTwoArtboard",
-      "ArtboardHistory_goToLastArtboard",
       "-",
       {
         "title": "Settings",
@@ -164,7 +163,6 @@
               "ArtboardHistory_showCompleteObject"
             ]
           },
-          "ArtboardHistory_Export",
           "ArtboardHistory_ResetAllSettings"
         ]
       },
@@ -179,7 +177,11 @@
       {
         "title": "In Development (may not work)",
         "items": [ 
-          "ArtboardHistory_goToNextArtboard"        ]
+          "ArtboardHistory_goToLastArtboard",
+          "ArtboardHistory_goToNextArtboard",
+          "-",
+          "ArtboardHistory_Export"
+        ]
       }
     ]
   }
