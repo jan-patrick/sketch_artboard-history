@@ -59,6 +59,8 @@ export function goToLastArtboard(context) {
   var documentId = getDocumentId()
   var lastArtboardSavedP = ""
   var lastArtboardSavedA = ""
+  var j = 0
+  var b = 0
   for (var l = 0; l < artboardHistory.documents.length; l++) {
     if (documentId === artboardHistory.documents[l].id) {
       if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
@@ -78,6 +80,8 @@ export function goToLastArtboard(context) {
           previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
           lastArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
           lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
+          j = o
+          b = m
           //sendErrorMessage("",previousArtboardTime)
         }
       }
@@ -96,10 +100,14 @@ export function goToLastArtboard(context) {
     if (true === artboardHistory.zoom) {
       document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
     }
-    setSetting("ArtboardHistory", artboardHistory)
   } else {
-    sendMessageToBottom("No valid Artboard History available.")
+    if(j >= 1) {
+      artboardHistory.documents[b].storedHistory.splice(j, 1)
+    } else {
+      sendMessageToBottom("No valid Artboard History available.")
+    }
   }
+  setSetting("ArtboardHistory", artboardHistory)
 }
 
 export function showGeneralSavedData() {
