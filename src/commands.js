@@ -54,7 +54,6 @@ export function switchBetweenTwoLatestArtboards(context) {
 }
 
 export function goToLastArtboard() {
-
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var documentId = getDocumentId()
   var lastArtboardSavedP = ""
@@ -102,6 +101,74 @@ export function goToLastArtboard() {
   var document = require('sketch/dom').getSelectedDocument()
   var layerP = document.getLayerWithID(lastArtboardSavedP)
   var layerA = document.getLayerWithID(lastArtboardSavedA)
+  if (typeof layerA === "object" && typeof layerP === "object") {
+    document.selectedLayers.clear()
+    layerP.selected = true
+    layerA.selected = true
+    document.centerOnLayer(layerA)
+    // zoom
+    if (true === artboardHistory.zoom) {
+      document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+    }
+  } else {
+    if(j >= 1) {
+      artboardHistory.documents[b].storedHistory.splice(j, 1)
+    } else {
+      artboardHistory.documents[b].lastMoveByUser = true
+      sendMessageToBottom("No valid Artboard History available.")
+    }
+  }
+  setSetting("ArtboardHistory", artboardHistory)
+}
+
+export function goToNextArtboard() {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  var documentId = getDocumentId()
+  var nextArtboardSavedP = ""
+  var nextArtboardSavedA = ""
+  var j = 0
+  var b = 0
+  for (var l = 0; l < artboardHistory.documents.length; l++) {
+    if (documentId === artboardHistory.documents[l].id) {
+      if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
+        var firstStoredHistoryId = -2
+        for (var m = 0; m < artboardHistory.documents[l].storedHistory.length; m++) {
+          if (firstStoredHistoryId <= artboardHistory.documents[l].storedHistory[m].id) {
+            firstStoredHistoryId = artboardHistory.documents[l].storedHistory[m].id
+          }
+        }
+        artboardHistory.documents[l].lastHistoryIndex = firstStoredHistoryId
+      }
+      var previousArtboardTime = 0
+
+      for (var o = 0; o < artboardHistory.documents[l].storedHistory.length; o++) {
+        var countRuntimeO = 0
+        if (previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id &&
+          artboardHistory.documents[l].lastHistoryIndex > artboardHistory.documents[l].storedHistory[o].id) {
+          previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
+          nextArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
+          nextArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
+          j = o
+          b = m
+          countRuntimeO ++
+          //sendErrorMessage("",previousArtboardTime)
+        }
+      }
+      artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
+      if(0 <= countRuntimeO) {
+      artboardHistory.documents[l].lastMoveByUser = false
+      } else {
+      artboardHistory.documents[l].lastMoveByUser = true
+      }
+    }
+  }
+  // dev start
+  //var previousArtboardDate = new Date(previousArtboardTime)
+  //sendErrorMessage("previousArtboardTime",getHoursFromDate(previousArtboardDate)+":"+getMinutesFromDate(previousArtboardDate)+":"+getSecondsFromDate(previousArtboardDate))
+  // dev end
+  var document = require('sketch/dom').getSelectedDocument()
+  var layerP = document.getLayerWithID(nextArtboardSavedP)
+  var layerA = document.getLayerWithID(nextArtboardSavedA)
   if (typeof layerA === "object" && typeof layerP === "object") {
     document.selectedLayers.clear()
     layerP.selected = true
