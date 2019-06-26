@@ -220,6 +220,7 @@ export function showSavedDocumentArtboardHistory() {
   var string = ""
   var document = require('sketch/dom').getSelectedDocument()
   var documentName = document.path
+  var messageCounter = 1
   while (documentName.includes("/")) {
     documentName = documentName.substring(documentName.indexOf("/") + 1)
   }
@@ -232,7 +233,6 @@ export function showSavedDocumentArtboardHistory() {
         + "\n\n" +
         "Artboards (ordered by time, ascending ⇧):" + "\n\n"
       var count = 0
-      var messageCounter = 1
       var lastTime = getCurrentTime()
       for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
         var timedifference = lastTime
@@ -257,13 +257,24 @@ export function showSavedDocumentArtboardHistory() {
     }
 
   }
-  messageCounter = Math.ceil(count / 20)
-
-  sendErrorMessage(count + " - " + messageCounter,"")
-  if (1 >= string.length) {
-    string = "No stored Artboard History available."
+  if (70 >= string.length) {
+    string = "There is no Artboard History available for this document."
+  } else {
+    messageCounter = Math.ceil(count / 20)
   }
+  if (1 >= messageCounter) {  
   sendErrorMessage("Artboard History of " + documentName, string)
+  } else {
+    var substring = ""
+    for (var h = 0; h < messageCounter; h++){
+      if(0===h) {
+        substring = string.substring(0, string.indexOf(String((h+1)*20+1)))
+      } else {
+        substring = string.substring(substring.length, string.indexOf(String((h+1)*20+1)))
+      }
+      sendErrorMessage("Artboard History of " + documentName + " (" + (h+1) + "/" + messageCounter + ")", substring)
+    } 
+  }
 }
 
 export function showSavedLastTwoArtboardHistory() {
