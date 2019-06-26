@@ -263,6 +263,7 @@ export function showSavedDocumentArtboardHistory() {
     }
 
   }
+  setSetting("ArtboardHistory", artboardHistory)
   if (70 >= string.length) {
     string = "There is no Artboard History available for this document."
   } else {
