@@ -246,7 +246,13 @@ export function showSavedDocumentArtboardHistory() {
         if (typeof layerA === "object") {
           count++
           var date = new Date(artboardHistory.documents[i].storedHistory[k].id)
-          string += count + ".  " + layerA.name + "\n" + "     " + getDateAsString(date) + "\n"
+          if (9 >= count) {
+            string += count + ".   " + layerA.name + "\n" + "      " + getDateAsString(date) + "\n"
+          } else if (99 >= count) {
+            string += count + ".  " + layerA.name + "\n" + "       " + getDateAsString(date) + "\n"
+          } else {
+            string += count + ". " + layerA.name + "\n" + "        " + getDateAsString(date) + "\n"
+          }
         } else {
           artboardHistory.documents[i].storedHistory.splice(j, 1)
         }
@@ -270,7 +276,11 @@ export function showSavedDocumentArtboardHistory() {
       if(0===h) {
         substring = string.substring(0, string.indexOf(String((h+1)*20+1)))
       } else {
-        substring = string.substring(substring.length, string.indexOf(String((h+1)*20+1)))
+        if(count< (h+1)*20+1) {
+          substring = string.substring(string.indexOf(String(h*20+1)), string.length)
+        } else {
+          substring = string.substring(string.indexOf(String(h*20+1)), string.indexOf(String((h+1)*20+1)))     
+        }
       }
       sendErrorMessage("Artboard History of " + documentName + " (" + (h+1) + "/" + messageCounter + ")", substring)
     } 
