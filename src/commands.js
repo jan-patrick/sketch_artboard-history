@@ -259,14 +259,14 @@ export function showSavedDocumentArtboardHistory() {
   if (1 >= string.length) {
     string = "No stored Artboard History available."
   }
-  sendErrorMessage("Artboard History of " + documentName,
-    "previous Artboard id: " + getSavedSetting("lastArtboard")
-    + "\n\n" +
-    "current Artboard id: " + getSavedSetting("actualArtboard")
-    + "\n\n" +
-    string
-    //+ "\n\n" +
-    //objectToJson(artboardHistory)
+  sendErrorMessage("Artboard History of " + documentName, string)
+}
+
+export function showSavedLastTwoArtboardHistory() {
+  sendErrorMessage("Last Two Used Artboards",
+    "\nPrevious Artboard id: \n\n" + getSavedSetting("lastArtboard")
+    + "\n\n\n" +
+    "Current Artboard id: \n\n" + getSavedSetting("actualArtboard")
   )
 }
 

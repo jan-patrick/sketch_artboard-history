@@ -51,6 +51,15 @@
       "name": "History of this Document"
     },
     {
+      "identifier": "ArtboardHistory_showSavedLastTwoArtboardHistory",
+      "script": "commands.js",
+      "handler": "showSavedLastTwoArtboardHistory",
+      "description": "Get an overview of your local saved Artboard History (the last two Artboards in use).",
+      "icon": "icons/showArtboardHistory.png",
+      "iconDark": "icons/showArtboardHistoryDark.png",
+      "name": "Last Two Artboards"
+    },
+    {
       "identifier": "ArtboardHistory_showGeneralData",
       "script": "commands.js",
       "handler": "showGeneralSavedData",
@@ -158,6 +167,7 @@
             "title": "Show saved Data",
             "items": [
               "ArtboardHistory_showGeneralData",
+              "ArtboardHistory_showSavedLastTwoArtboardHistory",
               "ArtboardHistory_showSavedDocumentArtboardHistory",
               "-",
               "ArtboardHistory_showCompleteObject"
