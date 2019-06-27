@@ -1,7 +1,3 @@
-import sketch from 'sketch'
-var UI = require('sketch/ui')
-var util = require('util')
-var Settings = require('sketch/settings')
 const possibleDates = [
   { millis: 0, description: "refresh with every restart" },
   { millis: 86400000, description: "1 day" },
@@ -12,8 +8,8 @@ const possibleDates = [
   { millis: -1, description: "infinity" },
 ]
 
-
 function sendErrorMessage(dataHeader, dataError) {
+  var UI = require('sketch/ui')
   dataHeader = String(dataHeader)
   if (0 >= dataHeader.length) {
     dataHeader = "Artboard History"
@@ -22,7 +18,54 @@ function sendErrorMessage(dataHeader, dataError) {
 }
 
 function sendMessageToBottom(dataBottom) {
+  var UI = require('sketch/ui')
   UI.message(String(dataBottom))
+}
+
+function setSetting(stringWhere, stringValue) {
+  var Settings = require('sketch/settings')
+  Settings.setGlobalSettingForKey(stringWhere, stringValue)
+}
+
+function getSavedSetting(stringWhere) {
+  var Settings = require('sketch/settings')
+  return Settings.globalSettingForKey(stringWhere)
+}
+
+function getYearFromDate(date) {
+  return returnNumberAsStringWithSpecificLength(date.getFullYear(), 4)
+}
+
+function getMonthFromDate(date) {
+  return returnNumberAsStringWithSpecificLength(date.getMonth() + 1, 2)
+}
+
+function getDayFromDate(date) {
+  return returnNumberAsStringWithSpecificLength(date.getDate(), 2)
+}
+
+function getHoursFromDate(date) {
+  return returnNumberAsStringWithSpecificLength(date.getHours(), 2)
+}
+
+function getMinutesFromDate(date) {
+  return returnNumberAsStringWithSpecificLength(date.getMinutes(), 2)
+}
+
+function getSecondsFromDate(date) {
+  return returnNumberAsStringWithSpecificLength(date.getSeconds(), 2)
+}
+
+function getDateAsString(date) {
+  return getYearFromDate(date) + "." + getMonthFromDate(date) + "." + getDayFromDate(date) + " at " + getHoursFromDate(date) + ":" + getMinutesFromDate(date) + ":" + getSecondsFromDate(date)
+}
+
+function returnNumberAsStringWithSpecificLength(int, length) {
+  var string = int + ""
+  while (length > string.length) {
+    string = "0" + string
+  }
+  return string
 }
 
 export function switchBetweenTwoLatestArtboards(context) {
@@ -52,6 +95,89 @@ export function switchBetweenTwoLatestArtboards(context) {
     sendMessageToBottom("No valid Artboard History available.")
   }
 }
+
+function getDocumentId() {
+  var getSelectedDocument = require('sketch/dom').getSelectedDocument
+  const document = getSelectedDocument()
+  return document.id
+}
+
+function getDocumentsArtboardHistory(artboardHistory, documentId) {
+  for (var i = 0; i < artboardHistory.documents.length; i++) {
+    if (documentId === artboardHistory.documents[i].id) {
+      return artboardHistory.documents[i].storedHistory
+    }
+  }
+  return false
+}
+
+function getDocumentsIndexById(artboardHistory, documentId) {
+  for (var i = 0; i < artboardHistory.documents.length; i++) {
+    if (documentId === artboardHistory.documents[i].id) {
+      return i
+    }
+  }
+  return false
+}
+
+function getArtboardsPageByArtboardId(artboardStringToCheck) {
+  var getSelectedDocument = require('sketch/dom').getSelectedDocument
+  const document = getSelectedDocument()
+  for (var i = 0; i < document.pages.length; i++) {
+    for (var j = 0; j < document.pages[i].layers.length; j++) {
+      if (artboardStringToCheck === document.pages[i].layers[j].id) {
+        return document.pages[i].id
+      }
+    }
+  }
+  return false
+}
+
+function checkIfInLifeTimeSpan() {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  if (-1 != artboardHistory.lifetime) {
+    var timeForComparison = getCurrentTime()
+    for (var i = 0; i < artboardHistory.documents.length; i++) {
+      if (timeForComparison >= artboardHistory.lifetime + artboardHistory.documents[i].timestamp) {
+        artboardHistory.documents.splice(i, 1)
+      }
+    }
+    setSetting("ArtboardHistory", artboardHistory)
+  }
+}
+
+function newArtboardHistoryObject() {
+  var artboardHistory = {
+    zoom: true,
+    lifetime: 2629746000, // 1 month as standard
+    documents: []
+  }
+  setSetting("ArtboardHistory", artboardHistory)
+}
+
+function openUrlInBrowser(url) {
+  NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
+}
+
+function checkIfArtboardHistoryAlreadySaved() {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  if (typeof artboardHistory != "object") {
+    newArtboardHistoryObject()
+  }
+}
+
+function objectToJson(obj) {
+  var json = JSON.stringify(obj)
+  return json
+}
+
+function getCurrentTime() {
+  return Date.now()
+}
+
+////////////////////////////////
+// FUNCTIONS VISIBLE FOR USER //
+////////////////////////////////
 
 export function goToLastArtboard() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
@@ -297,111 +423,6 @@ export function showSavedLastTwoArtboardHistory() {
   )
 }
 
-function getArtboardsPageByArtboardId(artboardStringToCheck) {
-  var getSelectedDocument = require('sketch/dom').getSelectedDocument
-  const document = getSelectedDocument()
-  for (var i = 0; i < document.pages.length; i++) {
-    for (var j = 0; j < document.pages[i].layers.length; j++) {
-      if (artboardStringToCheck === document.pages[i].layers[j].id) {
-        return document.pages[i].id
-      }
-    }
-  }
-  return false
-}
-
-function safeToString(x) {
-  switch (typeof x) {
-    case 'object':
-      return 'object';
-    case 'function':
-      return 'function';
-    default:
-      return x + '';
-  }
-}
-
-function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
-  while (stringCheckingWith.length > 2) {
-    var stringCheckingWithCutOut = stringCheckingWith.substring(0, stringCheckingWith.indexOf("."))
-    stringCheckingWith = stringCheckingWith.substring(stringCheckingWith.indexOf(".") + 1)
-    if (stringToCheck === stringCheckingWithCutOut) {
-      return true
-    }
-  }
-  return false
-}
-
-function setSetting(stringWhere, stringValue) {
-  Settings.setGlobalSettingForKey(stringWhere, stringValue)
-}
-
-function getSavedSetting(stringWhere) {
-  return Settings.globalSettingForKey(stringWhere)
-}
-
-function getYearFromDate(date) {
-  var year = date.getFullYear()
-  year = "" + year
-  if (year.length <= 1) {
-    year = "000" + year
-  } else if (year.length <= 2) {
-    year = "00" + year
-  } else if (year.length <= 3) {
-    year = "0" + year
-  }
-  return year
-}
-
-function getMonthFromDate(date) {
-  var month = date.getMonth() + 1
-  month = "" + month
-  if (month.length <= 1) {
-    month = "0" + month
-  }
-  return month
-}
-
-function getDayFromDate(date) {
-  var day = date.getDate()
-  day = "" + day
-  if (day.length <= 1) {
-    day = "0" + day
-  }
-  return day
-}
-
-function getHoursFromDate(date) {
-  var hours = date.getHours()
-  hours = "" + hours
-  if (hours.length <= 1) {
-    hours = "0" + hours
-  }
-  return hours
-}
-
-function getMinutesFromDate(date) {
-  var minutes = date.getMinutes()
-  minutes = "" + minutes
-  if (minutes.length <= 1) {
-    minutes = "0" + minutes
-  }
-  return minutes
-}
-
-function getSecondsFromDate(date) {
-  var seconds = date.getSeconds()
-  seconds = "" + seconds
-  if (seconds.length <= 1) {
-    seconds = "0" + seconds
-  }
-  return seconds
-}
-
-function getDateAsString(date) {
-  return getYearFromDate(date) + "." + getMonthFromDate(date) + "." + getDayFromDate(date) + " at " + getHoursFromDate(date) + ":" + getMinutesFromDate(date) + ":" + getSecondsFromDate(date)
-}
-
 export function exportArtboardHistory() {
   var sketch = require('sketch/dom')
 
@@ -433,6 +454,7 @@ export function exportArtboardHistory() {
 }
 
 export function userResetAllSetSettings() {
+  var UI = require('sketch/ui')
   UI.getInputFromUser(
     "Are you sure you want to reset your Artboard History?",
     {
@@ -457,76 +479,14 @@ export function resetAllSetSettings() {
   sendMessageToBottom("Artboard History is successfully reset.")
 }
 
-function getDocumentId() {
-  var getSelectedDocument = require('sketch/dom').getSelectedDocument
-  const document = getSelectedDocument()
-  return document.id
-}
-
-function getDocumentsArtboardHistory(artboardHistory, documentId) {
-  for (var i = 0; i < artboardHistory.documents.length; i++) {
-    if (documentId === artboardHistory.documents[i].id) {
-      return artboardHistory.documents[i].storedHistory
-    }
-  }
-  return false
-}
-
-function getDocumentsIndexById(artboardHistory, documentId) {
-  for (var i = 0; i < artboardHistory.documents.length; i++) {
-    if (documentId === artboardHistory.documents[i].id) {
-      return i
-    }
-  }
-  return false
-}
-
 export function checkIfAllThisExists() {
   checkIfArtboardHistoryAlreadySaved()
   checkIfInLifeTimeSpan()
 }
 
-function checkIfInLifeTimeSpan() {
-  var artboardHistory = getSavedSetting("ArtboardHistory")
-  if (-1 != artboardHistory.lifetime) {
-    var timeForComparison = getCurrentTime()
-    for (var i = 0; i < artboardHistory.documents.length; i++) {
-      if (timeForComparison >= artboardHistory.lifetime + artboardHistory.documents[i].timestamp) {
-        artboardHistory.documents.splice(i, 1)
-      }
-    }
-    setSetting("ArtboardHistory", artboardHistory)
-  }
-}
-
-function newArtboardHistoryObject() {
-  var artboardHistory = {
-    zoom: true,
-    lifetime: 2629746000, // 1 month as standard
-    documents: []
-  }
-  setSetting("ArtboardHistory", artboardHistory)
-}
-
-function openUrlInBrowser(url) {
-  NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
-}
-
-function checkIfArtboardHistoryAlreadySaved() {
-  var a = getSavedSetting("ArtboardHistory")
-  if (typeof a != "object") {
-    newArtboardHistoryObject()
-  }
-  //sendErrorMessage("",objectToJson(getSavedSetting("ArtboardHistory")))
-}
-
-function objectToJson(obj) {
-  var json = JSON.stringify(obj)
-  return json
-}
-
 export function setZoomSetting() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
+  var UI = require('sketch/ui')
   UI.getInputFromUser("Zoom to Artboard?", {
     description: "When using the Artboard History plugin.",
     type: UI.INPUT_TYPE.selection,
@@ -546,13 +506,9 @@ export function setZoomSetting() {
   })
 }
 
-function getMillisDateAsString(millis) {
-  var date = new Date(millis);
-  return date.toString()
-}
-
 export function setLifetimeSetting() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
+  var UI = require('sketch/ui')
   var c = 42
   for (var i = 0; i < possibleDates.length; i++) {
     if (artboardHistory.lifetime === possibleDates[i].millis) {
@@ -587,10 +543,6 @@ export function setLifetimeSetting() {
     setSetting("ArtboardHistory", artboardHistory)
     sendMessageToBottom("Saving Artboard History for " + value + ".")
   })
-}
-
-function getCurrentTime() {
-  return Date.now()
 }
 
 export function showWebsite() {
@@ -741,8 +693,6 @@ export function updateArtboardHistory(context) {
 
 
   // save into Settings
-  //sendErrorMessage("",documentId + documentIndex + newHistoryIndex)
-  //sendErrorMessage("",newHistoryIndex)
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = getCurrentTime()
   artboardHistory.documents[documentIndex].timestamp = artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
