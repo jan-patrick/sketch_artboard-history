@@ -15,7 +15,7 @@ const possibleDates = [
 
 function sendErrorMessage(dataHeader, dataError) {
   dataHeader = String(dataHeader)
-  if (1 >= dataHeader.length) {
+  if (0 >= dataHeader.length) {
     dataHeader = "Artboard History"
   }
   UI.alert(dataHeader, String(dataError))
@@ -246,12 +246,13 @@ export function showSavedDocumentArtboardHistory() {
         if (typeof layerA === "object") {
           count++
           var date = new Date(artboardHistory.documents[i].storedHistory[k].id)
+          var nameToPrint = layerA.name//.replace(/\\/g, '/')
           if (9 >= count) {
-            string += count + ".   " + layerA.name + "\n" + "      " + getDateAsString(date) + "\n"
+            string += count + ".   " + nameToPrint + "\n" + "      " + getDateAsString(date) + "\n"
           } else if (99 >= count) {
-            string += count + ".  " + layerA.name + "\n" + "       " + getDateAsString(date) + "\n"
+            string += count + ".  " + nameToPrint + "\n" + "       " + getDateAsString(date) + "\n"
           } else {
-            string += count + ". " + layerA.name + "\n" + "        " + getDateAsString(date) + "\n"
+            string += count + ". " + nameToPrint + "\n" + "        " + getDateAsString(date) + "\n"
           }
         } else {
           artboardHistory.documents[i].storedHistory.splice(j, 1)
@@ -269,22 +270,22 @@ export function showSavedDocumentArtboardHistory() {
   } else {
     messageCounter = Math.ceil(count / 20)
   }
-  if (1 >= messageCounter) {  
-  sendErrorMessage("Artboard History of " + documentName, string)
+  if (1 >= messageCounter) {
+    sendErrorMessage("Artboard History of " + documentName, string)
   } else {
     var substring = ""
-    for (var h = 0; h < messageCounter; h++){
-      if(0===h) {
-        substring = string.substring(0, string.indexOf(String((h+1)*20+1)))
+    for (var h = 0; h < messageCounter; h++) {
+      if (0 === h) {
+        substring = string.substring(0, string.indexOf(String((h + 1) * 20 + 1)))
       } else {
-        if(count< (h+1)*20+1) {
-          substring = string.substring(string.indexOf(String(h*20+1)), string.length)
+        if (count < (h + 1) * 20 + 1) {
+          substring = string.substring(string.indexOf(String(h * 20 + 1)), string.length)
         } else {
-          substring = string.substring(string.indexOf(String(h*20+1)), string.indexOf(String((h+1)*20+1)))     
+          substring = string.substring(string.indexOf(String(h * 20 + 1)), string.indexOf(String((h + 1) * 20 + 1)))
         }
       }
-      sendErrorMessage("Artboard History of " + documentName + " (" + (h+1) + "/" + messageCounter + ")", substring)
-    } 
+      sendErrorMessage("Artboard History of " + documentName + " (" + (h + 1) + "/" + messageCounter + ")", substring)
+    }
   }
 }
 
@@ -307,6 +308,17 @@ function getArtboardsPageByArtboardId(artboardStringToCheck) {
     }
   }
   return false
+}
+
+function safeToString(x) {
+  switch (typeof x) {
+    case 'object':
+      return 'object';
+    case 'function':
+      return 'function';
+    default:
+      return x + '';
+  }
 }
 
 function doesStringIncludeThat(stringToCheck, stringCheckingWith) {
@@ -690,6 +702,7 @@ export function updateArtboardHistory(context) {
   var documentIndex = 0
   var newHistoryIndex = 0
   var previousHistoryinDoc = getDocumentsArtboardHistory(artboardHistory, documentId)
+  var sameArtboardAgain = false
   if (false === previousHistoryinDoc) {
     documentIndex = artboardHistory.documents.length
     artboardHistory.documents.push({
@@ -708,13 +721,30 @@ export function updateArtboardHistory(context) {
     for (var i = 0; i < newHistoryIndex; i++) {
       if (newP === artboardHistory.documents[documentIndex].storedHistory[i].page) {
         if (newA === artboardHistory.documents[documentIndex].storedHistory[i].artboard) {
+          var previousArtboardTime = getCurrentTime()
+          var previousArtboardTimeDifference = previousArtboardTime
+          var previousArtboard = ""
+          for (var o = 0; o < artboardHistory.documents[documentIndex].storedHistory.length; o++) {
+            if (previousArtboardTimeDifference > previousArtboardTime - artboardHistory.documents[documentIndex].storedHistory[o].id) {
+              previousArtboardTimeDifference = previousArtboardTime - artboardHistory.documents[documentIndex].storedHistory[o].id
+              previousArtboard = artboardHistory.documents[documentIndex].storedHistory[o].artboard
+              //sendErrorMessage("1", getCurrentTime())
+            }
+          }
+          //sendErrorMessage("1.5", objectToJson(artboardHistory.documents[documentIndex].storedHistory))
+          //sendErrorMessage("2", artboardHistory.documents[documentIndex].storedHistory[0].id)
+          if (previousArtboard === newA) {
+            //sendErrorMessage("3", previousArtboard)
+            sameArtboardAgain = true
+          }
           artboardHistory.documents[documentIndex].storedHistory.splice(i, 1)
           newHistoryIndex--
         }
       }
     }
-    artboardHistory.documents[documentIndex].storedHistory.push({ id: newHistoryIndex, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
+    artboardHistory.documents[documentIndex].storedHistory.push({ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
   }
+
 
   // save into Settings
   //sendErrorMessage("",documentId + documentIndex + newHistoryIndex)
@@ -723,7 +753,7 @@ export function updateArtboardHistory(context) {
   artboardHistory.documents[documentIndex].timestamp = artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
-  if (true === artboardHistory.documents[documentIndex].lastMoveByUser) {
+  if (artboardHistory.documents[documentIndex].lastMoveByUser && !sameArtboardAgain) {
     artboardHistory.documents[documentIndex].lastHistoryIndex = artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id
     artboardHistory.documents[documentIndex].lastMoveByUser = false
   } else {
@@ -733,5 +763,5 @@ export function updateArtboardHistory(context) {
 
   //sendErrorMessage("",strOldSave)
   //sendErrorMessage("",objectToJson(artboardHistory))
-  //sendErrorMessage("",context)
+  //sendErrorMessage("", context)
 }
