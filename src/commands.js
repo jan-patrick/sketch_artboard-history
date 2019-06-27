@@ -215,7 +215,7 @@ export function goToLastArtboard() {
               lastArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
               lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
               j = o
-              b = m
+              b = l
               countRuntimeO++
             }
           }
@@ -253,7 +253,7 @@ export function goToLastArtboard() {
       } else {
         artboardHistory.documents[b].lastMoveByUser = true
         done = true
-        endOfArtboardHistoryReached("Only one Artboad in History")
+        endOfArtboardHistoryReached("Only one Artboard in History")
       }
     }
   }
@@ -324,7 +324,7 @@ export function goToNextArtboard() {
       } else {
         artboardHistory.documents[b].lastMoveByUser = true
         done = true
-        endOfArtboardHistoryReached("Only one Artboad in History")
+        endOfArtboardHistoryReached("Only one Artboard in History")
       }
     }
   }
