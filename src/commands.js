@@ -713,8 +713,6 @@ export function updateArtboardHistory(context) {
       storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
     })
     artboardHistory.documents[documentIndex].id = documentId
-    //sendErrorMessage("",objectToJson(artboardHistory))
-    //storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
     newHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length
@@ -728,13 +726,9 @@ export function updateArtboardHistory(context) {
             if (previousArtboardTimeDifference > previousArtboardTime - artboardHistory.documents[documentIndex].storedHistory[o].id) {
               previousArtboardTimeDifference = previousArtboardTime - artboardHistory.documents[documentIndex].storedHistory[o].id
               previousArtboard = artboardHistory.documents[documentIndex].storedHistory[o].artboard
-              //sendErrorMessage("1", getCurrentTime())
             }
           }
-          //sendErrorMessage("1.5", objectToJson(artboardHistory.documents[documentIndex].storedHistory))
-          //sendErrorMessage("2", artboardHistory.documents[documentIndex].storedHistory[0].id)
           if (previousArtboard === newA) {
-            //sendErrorMessage("3", previousArtboard)
             sameArtboardAgain = true
           }
           artboardHistory.documents[documentIndex].storedHistory.splice(i, 1)
@@ -755,13 +749,12 @@ export function updateArtboardHistory(context) {
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
   if (artboardHistory.documents[documentIndex].lastMoveByUser && !sameArtboardAgain) {
     artboardHistory.documents[documentIndex].lastHistoryIndex = artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id
-    artboardHistory.documents[documentIndex].lastMoveByUser = false
   } else {
     artboardHistory.documents[documentIndex].lastMoveByUser = true
   }
   setSetting("ArtboardHistory", artboardHistory)
 
-  //sendErrorMessage("",strOldSave)
-  //sendErrorMessage("",objectToJson(artboardHistory))
+  //sendErrorMessage("", strOldSave)
+  //sendErrorMessage("", objectToJson(artboardHistory))
   //sendErrorMessage("", context)
 }
