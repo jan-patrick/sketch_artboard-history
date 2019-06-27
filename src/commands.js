@@ -68,34 +68,6 @@ function returnNumberAsStringWithSpecificLength(int, length) {
   return string
 }
 
-export function switchBetweenTwoLatestArtboards(context) {
-  var artboardHistory = getSavedSetting("ArtboardHistory")
-  var lastArtboardSaved = getSavedSetting("lastArtboard")
-  var artboardHistory = getSavedSetting("ArtboardHistory")
-  if (lastArtboardSaved.indexOf(".") < 1) {
-    lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
-  }
-  var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
-  var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
-  lastArtboardSavedA = lastArtboardSavedA.replace(".", "")
-  lastArtboardSavedP = lastArtboardSavedP.replace(".", "")
-  var document = require('sketch/dom').getSelectedDocument()
-  var layerP = document.getLayerWithID(lastArtboardSavedP)
-  var layerA = document.getLayerWithID(lastArtboardSavedA)
-  if (typeof layerA === "object" && typeof layerP === "object") {
-    document.selectedLayers.clear()
-    layerP.selected = true
-    layerA.selected = true
-    document.centerOnLayer(layerA)
-    // zoom
-    if (true === artboardHistory.zoom) {
-      document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
-    }
-  } else {
-    sendMessageToBottom("No valid Artboard History available.")
-  }
-}
-
 function getDocumentId() {
   var getSelectedDocument = require('sketch/dom').getSelectedDocument
   const document = getSelectedDocument()
@@ -179,6 +151,35 @@ function getCurrentTime() {
 // FUNCTIONS VISIBLE FOR USER //
 ////////////////////////////////
 
+export function switchBetweenTwoLatestArtboards(context) {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  var lastArtboardSaved = getSavedSetting("lastArtboard")
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  if (lastArtboardSaved.indexOf(".") < 1) {
+    lastArtboardSaved = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
+  }
+  var lastArtboardSavedA = lastArtboardSaved.substring(lastArtboardSaved.indexOf(".") + 1)
+  var lastArtboardSavedP = lastArtboardSaved.substring(0, lastArtboardSaved.indexOf("."))
+  lastArtboardSavedA = lastArtboardSavedA.replace(".", "")
+  lastArtboardSavedP = lastArtboardSavedP.replace(".", "")
+  var document = require('sketch/dom').getSelectedDocument()
+  var layerP = document.getLayerWithID(lastArtboardSavedP)
+  var layerA = document.getLayerWithID(lastArtboardSavedA)
+  // check if valid layers
+  if (typeof layerA === "object" && typeof layerP === "object") {
+    document.selectedLayers.clear()
+    layerP.selected = true
+    layerA.selected = true
+    document.centerOnLayer(layerA)
+    // zoom
+    if (true === artboardHistory.zoom) {
+      document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+    }
+  } else {
+    sendMessageToBottom("No valid Artboard History available.")
+  }
+}
+
 export function goToLastArtboard() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var documentId = getDocumentId()
@@ -187,7 +188,7 @@ export function goToLastArtboard() {
   var j = 0
   var b = 0
   var done = false
-  while (false === done) {
+  while (!done) {
     for (var l = 0; l < artboardHistory.documents.length; l++) {
       if (documentId === artboardHistory.documents[l].id) {
         if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
@@ -211,7 +212,6 @@ export function goToLastArtboard() {
             j = o
             b = m
             countRuntimeO++
-            //sendErrorMessage("",previousArtboardTime)
           }
         }
         artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
@@ -222,10 +222,6 @@ export function goToLastArtboard() {
         }
       }
     }
-    // dev start
-    //var previousArtboardDate = new Date(previousArtboardTime)
-    //sendErrorMessage("previousArtboardTime",getHoursFromDate(previousArtboardDate)+":"+getMinutesFromDate(previousArtboardDate)+":"+getSecondsFromDate(previousArtboardDate))
-    // dev end
     var document = require('sketch/dom').getSelectedDocument()
     var layerP = document.getLayerWithID(lastArtboardSavedP)
     var layerA = document.getLayerWithID(lastArtboardSavedA)
