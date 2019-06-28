@@ -248,7 +248,6 @@ export function goToLastArtboard() {
             if (artboardHistory.documents[l].timestamp === artboardHistory.documents[l].storedHistory[k].id ) {
               lastArtboardSavedP = artboardHistory.documents[l].storedHistory[k].page
               lastArtboardSavedA = artboardHistory.documents[l].storedHistory[k].artboard
-              sendErrorMessage("found")
               j = k
               b = l
               countRuntimeO++
