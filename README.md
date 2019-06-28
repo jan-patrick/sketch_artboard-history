@@ -85,7 +85,7 @@
 
 ###### Go Backwards
 - Works, but the opposite way is currently not possible.
-- only works within one document at the moment due to a bug. Once another document is opened this function does not work anymore.
+- only works within one document at the moment due to a bug. On any additionally opened there is a small bug but the caommand mostly works.
 
 Feel free to create an [issue](https://github.com/jan-patrick/sketch_artboard-history/issues) if something does not work probably or if you have a feature request.
 
