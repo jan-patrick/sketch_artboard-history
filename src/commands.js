@@ -194,8 +194,10 @@ export function goToLastArtboard() {
   var done = false
   while (!done) {
     if (0 < artboardHistory.documents.length) {
+      var documentFound = false
       for (var l = 0; l < artboardHistory.documents.length; l++) {
         if (documentId === artboardHistory.documents[l].id) {
+          documentFound = true
           if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
             var firstStoredHistoryId = -2
             for (var m = 0; m < artboardHistory.documents[l].storedHistory.length; m++) {
@@ -225,13 +227,14 @@ export function goToLastArtboard() {
           } else {
             artboardHistory.documents[l].lastMoveByUser = true
           }
-        } else {
-          //endOfArtboardHistoryReached("No History for this Document")
-          return
         }
       }
+      if(!documentFound) {
+        sendMessageToBottom("No History for this Document available.")
+        return
+      }
     } else {
-      //endOfArtboardHistoryReached("No History saved")
+      sendMessageToBottom("No History available")
       return
     }
     var document = require('sketch/dom').getSelectedDocument()
@@ -253,7 +256,7 @@ export function goToLastArtboard() {
       } else {
         artboardHistory.documents[b].lastMoveByUser = true
         done = true
-        //endOfArtboardHistoryReached("Only one Artboard in History")
+        //sendMessageToBottom("Only one Artboard in History")
       }
     }
   }
@@ -270,11 +273,12 @@ export function goToNextArtboard() {
   var done = false
   while (!done) {
     if (0 < artboardHistory.documents.length) {
+      var documentFound = false
       for (var l = 0; l < artboardHistory.documents.length; l++) {
         if (documentId === artboardHistory.documents[l].id) {
+          documentFound = true
           if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
-            endOfArtboardHistoryReached("Must go back in time first.")
-            return
+            sendMessageToBottom("You have to go back first.")
           }
           var previousArtboardTime = 0
 
@@ -286,7 +290,7 @@ export function goToNextArtboard() {
               lastArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
               lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
               j = o
-              b = m
+              b = l
               countRuntimeO++
             }
           }
@@ -296,13 +300,14 @@ export function goToNextArtboard() {
           } else {
             artboardHistory.documents[l].lastMoveByUser = true
           }
-        } else {
-          endOfArtboardHistoryReached("No History for this Document")
-          return
         }
       }
+      if(!documentFound) {
+        sendMessageToBottom("No History for this Document available.")
+        return
+      }
     } else {
-      endOfArtboardHistoryReached("No History saved")
+      sendMessageToBottom("No History available")
       return
     }
     var document = require('sketch/dom').getSelectedDocument()
@@ -324,7 +329,7 @@ export function goToNextArtboard() {
       } else {
         artboardHistory.documents[b].lastMoveByUser = true
         done = true
-        endOfArtboardHistoryReached("Only one Artboard in History")
+        //sendMessageToBottom("Only one Artboard in History")
       }
     }
   }
