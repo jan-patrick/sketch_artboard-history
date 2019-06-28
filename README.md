@@ -38,8 +38,8 @@
   <tr>
     <td>Status</td>
     <td>✅*</td>
-    <td>⚠️*</td>
-    <td>❌*</td>
+    <td>✅*</td>
+    <td>🚧*</td>
     <td>✅</td>
     <td>✅</td>
     <td>✅*</td>
@@ -78,8 +78,14 @@
 </table>
 
 #### * Limitations (for now):
+
+###### Switch between two Artboards
 - Switch between two Artboards (opt + cmd + a), can be done infinitely.
 - only works within one document (the history is overwritten when opening another document / works with the current used document only).
+
+###### Go Backwards
+- Works, but the opposite way is currently not possible.
+- only works within one document at the moment due to a bug. Once another document is opened this function does not work anymore.
 
 Feel free to create an [issue](https://github.com/jan-patrick/sketch_artboard-history/issues) if something does not work probably or if you have a feature request.
 

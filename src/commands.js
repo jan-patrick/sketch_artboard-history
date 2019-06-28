@@ -226,12 +226,12 @@ export function goToLastArtboard() {
             artboardHistory.documents[l].lastMoveByUser = true
           }
         } else {
-          endOfArtboardHistoryReached("No History for this Document")
+          //endOfArtboardHistoryReached("No History for this Document")
           return
         }
       }
     } else {
-      endOfArtboardHistoryReached("No History saved")
+      //endOfArtboardHistoryReached("No History saved")
       return
     }
     var document = require('sketch/dom').getSelectedDocument()
@@ -253,7 +253,7 @@ export function goToLastArtboard() {
       } else {
         artboardHistory.documents[b].lastMoveByUser = true
         done = true
-        endOfArtboardHistoryReached("Only one Artboard in History")
+        //endOfArtboardHistoryReached("Only one Artboard in History")
       }
     }
   }
