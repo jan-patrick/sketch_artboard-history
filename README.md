@@ -38,8 +38,8 @@
   <tr>
     <td>Status</td>
     <td>✅*</td>
-    <td>✅*</td>
     <td>🚧*</td>
+    <td>❌*</td>
     <td>✅</td>
     <td>✅</td>
     <td>✅*</td>
