@@ -196,14 +196,9 @@ export function goToLastArtboard() {
   var lastArtboardSavedA = ""
   var j = 0
   var b = 0
-  var done = false    
+  var done = false
+  var artboardFound = false
   var document = require('sketch/dom').getSelectedDocument()
-
-  for (var a = 0; a < document.pages.length; a++) {
-
-  }
-
-
   while (!done) {
     if (0 < artboardHistory.documents.length) {
       var documentFound = false
@@ -229,8 +224,8 @@ export function goToLastArtboard() {
               if (previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id &&
                 artboardHistory.documents[l].lastHistoryIndex > artboardHistory.documents[l].storedHistory[o].id) {
                 previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
-                lastArtboardSavedP = artboardHistory.documents[l].storedHistory[o].page
                 lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
+                artboardFound = true
                 j = o
                 b = l
                 countRuntimeO++
@@ -251,8 +246,8 @@ export function goToLastArtboard() {
             for (var k = 0; k < artboardHistory.documents[l].storedHistory.length; k++) {
               //sendErrorMessage("checks",previousArtboardTime +" < " + artboardHistory.documents[l].storedHistory[o].id + "\n\n" + artboardHistory.documents[l].lastHistoryIndex +" > "+ artboardHistory.documents[l].storedHistory[o].id)
               if (artboardHistory.documents[l].timestamp === artboardHistory.documents[l].storedHistory[k].id) {
-                lastArtboardSavedP = artboardHistory.documents[l].storedHistory[k].page
                 lastArtboardSavedA = artboardHistory.documents[l].storedHistory[k].artboard
+                artboardFound = true
                 j = k
                 b = l
                 countRuntimeO++
@@ -271,7 +266,18 @@ export function goToLastArtboard() {
       sendMessageToBottom("No History available")
       return
     }
-    var document = require('sketch/dom').getSelectedDocument()
+
+    // finding page of Artboard
+    if (artboardFound) {
+      for (var a = 0; a < document.pages.length; a++) {
+        for (var c = 0; c < document.pages[a].layers.length; c++) {
+          if ("Artboard" === document.pages[a].layers[c].type && lastArtboardSavedA === document.pages[a].layers[c].id) {
+            lastArtboardSavedP = document.pages[a].id
+            //sendErrorMessage(document.pages[a].name, document.pages[a].layers[c].name)
+          }
+        }
+      }
+    }
     var layerP = document.getLayerWithID(lastArtboardSavedP)
     var layerA = document.getLayerWithID(lastArtboardSavedA)
     if (typeof layerA === "object" && typeof layerP === "object") {
@@ -317,7 +323,7 @@ export function goToNextArtboard() {
           }
           var previousArtboardTime = 0
 
-      sendMessageToBottom("dd")
+          sendMessageToBottom("db")
           for (var o = 0; o < artboardHistory.documents[l].storedHistory.length; o++) {
             var countRuntimeO = 0
             if (previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id &&
@@ -687,17 +693,14 @@ export function updateArtboardHistory(context) {
   newA = newA.substring(newA.indexOf("(") + 1)
   newA = newA.substring(0, newA.indexOf(")"))
   newA = newA.replace(".", "")
-  var newP = ""
   if ("<null>" === newA || "" === newA) {
     newA = getSavedSetting("actualArtboard")
     if ("<null>" === newA || "" === newA) {
       newA = ""
-      newP = ""
     }
   }
   else {
     newA = newA.replace(".", "")
-    newP = getArtboardsPageByArtboardId(newA)
   }
 
   // organize ArtboardHistory
@@ -715,41 +718,38 @@ export function updateArtboardHistory(context) {
       timestamp: currrentTime,
       lastHistoryIndex: -1,
       lastMoveByUser: true,
-      storedHistory: [{ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" }]
+      storedHistory: [{ id: 0, artboard: "ArtboardId1" }]
     })
     artboardHistory.documents[documentIndex].id = documentId
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
     newHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length
     for (var i = 0; i < newHistoryIndex; i++) {
-      if (newP === artboardHistory.documents[documentIndex].storedHistory[i].page) {
-        if (newA === artboardHistory.documents[documentIndex].storedHistory[i].artboard) {
-          var previousArtboardTime = currrentTime
-          var previousArtboardTimeDifference = previousArtboardTime
-          var previousArtboard = ""
-          for (var o = 0; o < artboardHistory.documents[documentIndex].storedHistory.length; o++) {
-            if (previousArtboardTimeDifference > previousArtboardTime - artboardHistory.documents[documentIndex].storedHistory[o].id) {
-              previousArtboardTimeDifference = previousArtboardTime - artboardHistory.documents[documentIndex].storedHistory[o].id
-              previousArtboard = artboardHistory.documents[documentIndex].storedHistory[o].artboard
-            }
+      if (newA === artboardHistory.documents[documentIndex].storedHistory[i].artboard) {
+        var previousArtboardTime = currrentTime
+        var previousArtboardTimeDifference = previousArtboardTime
+        var previousArtboard = ""
+        for (var o = 0; o < artboardHistory.documents[documentIndex].storedHistory.length; o++) {
+          if (previousArtboardTimeDifference > previousArtboardTime - artboardHistory.documents[documentIndex].storedHistory[o].id) {
+            previousArtboardTimeDifference = previousArtboardTime - artboardHistory.documents[documentIndex].storedHistory[o].id
+            previousArtboard = artboardHistory.documents[documentIndex].storedHistory[o].artboard
           }
-          if (previousArtboard === newA) {
-            sameArtboardAgain = true
-            artboardHistory.documents[documentIndex].lastMoveByUser = true
-          }
-          artboardHistory.documents[documentIndex].storedHistory.splice(i, 1)
-          newHistoryIndex--
         }
+        if (previousArtboard === newA) {
+          sameArtboardAgain = true
+          artboardHistory.documents[documentIndex].lastMoveByUser = true
+        }
+        artboardHistory.documents[documentIndex].storedHistory.splice(i, 1)
+        newHistoryIndex--
       }
     }
-    artboardHistory.documents[documentIndex].storedHistory.push({ id: 0, page: "pageIdOfArtboard1", artboard: "ArtboardId1" })
+    artboardHistory.documents[documentIndex].storedHistory.push({ id: 0, artboard: "ArtboardId1" })
   }
 
 
   // save into Settings
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = currrentTime
   artboardHistory.documents[documentIndex].timestamp = currrentTime
-  artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].page = newP
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
   //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser)
   if (artboardHistory.documents[documentIndex].lastMoveByUser && !sameArtboardAgain) {
@@ -758,7 +758,7 @@ export function updateArtboardHistory(context) {
   } else {
     artboardHistory.documents[documentIndex].lastMoveByUser = true
     //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser + " - " + sameArtboardAgain + " - " +artboardHistory.documents[documentIndex].lastHistoryIndex)
-  } 
+  }
   sendMessageToBottom(getCurrentTime())
   setSetting("ArtboardHistory", artboardHistory)
   // USE THIS TO SEE BUG PART
