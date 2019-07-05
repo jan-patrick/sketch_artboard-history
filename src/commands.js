@@ -229,10 +229,8 @@ export function goToLastArtboard() {
                 j = o
                 b = l
                 countRuntimeO++
-                //sendMessageToBottom("found")
-                //sendErrorMessage("E countRuntimeO",countRuntimeO)
+                //sendMessageToBottom(getCurrentTime()) // @jan 2
               }
-
               if (0 <= countRuntimeO) {
                 artboardHistory.documents[l].lastMoveByUser = false
               } else {
@@ -247,6 +245,7 @@ export function goToLastArtboard() {
               //sendErrorMessage("checks",previousArtboardTime +" < " + artboardHistory.documents[l].storedHistory[o].id + "\n\n" + artboardHistory.documents[l].lastHistoryIndex +" > "+ artboardHistory.documents[l].storedHistory[o].id)
               if (artboardHistory.documents[l].timestamp === artboardHistory.documents[l].storedHistory[k].id) {
                 lastArtboardSavedA = artboardHistory.documents[l].storedHistory[k].artboard
+                artboardHistory.documents[l].lastMoveByUser = false
                 artboardFound = true
                 j = k
                 b = l
@@ -720,7 +719,6 @@ export function updateArtboardHistory(context) {
       lastMoveByUser: true,
       storedHistory: [{ id: 0, artboard: "ArtboardId1" }]
     })
-    artboardHistory.documents[documentIndex].id = documentId
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
     newHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length
@@ -751,7 +749,7 @@ export function updateArtboardHistory(context) {
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].id = currrentTime
   artboardHistory.documents[documentIndex].timestamp = currrentTime
   artboardHistory.documents[documentIndex].storedHistory[newHistoryIndex].artboard = newA
-  //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser)
+  //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser) // here @jan 1
   if (artboardHistory.documents[documentIndex].lastMoveByUser && !sameArtboardAgain) {
     artboardHistory.documents[documentIndex].lastHistoryIndex = currrentTime
     //sendMessageToBottom("same")
@@ -759,7 +757,7 @@ export function updateArtboardHistory(context) {
     artboardHistory.documents[documentIndex].lastMoveByUser = true
     //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser + " - " + sameArtboardAgain + " - " +artboardHistory.documents[documentIndex].lastHistoryIndex)
   }
-  sendMessageToBottom(getCurrentTime())
+  //sendMessageToBottom(getCurrentTime())
   setSetting("ArtboardHistory", artboardHistory)
   // USE THIS TO SEE BUG PART
   //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser + " - " + artboardHistory.documents[documentIndex].lastHistoryIndex)
