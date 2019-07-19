@@ -13,9 +13,19 @@
   "commands": [
     {
       "name": "Switch between two Artboards",
-      "identifier": "ArtboardHistory_switchBetweenTwoArtboard",
+      "identifier": "ArtboardHistory_switchBetweenTwoArtboardOld",
       "script": "commands.js",
       "shortcut": "cmd + alt + a",
+      "handler": "switchBetweenTwoLatestArtboardsOld",
+      "icon": "icons/switchArtboard.png",
+      "iconDark": "icons/switchArtboardDark.png",
+      "description": "Switch between the two latest used Artboards."
+    },
+    {
+      "name": "Switch between two Artboards",
+      "identifier": "ArtboardHistory_switchBetweenTwoArtboard",
+      "script": "commands.js",
+      "shortcut": "cmd + l",
       "handler": "switchBetweenTwoLatestArtboards",
       "icon": "icons/switchArtboard.png",
       "iconDark": "icons/switchArtboardDark.png",
@@ -155,7 +165,7 @@
   "menu": {
     "title": "Artboard History",
     "items": [
-      "ArtboardHistory_switchBetweenTwoArtboard",
+      "ArtboardHistory_switchBetweenTwoArtboardOld",
       "-",
       {
         "title": "Settings",
@@ -187,6 +197,7 @@
       {
         "title": "In Development (may not work)",
         "items": [ 
+          "ArtboardHistory_switchBetweenTwoArtboard",
           "ArtboardHistory_goToLastArtboard",
           "ArtboardHistory_goToNextArtboard",
           "-",
