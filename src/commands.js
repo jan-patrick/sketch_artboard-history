@@ -660,55 +660,50 @@ export function updateArtboardHistory(context) {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var documentId = getDocumentId()
   var documentIndex = 0
-  var newHistoryIndex = 0
   var previousHistoryinDoc = getDocumentsArtboardHistory(artboardHistory, documentId)
   var sameArtboardAgain = false
-  var currrentTime = getCurrentTime()
+  var currentTime = getCurrentTime()
   if (!previousHistoryinDoc) {
     documentIndex = artboardHistory.documents.length
     artboardHistory.documents.push({
       id: documentId,
-      timestamp: currrentTime,
+      timestamp: currentTime,
       lastHistoryIndex: -1,
       lastMoveByUser: true,
       storedHistory: [newA]
     })
   } else {
     documentIndex = getDocumentsIndexById(artboardHistory, documentId)
-    newHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length
-    //for (var i = 0; i < newHistoryIndex; i++) {
-    //  if (newA === artboardHistory.documents[documentIndex].storedHistory[i]) {
-    //    if (artboardHistory.documents[documentIndex].storedHistory[lastHistoryIndex] === newA) {
-    //      sameArtboardAgain = true
-    //      artboardHistory.documents[documentIndex].lastMoveByUser = true
-    //    }
-    //    artboardHistory.documents[documentIndex].storedHistory.splice(i, 1)
-    //    newHistoryIndex--
-    //  }
-    //}
+
+    // check if Artboard already in History
     for (var a = 0; a < artboardHistory.documents[documentIndex].storedHistory.length; a++) {
       if (artboardHistory.documents[documentIndex].storedHistory[a] === newA) {
+        // check if Artboard is the last one used
+        if (a === artboardHistory.documents[documentIndex].storedHistory.length-1) {
+          sameArtboardAgain = true
+          artboardHistory.documents[documentIndex].lastMoveByUser = true
+        }
         artboardHistory.documents[documentIndex].storedHistory.splice(a, 1)
       }
     }
     artboardHistory.documents[documentIndex].storedHistory.push(newA)
   }
 
-  artboardHistory.documents[documentIndex].timestamp = currrentTime
+  artboardHistory.documents[documentIndex].timestamp = currentTime
   //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser) // here @jan 1
-  if (artboardHistory.documents[documentIndex].lastMoveByUser && !sameArtboardAgain) {
+  if (artboardHistory.documents[documentIndex].lastMoveByUser && !sameArtboardAgain && -1 != artboardHistory.documents[documentIndex].lastHistoryIndex) {
     artboardHistory.documents[documentIndex].lastHistoryIndex++
     //sendMessageToBottom("same")
   } else {
     artboardHistory.documents[documentIndex].lastMoveByUser = true
     //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser + " - " + sameArtboardAgain + " - " +artboardHistory.documents[documentIndex].lastHistoryIndex)
   }
-  //sendMessageToBottom(getCurrentTime())
+  sendMessageToBottom(getCurrentTime())
   setSetting("ArtboardHistory", artboardHistory)
   // USE THIS TO SEE BUG PART
   //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser + " - " + artboardHistory.documents[documentIndex].lastHistoryIndex)
 
   //sendErrorMessage("", strOldSave)
-  sendErrorMessage("", objectToJson(artboardHistory))
+  //sendErrorMessage("", objectToJson(artboardHistory))
   //sendErrorMessage("", context)
 }
