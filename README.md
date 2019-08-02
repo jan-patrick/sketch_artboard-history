@@ -95,9 +95,12 @@ Feel free to create an [issue](https://github.com/jan-patrick/sketch_artboard-hi
 3. Double click on the file
 
 
-## Install with Sketch Runner (Pro)
+## Install with Sketch Runner (Pro) or Sketchpacks
 With Sketch Runner, just go to the `install` command and search for `Artboard History`. Runner allows you to manage plugins and do much more to speed up your workflow in Sketch. [Download Runner here](http://www.sketchrunner.com).
 <br/><br/><a href="http://bit.ly/SketchRunnerWebsite"><img src="http://bit.ly/RunnerBadgeBlue" width=140></a>
+<a href="https://sketchpacks.com/jan-patrick/sketch_artboard-history/install">
+  <img width="140" src="http://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png" >
+</a>
 
 ## further information
 
