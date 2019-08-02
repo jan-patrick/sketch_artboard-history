@@ -433,25 +433,12 @@ export function goToNextArtboard() {
             var previousArtboardTime = 0
             //sendErrorMessage(artboardHistory.documents[l].lastMoveByUser)
             for (var o = 0; o < artboardHistory.documents[l].storedHistory.length; o++) {
-              sendMessageToBottom(1 + " " + getCurrentTime())
-              //sendErrorMessage("checks",previousArtboardTime +" < " + artboardHistory.documents[l].storedHistory[o].id + "\n\n" + artboardHistory.documents[l].lastHistoryIndex +" > "+ artboardHistory.documents[l].storedHistory[o].id)
-              
-              
-              
-              //if(artboardHistory.documents[l].timestamp > artboardHistory.documents[l].storedHistory[o].id &&
-              //  previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id) {
-              //  previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
-                
-                
-                //sendErrorMessage("",artboardHistory.documents[l].storedHistory[o].id + " " + artboardHistory.documents[l].storedHistory[o].artboard)
-              
-              //}
-              
-
-
-
               if (artboardHistory.documents[l].timestamp > artboardHistory.documents[l].storedHistory[o].id &&
-                previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id) {
+                previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id && 
+                artboardHistory.documents[l].lastHistoryIndex != artboardHistory.documents[l].storedHistory[o].id ||
+                
+                artboardHistory.documents[l].storedHistory[o].id < artboardHistory.documents[l].lastHistoryIndex  
+                ) {
                 previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
                 lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
                 artboardFound = true
