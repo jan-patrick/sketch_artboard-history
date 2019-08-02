@@ -217,69 +217,38 @@ export function goToLastArtboard() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   var lastArtboardSavedP = ""
   var lastArtboardSavedA = ""
-  var j = 0
   var b = 0
+  var indexToMoveTo = -1
   var done = false
-  var artboardFound = false
   var document = require('sketch/dom').getSelectedDocument()
   while (!done) {
     if (0 < artboardHistory.documents.length) {
       var documentFound = false
       for (var l = 0; l < artboardHistory.documents.length; l++) {
         var selectedLayerTry = false
-        var countRuntimeO = 0
         if (document.id === artboardHistory.documents[l].id) {
+          b = l
           documentFound = true
           if (isLayerSelected() && !selectedLayerTry) {
             if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
-              var firstStoredHistoryId = -2
-              for (var m = 0; m < artboardHistory.documents[l].storedHistory.length; m++) {
-                if (firstStoredHistoryId <= artboardHistory.documents[l].storedHistory[m].id) {
-                  firstStoredHistoryId = artboardHistory.documents[l].storedHistory[m].id
-                }
-              }
-              artboardHistory.documents[l].lastHistoryIndex = firstStoredHistoryId
-            }
-            var previousArtboardTime = 0
-            //sendErrorMessage(artboardHistory.documents[l].lastMoveByUser)
-            for (var o = 0; o < artboardHistory.documents[l].storedHistory.length; o++) {
-              //sendErrorMessage("checks",previousArtboardTime +" < " + artboardHistory.documents[l].storedHistory[o].id + "\n\n" + artboardHistory.documents[l].lastHistoryIndex +" > "+ artboardHistory.documents[l].storedHistory[o].id)
-              if (previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id &&
-                artboardHistory.documents[l].lastHistoryIndex > artboardHistory.documents[l].storedHistory[o].id) {
-                previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
-                lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
-                artboardFound = true
-                j = o
-                b = l
-                countRuntimeO++
-                //sendMessageToBottom(getCurrentTime()) // @jan 2
-              }
-              if (0 <= countRuntimeO) {
-                artboardHistory.documents[l].lastMoveByUser = false
-              } else {
-                artboardHistory.documents[l].lastMoveByUser = true
+              indexToMoveTo = artboardHistory.documents[l].storedHistory.length-2
+              if(0>indexToMoveTo) {
+                indexToMoveTo = 0
               }
             }
-            //sendErrorMessage("E lastArtboardSavedP",lastArtboardSavedP)
-            artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
+            else {
+              indexToMoveTo = artboardHistory.documents[l].lastHistoryIndex-1
+            }
           } else {
             selectedLayerTry = true
-            for (var k = 0; k < artboardHistory.documents[l].storedHistory.length; k++) {
-              //sendErrorMessage("checks",previousArtboardTime +" < " + artboardHistory.documents[l].storedHistory[o].id + "\n\n" + artboardHistory.documents[l].lastHistoryIndex +" > "+ artboardHistory.documents[l].storedHistory[o].id)
-              if (artboardHistory.documents[l].timestamp === artboardHistory.documents[l].storedHistory[k].id) {
-                lastArtboardSavedA = artboardHistory.documents[l].storedHistory[k].artboard
-                artboardHistory.documents[l].lastMoveByUser = false
-                artboardFound = true
-                j = k
-                b = l
-                countRuntimeO++
-                //sendMessageToBottom("found")
-                //sendErrorMessage("E countRuntimeO",countRuntimeO)
-              }
+            indexToMoveTo = artboardHistory.documents[l].storedHistory.length-1
+            if(0>indexToMoveTo) {
+              indexToMoveTo = 0
             }
           }
         }
       }
+      lastArtboardSavedA = artboardHistory.documents[b].storedHistory[indexToMoveTo]
       if (!documentFound) {
         sendMessageToBottom("No History for this Document available.")
         return
@@ -288,9 +257,7 @@ export function goToLastArtboard() {
       sendMessageToBottom("No History available")
       return
     }
-
     // finding page of Artboard
-    if (artboardFound) {
       for (var a = 0; a < document.pages.length; a++) {
         for (var c = 0; c < document.pages[a].layers.length; c++) {
           if ("Artboard" === document.pages[a].layers[c].type && lastArtboardSavedA === document.pages[a].layers[c].id) {
@@ -299,10 +266,10 @@ export function goToLastArtboard() {
           }
         }
       }
-    }
     var layerP = document.getLayerWithID(lastArtboardSavedP)
     var layerA = document.getLayerWithID(lastArtboardSavedA)
     if (typeof layerA === "object" && typeof layerP === "object") {
+      sendMessageToBottom("klkl" +getCurrentTime())
       document.selectedLayers.clear()
       layerP.selected = true
       layerA.selected = true
@@ -313,16 +280,18 @@ export function goToLastArtboard() {
       }
       done = true
     } else {
-      if (j >= 1) {
+      if (1 < artboardHistory.documents[l].storedHistory.length) {
         artboardHistory.documents[b].storedHistory.splice(j, 1)
       } else {
         artboardHistory.documents[b].lastMoveByUser = true
         done = true
-        //sendMessageToBottom("Only one Artboard in History")
+        sendMessageToBottom("Only one Artboard in History")
       }
     }
   }
-  //sendMessageToBottom("done")
+  sendMessageToBottom(getCurrentTime())
+  artboardHistory.documents[b].lastMoveByUser = false
+  artboardHistory.documents[b].lastHistoryIndex = indexToMoveTo
   setSetting("ArtboardHistory", artboardHistory)
 }
 
@@ -689,7 +658,7 @@ export function updateArtboardHistory(context) {
     artboardHistory.documents[documentIndex].lastMoveByUser = true
     //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser + " - " + sameArtboardAgain + " - " +artboardHistory.documents[documentIndex].lastHistoryIndex)
   }
-  sendMessageToBottom(getCurrentTime())
+  //sendMessageToBottom(getCurrentTime())
   setSetting("ArtboardHistory", artboardHistory)
   // USE THIS TO SEE BUG PART
   //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser + " - " + artboardHistory.documents[documentIndex].lastHistoryIndex)
