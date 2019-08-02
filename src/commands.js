@@ -296,7 +296,85 @@ export function goToLastArtboard() {
 }
 
 export function goToNextArtboard() {
-  sendMessageToBottom("ATM in rework.")
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  var lastArtboardSavedP = ""
+  var lastArtboardSavedA = ""
+  var b = 0
+  var indexToMoveTo = -1
+  var done = false
+  var document = require('sketch/dom').getSelectedDocument()
+  while (!done) {
+    if (0 < artboardHistory.documents.length) {
+      var documentFound = false
+      for (var l = 0; l < artboardHistory.documents.length; l++) {
+        var selectedLayerTry = false
+        if (document.id === artboardHistory.documents[l].id) {
+          b = l
+          documentFound = true
+          if (isLayerSelected() && !selectedLayerTry) {
+            if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
+              indexToMoveTo = artboardHistory.documents[l].storedHistory.length-2
+              if(0>indexToMoveTo) {
+                indexToMoveTo = 0
+              }
+            }
+            else {
+              indexToMoveTo = artboardHistory.documents[l].lastHistoryIndex+1
+            }
+          } else {
+            selectedLayerTry = true
+            indexToMoveTo = artboardHistory.documents[l].lastHistoryIndex.length-1
+            if(0>indexToMoveTo) {
+              indexToMoveTo = 0
+            }
+          }
+        }
+      }
+      lastArtboardSavedA = artboardHistory.documents[b].storedHistory[indexToMoveTo]
+      if (!documentFound) {
+        sendMessageToBottom("No History for this Document available.")
+        return
+      }
+    } else {
+      sendMessageToBottom("No History available")
+      return
+    }
+    // finding page of Artboard
+      for (var a = 0; a < document.pages.length; a++) {
+        for (var c = 0; c < document.pages[a].layers.length; c++) {
+          if ("Artboard" === document.pages[a].layers[c].type && lastArtboardSavedA === document.pages[a].layers[c].id) {
+            lastArtboardSavedP = document.pages[a].id
+            //sendErrorMessage(document.pages[a].name, document.pages[a].layers[c].name)
+          }
+        }
+      }
+    var layerP = document.getLayerWithID(lastArtboardSavedP)
+    var layerA = document.getLayerWithID(lastArtboardSavedA)
+    if (typeof layerA === "object" && typeof layerP === "object") {
+      sendMessageToBottom("klkl" +getCurrentTime())
+      document.selectedLayers.clear()
+      layerP.selected = true
+      layerA.selected = true
+      document.centerOnLayer(layerA)
+      // zoom
+      if (true === artboardHistory.zoom) {
+        document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
+      }
+      done = true
+    } else {
+      if (1 < artboardHistory.documents[l].storedHistory.length) {
+        artboardHistory.documents[b].storedHistory.splice(j, 1)
+      } else {
+        artboardHistory.documents[b].lastMoveByUser = true
+        done = true
+        sendMessageToBottom("Only one Artboard in History")
+      }
+    }
+  }
+  sendMessageToBottom(getCurrentTime())
+  artboardHistory.documents[b].lastMoveByUser = false
+  artboardHistory.documents[b].lastHistoryIndex = indexToMoveTo
+  setSetting("ArtboardHistory", artboardHistory)
 }
 
 export function showGeneralSavedData() {
