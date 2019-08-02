@@ -8,6 +8,8 @@ const possibleDates = [
   { millis: -1, description: "infinity" },
 ]
 
+const minimalCompatibleVersion = 2
+
 function sendErrorMessage(dataHeader, dataError) {
   var UI = require('sketch/ui')
   dataHeader = String(dataHeader)
@@ -118,7 +120,23 @@ function checkIfInLifeTimeSpan() {
   }
 }
 
-function newArtboardHistoryObject() {
+function checkIfInstalledVersionStillCompatible() {
+  var artboardHistory = getSavedSetting("ArtboardHistory")
+  if(typeof artboardHistory === "object") {
+    if (minimalCompatibleVersion > artboardHistory.version || undefined === artboardHistory.version || "" === artboardHistory.version ) {
+      sendErrorMessage("Artboard History plugin updated","Due to a huge plugin update it's necessary to refresh the local Artboard History.")
+      newArtboardHistoryObject(artboardHistory.zoom, artboardHistory.lifetime)
+    }
+  }
+}
+
+function newArtboardHistoryObject(oldZoom, oldLifetime) {
+  var newLifetime = 2629746000
+  for (var t = 0; t < possibleDates.length; t++) {
+    if (oldLifetime === possibleDates[t].millis) {
+      newLifetime = possibleDates[t].millis
+    }
+  }
   var artboardHistory = {
     zoom: true,
     lifetime: 2629746000, // 1 month as standard
@@ -409,113 +427,7 @@ export function goToLastArtboard() {
 }
 
 export function goToNextArtboard() {
-  var artboardHistory = getSavedSetting("ArtboardHistory")
-  var lastArtboardSavedP = ""
-  var lastArtboardSavedA = ""
-  var j = 0
-  var b = 0
-  var done = false
-  var artboardFound = false
-  var document = require('sketch/dom').getSelectedDocument()
-  while (!done) {
-    if (0 < artboardHistory.documents.length) {
-      var documentFound = false
-      for (var l = 0; l < artboardHistory.documents.length; l++) {
-        var selectedLayerTry = false
-        var countRuntimeO = 0
-        if (document.id === artboardHistory.documents[l].id) {
-          documentFound = true
-          if (isLayerSelected() && !selectedLayerTry) {
-            if (-1 === artboardHistory.documents[l].lastHistoryIndex) {
-              sendMessageToBottom("You have to go back first.")
-              return
-            }
-            var previousArtboardTime = 0
-            //sendErrorMessage(artboardHistory.documents[l].lastMoveByUser)
-            for (var o = 0; o < artboardHistory.documents[l].storedHistory.length; o++) {
-              if (artboardHistory.documents[l].timestamp > artboardHistory.documents[l].storedHistory[o].id &&
-                previousArtboardTime < artboardHistory.documents[l].storedHistory[o].id && 
-                artboardHistory.documents[l].lastHistoryIndex != artboardHistory.documents[l].storedHistory[o].id ||
-                
-                artboardHistory.documents[l].storedHistory[o].id < artboardHistory.documents[l].lastHistoryIndex  
-                ) {
-                previousArtboardTime = artboardHistory.documents[l].storedHistory[o].id
-                lastArtboardSavedA = artboardHistory.documents[l].storedHistory[o].artboard
-                artboardFound = true
-                j = o
-                b = l
-                countRuntimeO++
-                sendMessageToBottom("found " + getCurrentTime()) // @jan 2
-              }
-              if (0 <= countRuntimeO) {
-                artboardHistory.documents[l].lastMoveByUser = false
-              } else {
-                artboardHistory.documents[l].lastMoveByUser = true
-              }
-            }
-            //sendErrorMessage("E lastArtboardSavedP",lastArtboardSavedP)
-            artboardHistory.documents[l].lastHistoryIndex = previousArtboardTime
-          } else {
-            selectedLayerTry = true
-            for (var k = 0; k < artboardHistory.documents[l].storedHistory.length; k++) {
-              //sendErrorMessage("checks",previousArtboardTime +" < " + artboardHistory.documents[l].storedHistory[o].id + "\n\n" + artboardHistory.documents[l].lastHistoryIndex +" > "+ artboardHistory.documents[l].storedHistory[o].id)
-              if (artboardHistory.documents[l].timestamp === artboardHistory.documents[l].storedHistory[k].id) {
-                lastArtboardSavedA = artboardHistory.documents[l].storedHistory[k].artboard
-                artboardHistory.documents[l].lastMoveByUser = false
-                artboardFound = true
-                j = k
-                b = l
-                countRuntimeO++
-                //sendMessageToBottom("found")
-                //sendErrorMessage("E countRuntimeO",countRuntimeO)
-              }
-            }
-          }
-        }
-      }
-      if (!documentFound) {
-        sendMessageToBottom("No History for this Document available.")
-        return
-      }
-    } else {
-      sendMessageToBottom("No History available")
-      return
-    }
-
-    // finding page of Artboard
-    if (artboardFound) {
-      for (var a = 0; a < document.pages.length; a++) {
-        for (var c = 0; c < document.pages[a].layers.length; c++) {
-          if ("Artboard" === document.pages[a].layers[c].type && lastArtboardSavedA === document.pages[a].layers[c].id) {
-            lastArtboardSavedP = document.pages[a].id
-            //sendErrorMessage(document.pages[a].name, document.pages[a].layers[c].name)
-          }
-        }
-      }
-    }
-    var layerP = document.getLayerWithID(lastArtboardSavedP)
-    var layerA = document.getLayerWithID(lastArtboardSavedA)
-    if (typeof layerA === "object" && typeof layerP === "object") {
-      document.selectedLayers.clear()
-      layerP.selected = true
-      layerA.selected = true
-      document.centerOnLayer(layerA)
-      // zoom
-      if (true === artboardHistory.zoom) {
-        document.sketchObject.eventHandlerManager().currentHandler().zoomToSelection()
-      }
-      done = true
-    } else {
-      if (j >= 1) {
-        artboardHistory.documents[b].storedHistory.splice(j, 1)
-      } else {
-        artboardHistory.documents[b].lastMoveByUser = true
-        done = true
-        //sendMessageToBottom("Only one Artboard in History")
-      }
-    }
-  }
-  setSetting("ArtboardHistory", artboardHistory)
+  sendMessageToBottom("ATM in rework.")
 }
 
 export function showGeneralSavedData() {
@@ -680,6 +592,7 @@ export function resetAllSetSettings() {
 export function checkIfAllThisExists() {
   checkIfArtboardHistoryAlreadySaved()
   checkIfInLifeTimeSpan()
+  checkIfInstalledVersionStillCompatible()
 }
 
 export function setZoomSetting() {
