@@ -369,26 +369,17 @@ export function showSavedDocumentArtboardHistory() {
         + "\n\n" +
         "Artboards (ordered by time, ascending ⇧):" + "\n\n"
       var count = 0
-      var lastTime = getCurrentTime()
       for (var j = 0; j < artboardHistory.documents[i].storedHistory.length; j++) {
-        var timedifference = lastTime
-        for (var m = 0; m < artboardHistory.documents[i].storedHistory.length; m++) {
-          if (artboardHistory.documents[i].storedHistory[j].id - lastTime >= timedifference)
-            timedifference = artboardHistory.documents[i].storedHistory[j].id - lastTime
-          lastTime = artboardHistory.documents[i].storedHistory[j].id
-          var k = j
-        }
-        var layerA = document.getLayerWithID(artboardHistory.documents[i].storedHistory[k].artboard)
+        var layerA = document.getLayerWithID(artboardHistory.documents[i].storedHistory[j])
         if (typeof layerA === "object") {
           count++
-          var date = new Date(artboardHistory.documents[i].storedHistory[k].id)
           var nameToPrint = layerA.name//.replace(/\\/g, '/')
           if (9 >= count) {
-            string += count + ".   " + nameToPrint + "\n" + "      " + getDateAsString(date) + "\n"
+            string += count + ".   " + nameToPrint + "\n"
           } else if (99 >= count) {
-            string += count + ".  " + nameToPrint + "\n" + "       " + getDateAsString(date) + "\n"
+            string += count + ".  " + nameToPrint + "\n"
           } else {
-            string += count + ". " + nameToPrint + "\n" + "        " + getDateAsString(date) + "\n"
+            string += count + ". " + nameToPrint + "\n"
           }
         } else {
           artboardHistory.documents[i].storedHistory.splice(j, 1)
@@ -692,7 +683,7 @@ export function updateArtboardHistory(context) {
   artboardHistory.documents[documentIndex].timestamp = currentTime
   //sendMessageToBottom(artboardHistory.documents[documentIndex].lastMoveByUser) // here @jan 1
   if (artboardHistory.documents[documentIndex].lastMoveByUser && !sameArtboardAgain && -1 != artboardHistory.documents[documentIndex].lastHistoryIndex) {
-    artboardHistory.documents[documentIndex].lastHistoryIndex++
+    artboardHistory.documents[documentIndex].lastHistoryIndex = artboardHistory.documents[documentIndex].storedHistory.length-1
     //sendMessageToBottom("same")
   } else {
     artboardHistory.documents[documentIndex].lastMoveByUser = true
