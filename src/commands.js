@@ -138,8 +138,9 @@ function newArtboardHistoryObject(oldZoom, oldLifetime) {
     }
   }
   var artboardHistory = {
-    zoom: true,
-    lifetime: 2629746000, // 1 month as standard
+    zoom: (typeof oldZoom === "boolean") ? oldZoom : true,
+    version: 1, // @Jan TODO BEFORE RELEASE: SET TO    minimalCompatibleVersion
+    lifetime: newLifetime, // 1 month as standard
     documents: []
   }
   setSetting("ArtboardHistory", artboardHistory)
