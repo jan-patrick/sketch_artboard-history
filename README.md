@@ -124,8 +124,7 @@ var artboardHistory = {
     timestamp: Date.now(),
     lastHistoryIndex: -1,
     lastMoveByUser: true,
-    storedHistory: [{ id: Date.now(), artboard: "artboardId1" },
-                    { id: Date.now(), artboard: "artboardId2" }] 
+    storedHistory: ["artboardId1", "artboardId2"] 
   }]
 }
 ```
