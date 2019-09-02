@@ -124,7 +124,7 @@ function checkIfInstalledVersionStillCompatible() {
   var artboardHistory = getSavedSetting("ArtboardHistory")
   if(typeof artboardHistory === "object") {
     if (minimalCompatibleVersion > artboardHistory.version || undefined === artboardHistory.version || "" === artboardHistory.version ) {
-      sendErrorMessage("Artboard History plugin updated","Due to a huge plugin update it's necessary to refresh the local Artboard History.")
+      // delete me @Jan maybe       sendErrorMessage("Artboard History plugin updated","Due to a huge plugin update it's necessary to refresh the local Artboard History.")
       newArtboardHistoryObject(artboardHistory.zoom, artboardHistory.lifetime)
     }
   }
